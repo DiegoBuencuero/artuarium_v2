@@ -1,0 +1,826 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{# ─── SEO ────────────────────────────────────────────────────────────────── #}
+{% block title %}{% translate "Artuarium — Walking Tours in Porto" %}{% endblock %}
+
+{% block meta_description %}{% translate "Walking tours in Porto focused on history, culture and beauty. Led by local expert Artur. Book your intimate experience today." %}{% endblock %}
+
+{% block meta_keywords %}{% translate "walking tours Porto, Porto cultural tours, art tours Porto, Artuarium, Porto experiences" %}{% endblock %}
+
+{% block og_title %}{% translate "Artuarium — Walking Tours in Porto" %}{% endblock %}
+{% block og_description %}{% translate "Walking tours in Porto focused on history, culture and beauty. Led by local expert Artur. Book your intimate experience today." %}{% endblock %}
+
+{% block twitter_title %}{% translate "Artuarium — Walking Tours in Porto" %}{% endblock %}
+{% block twitter_description %}{% translate "Walking tours in Porto focused on history, culture and beauty. Led by local expert Artur." %}{% endblock %}
+
+{% block schema_title %}{% translate "Artuarium — Walking Tours in Porto" %}{% endblock %}
+
+{% block extra_schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TouristTrip",
+  "name": "{% translate 'Walking Tour Porto – Artuarium' %}",
+  "description": "{% translate 'Private walking tour in Porto focused on history, art and culture, led by local expert guide Artur.' %}",
+  "url": "{{ request.build_absolute_uri }}",
+  "image": "{{ request.scheme }}://{{ request.get_host }}{% static 'assets/img/og-cover.jpg' %}",
+  "touristType": ["Culture lovers", "Art enthusiasts", "History buffs"],
+  "provider": {
+    "@type": "TouristInformationCenter",
+    "@id": "{{ request.scheme }}://{{ request.get_host }}/#organization"
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": "{{ request.build_absolute_uri }}",
+    "priceCurrency": "EUR",
+    "availability": "https://schema.org/InStock",
+    "validFrom": "2024-01-01"
+  }
+}
+</script>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+  :root {
+    --off-white: #F5F1ED;
+    --verde-profundo: #344E41;
+    --verde-claro: #62937B;
+    --azul-accent: #99DAFF;
+    --texto-primario: #1A231E;
+    --texto-secundario: #4A5850;
+    --borde-sutil: rgba(52, 78, 65, 0.12);
+  }
+
+  .landing-hero {
+    min-height: 88vh;
+    background: var(--verde-profundo);
+    display: flex;
+    align-items: center;
+    padding: 140px 56px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .landing-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(8,12,10,.12) 0%, rgba(8,12,10,.32) 50%, rgba(8,12,10,.78) 100%),
+      url('https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=1800&q=88') center/cover no-repeat;
+    z-index: 1;
+    animation: heroZoom 2s cubic-bezier(.16,1,.3,1) forwards;
+  }
+
+  @keyframes heroZoom {
+    from { transform: scale(1.1); }
+    to { transform: scale(1); }
+  }
+
+  .landing-hero .container {
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 0.6fr;
+    gap: 48px;
+    align-items: end;
+  }
+
+  .hero-copy { max-width: 720px; }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.62rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(245, 241, 237, 0.48);
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s ease forwards;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--verde-claro);
+    opacity: 0.55;
+  }
+
+  .hero-h1 {
+    font-family: 'Playfair Display SC', Georgia, serif;
+    font-size: clamp(2.8rem, 6vw, 5.4rem);
+    line-height: 1.02;
+    font-weight: 400;
+    color: var(--off-white);
+    margin-bottom: 24px;
+    letter-spacing: 0.02em;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.85s ease forwards;
+  }
+
+  .hero-h1 em {
+    font-style: italic;
+    color: rgba(245, 241, 237, 0.48);
+    display: block;
+    font-size: 0.6em;
+    margin-top: 10px;
+  }
+
+  .hero-sub {
+    max-width: 560px;
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: rgba(245, 241, 237, 0.6);
+    line-height: 1.9;
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.9s 1.05s ease forwards;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    margin-bottom: 24px;
+    font-size: 0.74rem;
+    color: rgba(245, 241, 237, 0.5);
+    opacity: 0;
+    animation: fadeUp 0.8s 1.2s ease forwards;
+  }
+
+  .hero-rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.76rem;
+    color: rgba(245, 241, 237, 0.5);
+    opacity: 0;
+    animation: fadeUp 0.8s 1.35s ease forwards;
+  }
+
+  .stars {
+    color: var(--azul-accent);
+    letter-spacing: 0.06em;
+    font-size: 0.82rem;
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .booking-card {
+    background: rgba(245, 241, 237, 0.97);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(52, 78, 65, 0.15);
+    padding: 28px;
+    border-radius: 3px;
+    box-shadow: 0 24px 60px rgba(8, 12, 10, 0.16);
+    opacity: 0;
+    animation: fadeUp 0.9s 1.15s ease forwards;
+  }
+
+  .booking-card .urgency-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--borde-sutil);
+  }
+
+  .badge-urgency {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 11px;
+    background: rgba(52, 78, 65, 0.08);
+    border: 1px solid rgba(52, 78, 65, 0.18);
+    border-radius: 2px;
+    font-size: 0.58rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--verde-profundo);
+    font-weight: 500;
+  }
+
+  .booking-card .next-departure {
+    font-size: 0.7rem;
+    color: var(--texto-secundario);
+    text-align: right;
+    line-height: 1.4;
+  }
+
+  .booking-card .next-departure strong {
+    display: block;
+    color: var(--texto-primario);
+    font-weight: 500;
+  }
+
+  .booking-price {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 18px;
+  }
+
+  .price {
+    font-family: 'Playfair Display SC', Georgia, serif;
+    font-size: 2.2rem;
+    line-height: 1;
+    color: var(--verde-profundo);
+  }
+
+  .price small {
+    font-family: inherit;
+    font-size: 0.7rem;
+    font-weight: 300;
+    color: var(--texto-secundario);
+  }
+
+  .availability {
+    font-size: 0.68rem;
+    color: var(--texto-secundario);
+    text-align: right;
+    line-height: 1.4;
+  }
+
+  .progress-bar {
+    width: 92px;
+    height: 5px;
+    background: rgba(52, 78, 65, 0.12);
+    border-radius: 3px;
+    overflow: hidden;
+    margin: 0 0 5px auto;
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 75%;
+    background: var(--verde-claro);
+    border-radius: 3px;
+  }
+
+  .booking-fields {
+    display: grid;
+    gap: 10px;
+    margin: 20px 0 16px;
+  }
+
+  .select-field {
+    width: 100%;
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid var(--borde-sutil);
+    border-radius: 2px;
+    font-family: inherit;
+    font-size: 0.84rem;
+    font-weight: 300;
+    color: var(--texto-primario);
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .select-field:hover {
+    border-color: rgba(52, 78, 65, 0.28);
+  }
+
+  .select-field:focus {
+    outline: none;
+    border-color: var(--verde-profundo);
+    background: #fff;
+  }
+
+  .booking-note {
+    margin-top: 16px;
+    font-size: 0.7rem;
+    font-style: italic;
+    color: var(--texto-secundario);
+    line-height: 1.65;
+    text-align: center;
+  }
+
+  /* Secciones */
+  .landing-section {
+    padding: 96px 56px;
+  }
+
+  .landing-section-alt {
+    background: rgba(52, 78, 65, 0.03);
+  }
+
+  .landing-section .kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.58rem;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--verde-claro);
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+
+  .landing-section .kicker::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--verde-claro);
+    opacity: 0.5;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display SC', Georgia, serif;
+    font-size: clamp(2.2rem, 4vw, 3.8rem);
+    line-height: 1.08;
+    font-weight: 400;
+    color: var(--verde-profundo);
+    margin-bottom: 18px;
+    letter-spacing: 0.02em;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--verde-claro);
+  }
+
+  .lead {
+    font-size: 0.96rem;
+    font-weight: 300;
+    color: var(--texto-secundario);
+    line-height: 1.85;
+    max-width: 680px;
+  }
+
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 72px;
+    align-items: start;
+  }
+
+  .aside-box {
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid var(--borde-sutil);
+    padding: 32px;
+    border-radius: 3px;
+  }
+
+  .aside-title {
+    font-size: 0.58rem;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--texto-secundario);
+    margin-bottom: 24px;
+    font-weight: 500;
+  }
+
+  .facts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 16px;
+  }
+
+  .fact {
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--borde-sutil);
+  }
+
+  .fact span {
+    display: block;
+    font-size: 0.58rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--texto-secundario);
+    margin-bottom: 6px;
+  }
+
+  .fact strong {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--texto-primario);
+  }
+
+  /* Highlights */
+  .highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 48px;
+  }
+
+  .highlight-card {
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid var(--borde-sutil);
+    padding: 36px 32px;
+    border-radius: 3px;
+    transition: border-color 0.25s, background 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .highlight-card:hover {
+    border-color: rgba(52, 78, 65, 0.28);
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  .highlight-num {
+    font-family: 'Playfair Display SC', Georgia, serif;
+    font-size: 4.2rem;
+    line-height: 1;
+    color: rgba(52, 78, 65, 0.06);
+    position: absolute;
+    top: 20px;
+    right: 24px;
+  }
+
+  .highlight-icon {
+    font-size: 1.2rem;
+    margin-bottom: 18px;
+    opacity: 0.72;
+  }
+
+  .highlight-title {
+    font-family: 'Playfair Display SC', Georgia, serif;
+    font-size: 1.55rem;
+    font-weight: 400;
+    color: var(--verde-profundo);
+    margin-bottom: 12px;
+    letter-spacing: 0.02em;
+  }
+
+  .highlight-text {
+    font-size: 0.88rem;
+    font-weight: 300;
+    color: var(--texto-secundario);
+    line-height: 1.78;
+  }
+
+  /* CTA BUTTONS */
+  .btn-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 28px;
+    background: var(--verde-profundo);
+    color: var(--off-white);
+    border: none;
+    border-radius: 2px;
+    font-family: inherit;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    text-decoration: none;
+    gap: 8px;
+  }
+
+  .btn-cta:hover {
+    background: #2A3F35;
+    transform: translateY(-1px);
+  }
+
+  .btn-cta-secondary {
+    background: transparent;
+    color: var(--verde-profundo);
+    border: 1px solid rgba(52, 78, 65, 0.28);
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .btn-cta-secondary:hover {
+    border-color: var(--verde-profundo);
+    background: rgba(52, 78, 65, 0.04);
+  }
+
+  .cta-band {
+    background: var(--verde-profundo);
+    padding: 104px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-band::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('https://images.unsplash.com/photo-1572116469696-31de0f17cc34?w=1400&q=82') center/cover;
+    opacity: 0.07;
+  }
+
+  .cta-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 880px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .cta-band h2 {
+    font-family: 'Playfair Display SC', Georgia, serif;
+    font-size: clamp(2.4rem, 4.5vw, 4rem);
+    font-weight: 400;
+    line-height: 1.12;
+    color: var(--off-white);
+    margin-bottom: 18px;
+    letter-spacing: 0.02em;
+  }
+
+  .cta-band h2 em {
+    font-style: italic;
+    color: rgba(245, 241, 237, 0.42);
+  }
+
+  .cta-band p {
+    color: rgba(245, 241, 237, 0.5);
+    font-size: 0.96rem;
+    font-weight: 300;
+    line-height: 1.85;
+    max-width: 580px;
+    margin: 0 auto 36px;
+  }
+
+  .cta-actions {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .btn-cta-primary {
+    background: var(--off-white);
+    color: var(--verde-profundo);
+  }
+
+  .btn-cta-primary:hover {
+    background: rgba(245, 241, 237, 0.92);
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-d1 { transition-delay: 0.1s; }
+  .reveal-d2 { transition-delay: 0.22s; }
+  .reveal-d3 { transition-delay: 0.34s; }
+
+  /* Responsive */
+  @media (max-width: 1100px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .intro-grid { grid-template-columns: 1fr; }
+    .highlights-grid { grid-template-columns: 1fr 1fr; }
+    .landing-hero { padding: 120px 32px 48px; }
+  }
+
+  @media (max-width: 768px) {
+    .landing-hero { padding: 100px 24px 40px; }
+    .landing-section { padding: 72px 24px; }
+    .highlights-grid { grid-template-columns: 1fr; }
+    .hero-grid { gap: 32px; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- ══ HERO ═════════════════════════════════════════════════════════════════ -->
+<section class="landing-hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <div class="hero-eyebrow">
+          {% translate "Porto · Curated Walking Experience" %}
+        </div>
+
+        <h1 class="hero-h1">
+          {% translate "Porto Essencial" %}
+          <em>{% translate "where history breathes and the journey becomes memory" %}</em>
+        </h1>
+
+        <p class="hero-sub">
+          {% translate "We don't follow maps — we follow memories. We walk with eyes trained for the invisible: inscriptions in stone, forgotten convent windows, aromas of stories that resist time. Each stop is a comma in an ancestral paragraph." %}
+        </p>
+
+        <div class="hero-meta">
+          <span>⏱ {% translate "3 hours" %}</span>
+          <span>👥 {% translate "Max. 8 people" %}</span>
+          <span>📍 {% translate "Sé do Porto" %}</span>
+          <span>🗣 EN · PT · ES</span>
+        </div>
+
+        <div class="hero-rating">
+          <span class="stars">★★★★★</span>
+          <span>4.9 · {% translate "128 verified reviews" %}</span>
+        </div>
+
+        <div class="mt-4">
+          <button class="btn-cta bokunButton"
+                  id="bokun_hero"
+                  data-src="https://widgets.bokun.io/online-sales/53bbe0a9-5a66-4ab2-b3e5-38cea4fb3e07/experience/1175368?partialView=1">
+            {% translate "Reserve this journey" %}
+          </button>
+        </div>
+      </div>
+
+      <aside class="booking-card">
+        <div class="urgency-block">
+          <span class="badge-urgency">{% translate "Only 2 spots left" %}</span>
+          <div class="next-departure">
+            {% translate "Next departure" %}
+            <strong>{% translate "Saturday, April 19" %}</strong>
+          </div>
+        </div>
+
+        <div class="booking-price">
+          <div class="price">€35 <small>{% translate "per person" %}</small></div>
+          <div class="availability">
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+            {% translate "6 of 8 spots booked" %}
+          </div>
+        </div>
+
+        <div class="booking-fields">
+          <select class="select-field">
+            <option>{% translate "Select date" %}</option>
+            <option>{% translate "Saturday, April 19" %}</option>
+            <option>{% translate "Sunday, April 20" %}</option>
+            <option>{% translate "Tuesday, April 22" %}</option>
+          </select>
+
+          <select class="select-field">
+            <option>{% translate "Number of people" %}</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+          </select>
+
+          <select class="select-field">
+            <option>{% translate "Preferred language" %}</option>
+            <option>English</option>
+            <option>Português</option>
+            <option>Español</option>
+          </select>
+        </div>
+
+        <button class="btn-cta w-100 mb-2 bokunButton"
+                id="bokun_card"
+                data-src="https://widgets.bokun.io/online-sales/53bbe0a9-5a66-4ab2-b3e5-38cea4fb3e07/experience/1175368?partialView=1">
+          {% translate "Reserve this journey" %}
+        </button>
+
+        <button class="btn-cta btn-cta-secondary w-100">
+          {% translate "Ask a question" %}
+        </button>
+
+        <p class="booking-note">
+          {% translate "No rushed checkout. No pressure. We confirm availability and accompany each booking with the same care we bring to the walk." %}
+        </p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ══ OVERVIEW ══════════════════════════════════════════════════════════════ -->
+<section class="landing-section" id="overview">
+  <div class="container intro-grid">
+    <div class="reveal">
+      <div class="kicker">{% translate "Overview" %}</div>
+      <h2 class="section-title">
+        {% translate "More than seeing:" %} <em>{% translate "understanding, feeling and remembering" %}</em>
+      </h2>
+
+      <p class="lead" style="margin-bottom: 16px;">
+        {% translate "Where others see ruins, we see echoes. Where others click, we tell stories. This route is not designed to show you Porto — it's designed to help you understand how it came to be." %}
+      </p>
+
+      <p class="lead" style="margin-bottom: 16px;">
+        {% translate "We move through the city slowly enough to notice its layers: stone, commerce, devotion, empire, melancholy, reinvention. Streets connect to symbols, buildings to political memory, viewpoints to ways of reading how the city shaped itself over centuries." %}
+      </p>
+
+      <p class="lead">
+        {% translate "For first-time visitors, it offers orientation with depth. For those returning, it often becomes the moment when Porto begins to make real sense — when the journey becomes memory." %}
+      </p>
+    </div>
+
+    <aside class="aside-box reveal reveal-d2">
+      <div class="aside-title">{% translate "Route facts" %}</div>
+      <div class="facts">
+        <div class="fact"><span>{% translate "Duration" %}</span><strong>{% translate "3 hours" %}</strong></div>
+        <div class="fact"><span>{% translate "Group size" %}</span><strong>{% translate "Up to 8 people" %}</strong></div>
+        <div class="fact"><span>{% translate "Meeting point" %}</span><strong>{% translate "Sé do Porto" %}</strong></div>
+        <div class="fact"><span>{% translate "End point" %}</span><strong>{% translate "Ribeira" %}</strong></div>
+        <div class="fact"><span>{% translate "Pace" %}</span><strong>{% translate "Easy to moderate" %}</strong></div>
+        <div class="fact"><span>{% translate "Languages" %}</span><strong>EN / PT / ES</strong></div>
+        <div class="fact"><span>{% translate "Best for" %}</span><strong>{% translate "First-time visitors" %}</strong></div>
+        <div class="fact"><span>{% translate "Format" %}</span><strong>{% translate "Curated walk" %}</strong></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ══ HIGHLIGHTS ════════════════════════════════════════════════════════════ -->
+<section class="landing-section landing-section-alt">
+  <div class="container">
+    <div class="reveal">
+      <div class="kicker">{% translate "Why this route" %}</div>
+      <h2 class="section-title">
+        {% translate "We don't offer information:" %} <em>{% translate "we offer meaning" %}</em>
+      </h2>
+    </div>
+
+    <div class="highlights-grid">
+      <article class="highlight-card reveal reveal-d1">
+        <div class="highlight-num">01</div>
+        <div class="highlight-icon">🏛</div>
+        <h3 class="highlight-title">{% translate "History with structure" %}</h3>
+        <p class="highlight-text">
+          {% translate "Not a loose collection of anecdotes. A coherent journey through the forces that shaped Porto: religion, commerce, urban form, identity. Each stop carries historical weight and narrative beauty." %}
+        </p>
+      </article>
+
+      <article class="highlight-card reveal reveal-d2">
+        <div class="highlight-num">02</div>
+        <div class="highlight-icon">👣</div>
+        <h3 class="highlight-title">{% translate "A human pace" %}</h3>
+        <p class="highlight-text">
+          {% translate "Small groups, careful rhythm, room for questions. The city has time to appear. You won't be guided — you'll be invited to remember, even what you've never lived." %}
+        </p>
+      </article>
+
+      <article class="highlight-card reveal reveal-d3">
+        <div class="highlight-num">03</div>
+        <div class="highlight-icon">🕯</div>
+        <h3 class="highlight-title">{% translate "A guided reading" %}</h3>
+        <p class="highlight-text">
+          {% translate "Architecture, topography, symbols and memory intertwine in a single experience. You leave with orientation, but also with an interpretation — with eyes shining with curiosity." %}
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA FINAL ══════════════════════════════════════════════════════════════ -->
+<section class="cta-band">
+  <div class="cta-inner reveal">
+    <h2>
+      {% translate "Allow yourself a journey with the eyes of someone who sees" %} <em>{% translate "beyond the facades" %}</em>
+    </h2>
+    <p>
+      {% translate "Some visitors know immediately which walk is theirs. Others prefer to ask first. Both options are welcome — kindness generates kindness." %}
+    </p>
+    <div class="cta-actions">
+      <button class="btn-cta btn-cta-primary bokunButton"
+              id="bokun_cta"
+              data-src="https://widgets.bokun.io/online-sales/53bbe0a9-5a66-4ab2-b3e5-38cea4fb3e07/experience/1175368?partialView=1">
+        {% translate "Reserve Porto Essencial" %}
+      </button>
+      <a href="{% url 'contacto' %}" class="btn-cta btn-cta-secondary">
+        {% translate "Ask for guidance" %}
+      </a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function(){
+  // Scroll reveal
+  var els = document.querySelectorAll('.reveal');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold: 0.1, rootMargin: '0px 0px -40px 0px'});
+  els.forEach(function(el){ io.observe(el); });
+})();
+</script>
+{% endblock %}

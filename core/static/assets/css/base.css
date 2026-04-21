@@ -1,0 +1,262 @@
+.flag-icon { width: 22px; } 
+   
+    #dropdownLangButton.dropdown-toggle::after {
+      border-top-color: #ffffff !important;
+    }
+
+    .footer-artuarium {
+      position: relative;
+      background-color:#212F28 !important;
+      overflow: hidden;
+    }
+
+    .navbar { display: flex; align-items: center; }
+
+    .redes a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      background-color: #344E41;    
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.35s ease;
+    }
+    .redes i {
+      font-size: 18px;
+      color: #F2F0E9;               
+      transition: all 0.35s ease;
+    }
+    .redes a:hover {
+      background-color: #6BA688;   
+    }
+    .redes a:hover i {
+      color: #FFFFFF;
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 1199px) { 
+      #header { min-height: 90px !important; display: flex; align-items: center; }
+
+      .logo {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        margin: 0;
+        padding: 0;
+        line-height: 0;
+      }
+
+      .logo img {
+        max-height: 55px;
+        width: auto;
+      }
+
+      .navmenu {
+        margin-left: auto;
+        margin-right: 15px;
+      }
+    }
+    .footer-logo img {
+      height: 120px;
+      max-width: 100%;
+    }
+    
+    .footer-redes {
+      margin-top: 10px;
+    }
+    
+    @media (max-width: 768px) {
+      .footer-logo img {
+        height: 100px;
+      }
+    }
+
+    .header .container-fluid {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+  }
+  
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.action-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #344E41;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.action-icon i {
+  color: #F2F0E9;
+  font-size: 18px;
+}
+
+.action-icon:hover {
+  background-color: #6BA688;
+}
+
+.btn-header {
+  padding: 6px 14px;
+  border-radius: 0px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.action-icon {
+  width: 26px;
+  height: 26px;
+}
+
+.action-icon i {
+  font-size: 16px;
+}
+
+.header-layout {
+  display: flex;
+  align-items: flex-end;
+}
+
+.header-left,
+.header-right {
+  flex: 0 0 auto;
+}
+
+.header-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.header-center .navmenu {
+  margin: 0;
+}
+
+#navmenu {
+  margin-left: 0 !important;
+}
+
+@media (max-width: 991px) {
+
+  .header-actions {
+    display: none !important;
+  }
+}
+#dropdownLangButton {
+  display: flex;
+  align-items: center; /* Alineamos verticalmente el contenido */
+  justify-content: center; /* Centra el contenido dentro del botón */
+  gap: 8px; /* Espaciado entre la bandera y el ícono del desplegable */
+}
+#artuarium-loader {
+  position: fixed;
+  inset: 0;
+  background: #344E41;
+  display: none;  /* Oculto por defecto */
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  opacity: 1;
+  transition: opacity 1.2s ease;
+}
+
+#artuarium-loader.fade-out {
+  opacity: 0;
+}
+#artuarium-loader .loader-content {
+  animation: fadein 1.5s ease forwards;
+}
+#artuarium-loader img {
+  width: 320px;
+}
+/* Eliminar completamente el caret de Bootstrap */
+@media (max-width: 1199px) {
+  #dropdownLangButton {
+    padding: 6px 18px !important;
+  }
+}/* ===============================
+MOBILE NAV – ALTURA CORRECTA
+=============================== */
+@media (max-width: 1199px) {
+
+  .navmenu ul {
+    inset: auto !important;     /* ❌ mata el inset */
+    top: 90px !important;       /* debajo del header */
+    left: 50% !important;
+    transform: translateX(-50%);
+    width: 90vw;
+    max-width: 420px;
+
+    height: auto !important;    /* ✅ solo lo que necesita */
+    max-height: 70vh;           /* límite elegante */
+    overflow-y: auto;
+
+    padding: 24px 20px;
+    background-color: #F5F2EA;  /* marfil oficial */
+    border-radius: 12px;
+  }
+
+.navmenu ul li {
+ width: 100%;
+ text-align: center;
+}
+
+.navmenu ul li a {
+ padding: 10px 12px;
+ color: #1E3932 !important;
+}
+
+.navmenu ul li a:hover,
+.navmenu ul li a.active {
+ background-color: #344E41;
+ color: #F2F0E9 !important;
+}
+}
+
+.patreon-icon img {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+  filter: brightness(0) invert(1); /* asegura blanco puro */
+}
+
+/* Hover coherente con el resto */
+.action-icon:hover img {
+  transform: translateY(-1px);
+}
+.btn-bokun-outline {
+  display: inline-block;
+  padding: 6px 14px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+
+  color: #f8f9fa;
+  background-color: transparent;
+  border: 1px solid #f8f9fa;
+
+  border-radius: 0px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-bokun-outline:hover {
+  background-color: #f8f9fa;
+  color: #344E41; /* tu verde */
+}

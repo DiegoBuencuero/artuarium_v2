@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{# BLOCO DE SEO #}
+{% block title %}{% translate "Artuarium | Viagens Culturais e Roteiros Históricos no Porto" %}{% endblock %}
+{% block meta_description %}{% translate "Descubra o Porto através da história e beleza. Roteiros guiados exclusivos, turismo cultural e experiências autênticas em Portugal." %}{% endblock %}
+
+{% block extra_css %}
+<link href="{% static 'assets/css/about.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<section id="about" class="section-proposito" aria-labelledby="about-heading">
+  <div class="container">
+    <div class="row justify-content-between align-items-stretch">
+
+      <div class="col-lg-5 d-flex justify-content-center order-1 order-lg-1">
+        <img src="{% static 'assets/img/IMG_4200.jpeg' %}"
+             class="img-fluid proposito-img"
+             alt="{% translate 'Detalhe arquitetônico clássico do Porto' %}"
+             loading="lazy"
+             width="400"
+             height="500">
+      </div>
+
+      <div class="col-lg-6 order-2 order-lg-2">
+        <p class="text-bold">{% translate "about-0" %}</p>
+
+        <div class="text-reading">
+          <p>{% translate "about-1" %}</p>
+          <p>{% translate "about-2" %}</p>
+          <p>{% translate "about-3" %}</p>
+          <p>{% translate "about-4" %}</p>
+          <p>{% translate "about-5" %}</p>
+          <p>{% translate "about-6" %}</p>
+          <p>{% translate "about-7" %}</p>
+          <p>{% translate "about-8" %}</p>
+          <p>{% translate "about-9" %}</p>
+          {% translate "about-10" as about10 %}
+          {% if about10 %}
+            <p>{{ about10 }}</p>
+          {% endif %}
+        </div>
+
+        <div class="about-cta-group">
+          <a href="https://www.patreon.com/c/Artuarium?vanity=use"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="btn btn-artuarium">
+            {% translate "Junte-se ao Clube Artuarium" %}
+          </a>
+
+          <button class="btn2 bokunButton"
+            id="bokun_cta_patreon_section"
+            data-src="https://widgets.bokun.io/online-sales/53bbe0a9-5a66-4ab2-b3e5-38cea4fb3e07/experience/1175368?partialView=1">
+            {% translate "AGENDAR UM TOUR" %}
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endblock %}
+  
+{% block scrips %}
+<script>
+
+</script>
+{% endblock %}

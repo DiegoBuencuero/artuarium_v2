@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+
+<style>
+    body {
+        background-color: #F5F2EA !important;
+        font-family: 'Lato', sans-serif;
+        margin: 0;
+    }
+
+    .fullscreen-center {
+        min-height: 80vh; /* Altura mínima */
+        padding-top: 100px;
+        padding-bottom: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start; /* Alineación vertical */
+        align-items: center; /* Alineación horizontal */
+        text-align: center;
+    }
+
+    .lang-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.8rem; /* Tamaño base móvil */
+        margin-bottom: 2rem;
+        color: #0F2823;
+        padding: 0 15px; /* Para que no pegue en los bordes en celus muy chicos */
+    }
+
+    /* Contenedor de las banderas */
+    .flag-container {
+        display: flex;
+        flex-direction: column; /* Por defecto en móvil: Columna (una abajo de otra) */
+        gap: 1.5rem;
+        align-items: center;
+    }
+
+    /* Botón base (estilo móvil) */
+    .flag-btn {
+        width: 130px;  /* Ancho móvil */
+        height: 85px;  /* Alto móvil */
+        padding: 0;
+        border: none;
+        background: none;
+        cursor: pointer;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .flag-btn:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 14px rgba(0,0,0,0.25);
+    }
+
+    .flag-btn img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* =========================================
+       MEDIA QUERY: PANTALLAS GRANDES (PC/TABLET)
+       (Se activa si la pantalla es mayor a 768px)
+       ========================================= */
+    @media (min-width: 768px) {
+        
+        .fullscreen-center {
+            padding-top: 140px; /* Más espacio arriba en PC */
+            justify-content: center; /* Centrado total en PC */
+        }
+
+        .lang-title {
+            font-size: 2.5rem; /* Título más grande */
+            margin-bottom: 3rem;
+        }
+
+        .flag-container {
+            flex-direction: row; /* En PC: Fila (una al lado de otra) */
+            gap: 3rem; /* Más separación */
+        }
+
+        .flag-btn {
+            width: 180px; /* Banderas más grandes */
+            height: 120px;
+            border-radius: 12px;
+        }
+    }
+</style>
+
+
+<div class="fullscreen-center">
+
+    <h2 class="lang-title">
+        {% translate "Seleccione su idioma" %}
+    </h2>
+
+    <div class="flag-container">
+
+        <!-- Portugués -->
+        <form method="post" action="{% url 'set_language' %}">
+            {% csrf_token %}
+            <input type="hidden" name="language" value="pt">
+            <input type="hidden" name="next" value="/pt/reviews/?token={{ review_token }}">
+            <button type="submit" class="flag-btn" aria-label="Português">
+                <img src="https://flagcdn.com/w640/pt.png" alt="Português">
+            </button>
+        </form>
+    
+        <!-- Español -->
+        <form method="post" action="{% url 'set_language' %}">
+            {% csrf_token %}
+            <input type="hidden" name="language" value="es">
+            <input type="hidden" name="next" value="/es/reviews/?token={{ review_token }}">
+            <button type="submit" class="flag-btn" aria-label="Español">
+                <img src="https://flagcdn.com/w640/es.png" alt="Español">
+            </button>
+        </form>
+    
+        <!-- Inglés -->
+        <form method="post" action="{% url 'set_language' %}">
+            {% csrf_token %}
+            <input type="hidden" name="language" value="en">
+            <input type="hidden" name="next" value="/en/reviews/?token={{ review_token }}">
+            <button type="submit" class="flag-btn" aria-label="English">
+                <img src="https://flagcdn.com/w640/gb.png" alt="English">
+            </button>
+        </form>
+    
+    </div>
+    
+</div>
+
+{% endblock %}

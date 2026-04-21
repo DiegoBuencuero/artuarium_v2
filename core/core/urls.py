@@ -1,0 +1,56 @@
+from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
+from django.urls import path, include
+from landing.views import (index,  reviews, correo, qr_code_view, upload_fotos, imagenes_views, 
+                           reviews_lang, about, subscribe, subscribers_admin, test, qr_newsletter, 
+                           qr_newsletter_code, qr_newsletter_lang)
+
+from django.conf.urls.i18n import i18n_patterns
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns = [
+    path("i18n/", include("django.conf.urls.i18n")),
+    path("admin/", admin.site.urls),
+]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += i18n_patterns(
+    path("", index, name="index"),
+    path("about/", about, name="about"),
+    path("reviews/", reviews, name="reviews"),
+    path("contact/", correo, name="contacto"),
+
+ 
+    path("-admin-qr/", qr_code_view, name="qr"),
+    path("upload-fotos/", upload_fotos, name="upload_fotos"),
+    path("imagens/", imagenes_views, name="imagenes-views"),
+    path("reviews-lang/", reviews_lang, name="reviews_lang"),
+    path("subscribe/", subscribe, name="subscribe"),
+    path("admin-subscribers/", subscribers_admin, name="admin_subscribers"),
+    path('qr/newsletter/', qr_newsletter, name='qr_newsletter'),
+    path('qr/newsletter/code/',qr_newsletter_code, name='qr_newsletter_code'),
+    path('qr/newsletter/lang/', qr_newsletter_lang, name='qr_newsletter_lang'),
+
+
+    path("test/", test, name="test"),
+
+    path(
+        "admin-zone/",
+        auth_views.LoginView.as_view(
+            template_name="login.html",
+            redirect_authenticated_user=True,
+        ),
+        name="login",
+    ),
+    path(
+        "logout/",
+        auth_views.LogoutView.as_view(next_page="index"),
+        name="logout",
+    ),
+)

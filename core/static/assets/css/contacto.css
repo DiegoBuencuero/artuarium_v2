@@ -1,0 +1,81 @@
+ .text-bold {
+        font-weight: 700 !important;
+        font-family: 'Playfair Display', serif !important;
+        font-size: 1.3rem;
+        line-height: 1.6;
+    }
+
+    /* --- NOVO ESTILO DO BOTÃO --- */
+    .btn-artuarium {
+        background-color: #1E3932; /* Verde escuro profundo da marca */
+        color: #F8F5E6; /* Tom Marfim/Creme claro */
+        font-family: 'Playfair Display', serif; /* Fonte da marca */
+        font-size: 1.1rem;
+        letter-spacing: 0.05em;
+        padding: 12px 35px;
+        border: 1px solid #1E3932;
+        border-radius: 2px; /* Cantos levemente arredondados, mas clássicos */
+        text-transform: uppercase;
+        text-decoration: none;
+        transition: all 0.4s ease;
+        margin-top: 30px;
+        display: inline-block;
+    }
+
+    .btn-artuarium:hover {
+        background-color: transparent;
+        color: #1E3932; /* Inverte para verde no hover */
+        border-color: #1E3932;
+        transform: translateY(-3px); /* Leve elevação elegante */
+        box-shadow: 0 4px 10px rgba(30, 57, 50, 0.15);
+    }
+
+    /* Ajustes Mobile existentes + Botão */
+    @media (max-width: 768px) {
+        .section-proposito {
+            margin-top: 90px !important;
+        }
+        .row {
+            display: flex !important;
+            flex-direction: column-reverse !important;
+        }
+        .proposito-img {
+            width: 100% !important;
+            max-width: 550px !important;
+            height: auto !important;
+            margin-bottom: 20px !important;
+            border-radius: 10px;
+        }
+    
+        #about .col-lg-7 {
+            text-align: center !important;
+            padding: 0 20px !important;
+        }
+        
+        /* Centralizar botão no mobile */
+        .btn-container {
+            text-align: center;
+        }
+    }
+    .btn2 {
+      background-color: rgba(52, 78, 65, 1);
+      color: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(52, 78, 65, 1);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 0.85rem;
+      padding: 0.75rem 2rem;
+      transition: all 0.3s ease;
+    }
+    
+    .btn2:hover {
+      background-color: rgba(255, 255, 255, 0.5);
+      border-color: rgba(52, 78, 65, 1);
+      color: rgba(52, 78, 65, 1);
+    }
+    .hero-card,
+  .about-card {
+    max-width: 760px;
+    width: 100%;
+    text-align: center;
+  }

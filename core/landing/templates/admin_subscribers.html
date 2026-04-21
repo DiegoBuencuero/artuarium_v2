@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+
+<style>
+    :root {
+        --art-marfim: #F2F0E9;
+        --art-dark: #1A3C34;
+        --art-medium: #5D8C7B;
+        --art-light: #E0E8E5;
+    }
+
+    /* El body empuja el footer al fondo */
+    body {
+        background-color: var(--art-marfim);
+        color: var(--art-dark);
+        font-family: 'Lato', sans-serif;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    /* ESTE ES EL CAMBIO CLAVE */
+    .admin-wrapper {
+        flex: 1;               /* Ocupar espacio disponible */
+        padding-bottom: 40px;  /* espacio antes del footer */
+        margin-top: 150px;
+    }
+
+    .font-serif { font-family: 'Playfair Display', serif; }
+
+    .admin-card {
+        background: var(--art-light);
+        border-radius: 2px;
+        padding: 40px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        border: none;
+    }
+
+    .admin-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 2rem;
+        color: var(--art-dark);
+        text-align: center;
+    }
+
+    .admin-line {
+        width: 60px;
+        height: 1px;
+        background-color: var(--art-dark);
+        opacity: 0.3;
+        margin: 1.2rem auto 2rem auto;
+    }
+
+    /* Table */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        color: var(--art-dark);
+    }
+
+    thead {
+        background-color: var(--art-dark);
+        color: white;
+    }
+
+    th, td {
+        padding: 12px 16px;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+
+    tr:hover {
+        background-color: rgba(0,0,0,0.03);
+    }
+
+    .btn-export {
+        background-color: var(--art-dark);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 2px;
+        transition: background .2s;
+    }
+
+    .btn-export:hover {
+        background-color: var(--art-medium);
+    }
+
+</style>
+
+<div class="container admin-wrapper">
+
+    <div class="admin-card">
+
+        <h2 class="admin-title">Newsletter Subscribers</h2>
+        <div class="admin-line"></div>
+
+        <div class="text-end mb-3">
+            <a href="?excel=1" class="btn-export">Export Excel</a>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>{% translate "Name" %}</th>
+                    <th>{% translate "Email" %}</th>
+                    <th>{% translate "Subscribed At" %}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for sub in subscribers %}
+                <tr>
+                    <td>{{ sub.name }}</td>
+                    <td>{{ sub.email }}</td>
+                    <td>{{ sub.created_at|date:"d/m/Y H:i" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" class="text-center py-4">
+                        {% translate "No subscribers yet." %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+{% endblock %}

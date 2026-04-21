@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}Contact – Book a Walking Tour in Porto | Artuarium{% endblock %}
+
+{% block meta_description %}Get in touch with Artuarium to book a private walking tour in Porto, ask questions or explore partnership opportunities. Artur replies personally.{% endblock %}
+
+{% block meta_keywords %}contact Artuarium, book Porto tour, Porto walking tour booking, private tour Porto contact{% endblock %}
+
+{% block og_title %}Contact – Book a Walking Tour in Porto | Artuarium{% endblock %}
+{% block og_description %}Get in touch with Artuarium to book a private walking tour in Porto or ask any questions. Artur replies personally.{% endblock %}
+{% block twitter_title %}Contact – Book a Walking Tour in Porto | Artuarium{% endblock %}
+{% block twitter_description %}Get in touch with Artuarium to book a private walking tour in Porto or ask any questions.{% endblock %}
+
+{% block schema_title %}Contact | Artuarium{% endblock %}
+
+{% block extra_css %}
+<link href="{% static 'assets/css/contacto.css' %}" rel="stylesheet">
+
+<style>
+  body.about-page #header {
+    background: #080C0A !important;
+  }
+
+  body.about-page #header .navmenu a {
+    color: #F5F1ED !important;
+  }
+
+  body.about-page #header .action-icon i {
+    color: #F5F1ED !important;
+  }
+
+  body.about-page #header .btn-bokun-outline {
+    border-color: #F5F1ED !important;
+    color: #F5F1ED !important;
+  }
+
+  body.about-page #header .dropdown-toggle {
+    color: #F5F1ED !important;
+  }
+
+  body.about-page #header.scrolled {
+    background: #F5F1ED !important;
+  }
+
+  body.about-page #header.scrolled .navmenu a {
+    color: #344E41 !important;
+  }
+
+  body.about-page #header.scrolled .action-icon i {
+    color: #344E41 !important;
+  }
+
+  body.about-page #header.scrolled .btn-bokun-outline {
+    border-color: #344E41 !important;
+    color: #344E41 !important;
+  }
+
+  body.about-page #header.scrolled .dropdown-toggle {
+    color: #344E41 !important;
+  }
+</style>
+
+
+{% block body_class %}about-page{% endblock %}
+{% endblock %}
+
+{% block content %}
+<section id="about" class="section-proposito" aria-labelledby="about-heading">
+  <div class="container">
+    <div class="mx-auto p-5 p-md-5">
+      <div class="card-body text-center">
+
+        <div class="mb-5">
+          <h2 class="display-6 font-serif fst-italic mb-3">
+            {% translate "Olá!" %}
+          </h2>
+          <p>{% translate "Obrigado pelo seu interesse em trabalhar comigo. Não hesite em me contactar para qualquer consulta de negócios!." %}</p>
+          <p>{% translate "Você também pode selecionar esta caixinha para se juntar ao Arauto & Anfitrião, o meu boletim pessoal." %}</p>
+          <p>{% translate "Se você quiser me conhecer melhor, ou ver como você pode me ajudar, acesse os links abaixo!." %}</p>
+        </div>
+
+        <div class="d-flex gap-3 justify-content-center flex-wrap mt-4">
+          <a href="{% url 'reviews' %}" class="btn1" title="{% translate 'APOIAR' %}">
+            {% translate "APOIAR" %}
+          </a>
+
+          <button class="btn2 bokunButton"
+            id="bokun_cta_contact"
+            data-src="https://widgets.bokun.io/online-sales/53bbe0a9-5a66-4ab2-b3e5-38cea4fb3e07/experience/1175368?partialView=1">
+            {% translate "AGENDAR UM TOUR" %}
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

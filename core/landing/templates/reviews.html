@@ -1,0 +1,489 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+{% block extra_css %}
+<style>
+  body.about-page #header {
+    background: #080C0A !important;
+  }
+
+  body.about-page #header .navmenu a {
+    color: #F5F1ED !important;
+  }
+
+  body.about-page #header .action-icon i {
+    color: #F5F1ED !important;
+  }
+
+  body.about-page #header .btn-bokun-outline {
+    border-color: #F5F1ED !important;
+    color: #F5F1ED !important;
+  }
+
+  body.about-page #header .dropdown-toggle {
+    color: #F5F1ED !important;
+  }
+
+  body.about-page #header.scrolled {
+    background: #F5F1ED !important;
+  }
+
+  body.about-page #header.scrolled .navmenu a {
+    color: #344E41 !important;
+  }
+
+  body.about-page #header.scrolled .action-icon i {
+    color: #344E41 !important;
+  }
+
+  body.about-page #header.scrolled .btn-bokun-outline {
+    border-color: #344E41 !important;
+    color: #344E41 !important;
+  }
+
+  body.about-page #header.scrolled .dropdown-toggle {
+    color: #344E41 !important;
+  }
+</style>
+{% endblock %}
+
+{% block body_class %}about-page{% endblock %}
+<style>
+/* =====================================================
+   ARTUARIUM — CSS UNIFICADO + CAMINO
+   ===================================================== */
+
+:root {
+    --ivory: #F5F2EA;
+    --green-dark: #0F2823;
+    --green-medium: #4A6B5D;
+    --green-light: #BBD1C5;
+    --text-soft: #4a4a4a;
+}
+
+/* ---------- Base ---------- */
+body {
+    background: var(--ivory)
+        url('https://www.transparenttextures.com/patterns/clean-gray-paper.png');
+    color: var(--green-dark);
+    font-family: 'Lato', sans-serif;
+}
+
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--green-dark);
+}
+
+/* ---------- HERO ---------- */
+.hero {
+    padding: 4rem 0 3rem;
+}
+
+.hero h1 {
+    font-size: 2.3rem;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    color: var(--green-medium);
+    font-weight: 300;
+    max-width: 640px;
+}
+
+/* ---------- STEP TITLE ---------- */
+.step-title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.step-badge {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--green-dark);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+/* ---------- CARDS ---------- */
+.card-soft,
+.upload-card,
+.section-box {
+    background: rgba(255,255,255,0.65);
+    border: 1px solid rgba(187,209,197,0.4);
+    padding: 2.5rem;
+    margin-bottom: 4rem;
+}
+
+/* ---------- BUTTON ---------- */
+.btn-artuarium {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    border: 1px solid var(--green-dark);
+    background: var(--green-dark);
+    color: white;
+    padding: 0.9rem;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    text-decoration: none;
+}
+
+.btn-artuarium:hover {
+    background: var(--green-dark);
+    color: #fff;
+}
+
+/* ---------- REVIEW ---------- */
+.review-text {
+    max-width: 640px;
+    color: var(--text-soft);
+    margin-bottom: 2rem;
+}
+
+/* ---------- KEYWORDS ---------- */
+.keyword-chip {
+    background: var(--green-dark);
+    color: #fff;
+    border-radius: 30px;
+    padding: 0.35rem 0.8rem;
+    font-size: 0.75rem;
+    border: none;
+}
+
+/* ---------- UPLOAD ---------- */
+.upload-input-overlay {
+    display: none;
+}
+
+#preview-container img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    margin: 5px;
+    border-radius: 4px;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+    .hero h1 { font-size: 2rem; }
+    .card-soft, .upload-card, .section-box {
+        padding: 2rem 1.5rem;
+    }
+}
+
+.upload-input-overlay {
+    display: none;
+}
+
+#preview-container img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    margin: 5px;
+    border-radius: 4px;
+}
+@media (max-width: 768px) {
+
+    .btn-artuarium {
+        width: 100%;
+        display: block;
+        padding: 1rem;
+        font-size: 0.85rem;
+    }
+
+    .card-soft a {
+        display: block;
+        width: 100%;
+    }
+
+}
+</style>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+    <div class="col-lg-7 col-md-8">
+    <!-- HERO -->
+    <header class="hero">
+        <h1>{% translate "Obrigado por viver este caminho comigo." %}</h1>
+        <p>{% translate "Aqui podes continuar o percurso — partilhar as tuas fotos, deixar uma review, apoiar o projeto e receber novidades." %}</p>
+    </header>
+
+    <!-- 1️⃣ MAILING -->
+    <section class="card-soft">
+
+        <!-- MENSAJE -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- STEP -->
+        <div class="step-title-wrapper">
+            <span class="step-badge">1</span>
+            <h2>{% translate "Mantenha o laço" %}</h2>
+        </div>
+
+        <p>
+            {% translate "Recebe novos roteiros, conteúdos exclusivos e histórias vivas de Porto." %}
+        </p>
+
+        <!-- FORM -->
+        <form method="POST" action="{% url 'subscribe' %}">
+            {% csrf_token %}
+            {{ form.email }}
+            <button class="btn-artuarium mt-4" type="submit">
+                {% translate "Inscrever-se" %}
+            </button>
+        </form>
+
+        <!-- NOTE -->
+        <div class="note">
+            {% translate "Sem spam. Apenas conteúdo com curadoria." %}
+        </div>
+
+    </section>
+
+    <!-- 2️⃣ GOOGLE REVIEW -->
+        <section class="section-box">
+            <div class="step-title-wrapper">
+                <span class="step-badge">2</span>
+                <h2>{% translate "Deixe uma avaliação" %}</h2>
+            </div>
+            <p class="review-text">
+                {% translate "A sua avaliação ajuda o algoritmo do Google a reconhecer o meu trabalho como guia turístico no Porto." %}</h2>
+            </p>
+            <div class="d-flex flex-wrap gap-2 mb-4">
+                <button class="keyword-chip" data-keyword="tour no Porto">{% translate "tour no Porto" %}</button>
+                <button class="keyword-chip" data-keyword="free tour Porto">{% translate "free tour Porto" %}</button>
+                <button class="keyword-chip" data-keyword="visita guiada no Porto">{% translate "visita guiada no Porto" %}</button>
+                <button class="keyword-chip" data-keyword="melhor tour do Porto">{% translate "melhor tour do Porto" %}</button>
+                <button class="keyword-chip" data-keyword="guia turístico no Porto">{% translate "guia turístico no Porto" %}</button>
+                <button class="keyword-chip" data-keyword="história do Porto">{% translate "história do Porto" %}</button>
+                <button class="keyword-chip" data-keyword="tour histórico no Porto">{% translate "tour histórico no Porto" %}</button>
+                <button class="keyword-chip" data-keyword="walking tour Porto">{% translate "walking tour Porto" %}</button>
+            </div>
+            <a href="https://g.page/r/CUtYox97abFMEBM/review"
+            target="_blank"
+            class="btn-artuarium">
+            {% translate "Avaliar no Google" %}
+            </a>
+        </section>
+<!-- 3️⃣ UPLOAD -->
+        {% comment %} <section class="upload-card">
+
+            <div class="step-title-wrapper">
+                <span class="step-badge">3</span>
+                <h3>{% translate "Memórias Visuais" %}</h3>
+            </div>
+
+            <p class="mb-0">
+                {% translate "Tiraste fotos durante o percurso? Partilha aqui o que capturaste." %}
+            </p>
+
+            <form id="upload-form"
+                method="POST"
+                action="{% url 'upload_fotos' %}"
+                enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+                <input type="file"
+                    name="photos"
+                    id="file-input"
+                    class="upload-input-overlay"
+                    multiple
+                    accept="image/*">
+
+                <div class="upload-card-inner p-5 text-center">
+
+                    <div class="icon-circle mb-3">
+                        <i data-lucide="camera"
+                        class="text-green-dark"
+                        width="32"
+                        height="32"></i>
+                    </div>
+
+                    <div id="btn-open-file"
+                        <i data-lucide="upload"
+                        class="btn-artuarium"></i>
+                        <span>{% translate "Escolher fotos" %}</span>
+                    </div>
+
+                    <div class="">
+                        <button id="btn-upload"
+                                type="button"
+                                class="btn-artuarium"
+                                style="display:none;">
+                            {% translate "Enviar fotos" %}
+                        </button>
+
+                    </div>
+
+                    <div id="preview-container" class="mt-4"></div>
+
+                </div>
+            </form>
+        </section> {% endcomment %}
+
+
+
+
+        <!-- 4️⃣ PATREON -->
+        <section class="section-box">
+            <div class="step-title-wrapper">
+                <span class="step-badge">3</span>
+                <h2>{% translate "Junte-se ao meu Patreon" %}</h2>
+            </div>
+
+            <p class="review-text">
+                {% translate "  Roma não foi construída em um dia; é do seu apoio que este trabalho continua." %}
+            </p>
+
+            <a href="https://www.patreon.com/c/Artuarium?vanity=use"
+            target="_blank"
+            class="btn-artuarium">
+            {% translate "Junte-se ao Clube Artuarium" %}
+            </a>
+        </section>
+
+        <!-- INSTAGRAM (SIN NÚMERO) -->
+        <section class="section-box">
+            <h2 class="mb-5">{% translate "Siga no Instagram" %}</h2>
+            {% comment %} <p class="review-text">
+                {% translate "Acompanhe os detalhes visuais da jornada e os bastidores dos roteiros culturais." %}
+            </p> {% endcomment %}
+
+            <a href="https://www.instagram.com/_artuarium_/"
+            target="_blank"
+            class=" mt-5 btn-artuarium">
+            @_artuarium_
+            </a>
+        </section>
+    </div>
+</div>
+</div>
+
+<script>
+
+    let selectedFiles = []; 
+    console.log("🔥 Script de upload funcional cargado.");
+
+    document.getElementById('btn-open-file').addEventListener('click', () => {
+        document.getElementById('file-input').click();
+    });
+
+    document.getElementById('file-input').addEventListener('change', function () {
+
+        const preview = document.getElementById('preview-container');
+        const uploadBtn = document.getElementById('btn-upload');
+
+        for (let f of this.files) { selectedFiles.push(f); }
+
+        this.value = "";
+
+        preview.innerHTML = "";
+
+        if (selectedFiles.length === 0) return;
+
+        const counter = document.createElement("p");
+        counter.className = "text-green-dark fw-bold mb-3";
+        counter.innerText = `${selectedFiles.length} foto(s) seleccionada(s)`;
+        preview.appendChild(counter);
+
+        const grid = document.createElement("div");
+        grid.style.display = "grid";
+        grid.style.gridTemplateColumns = "repeat(auto-fill, 80px)";
+        grid.style.gap = "10px";
+        grid.style.justifyContent = "center";
+        preview.appendChild(grid);
+
+        selectedFiles.forEach(file => {
+            const reader = new FileReader();
+            reader.onload = e => {
+                const img = document.createElement("img");
+                img.src = e.target.result;
+                img.style.width = "80px";
+                img.style.height = "80px";
+                img.style.objectFit = "cover";
+                img.style.borderRadius = "4px";
+                img.style.border = "1px solid rgba(0,0,0,0.1)";
+                grid.appendChild(img);
+            };
+            reader.readAsDataURL(file);
+        });
+
+        uploadBtn.style.display = "inline-block";
+    });
+
+    document.getElementById("btn-upload").addEventListener("click", function () {
+
+        const btn = this;
+
+        if (selectedFiles.length === 0) return;
+
+        btn.innerText = "Enviando...";
+        btn.disabled = true;
+
+        const formData = new FormData();
+        formData.append("csrfmiddlewaretoken", "{{ csrf_token }}");
+
+        selectedFiles.forEach((file) => {
+            formData.append("photos", file);
+        });
+
+        fetch("{% url 'upload_fotos' %}", {
+            method: "POST",
+            body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+
+            if (data.ok) {
+
+                btn.innerText = "Fotos enviadas!";
+                btn.classList.remove("btn-primary");
+                btn.classList.add("btn-success");
+
+                const msg = document.createElement("div");
+                msg.className = "alert alert-success mt-3";
+                msg.innerText = "Fotos carregadas com sucesso!";
+                document.getElementById("preview-container").appendChild(msg);
+
+                setTimeout(() => {
+                    selectedFiles = [];
+                    document.getElementById("preview-container").innerHTML = "";
+                    btn.innerText = "Enviar fotos";
+                    btn.classList.remove("btn-success");
+                    btn.classList.add("btn-primary");
+                    btn.disabled = false;
+                    btn.style.display = "none";
+                }, 2500);
+
+            } else {
+                btn.innerText = "Erro ao enviar";
+                btn.classList.add("btn-danger");
+            }
+        })
+        .catch(err => {
+            console.error("💥 ERROR:", err);
+            btn.innerText = "Erro ao enviar";
+            btn.classList.add("btn-danger");
+        });
+    });
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,503 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+{% get_current_language as CURRENT_LANGUAGE %}
+<html lang="{{ CURRENT_LANGUAGE|default:'en' }}">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  {# ─── TÍTULO Y META BÁSICOS ─────────────────────────────────────────────── #}
+  <title>{% block title %}Artuarium – Walking Tours & Cultural Experiences in Porto{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}Discover Porto with Artuarium: intimate walking tours, curated cultural experiences and art-focused itineraries led by local expert Artur.{% endblock %}">
+  <meta name="keywords" content="{% block meta_keywords %}walking tours Porto, Porto cultural tours, art tours Porto, Artuarium, Porto experiences, guided tours Portugal{% endblock %}">
+  <meta name="robots" content="{% block meta_robots %}index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1{% endblock %}">
+  <meta name="author" content="Artuarium">
+  <meta name="theme-color" content="#314f3f">
+
+  {# ─── CANONICAL + HREFLANG ───────────────────────────────────────────────── #}
+  <link rel="canonical" href="{% block canonical_url %}{{ request.build_absolute_uri }}{% endblock %}">
+  <link rel="alternate" hreflang="x-default" href="{{ request.scheme }}://{{ request.get_host }}{% url 'index' %}">
+  <link rel="alternate" hreflang="en" href="{{ request.scheme }}://{{ request.get_host }}/en{{ request.path }}">
+  <link rel="alternate" hreflang="pt" href="{{ request.scheme }}://{{ request.get_host }}/pt{{ request.path }}">
+  <link rel="alternate" hreflang="es" href="{{ request.scheme }}://{{ request.get_host }}/es{{ request.path }}">
+
+  {# ─── OPEN GRAPH ─────────────────────────────────────────────────────────── #}
+  <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+  <meta property="og:title" content="{% block og_title %}Artuarium – Walking Tours & Cultural Experiences in Porto{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}Discover Porto with Artuarium: intimate walking tours, curated cultural experiences and art-focused itineraries led by local expert Artur.{% endblock %}">
+  <meta property="og:url" content="{% block og_url %}{{ request.build_absolute_uri }}{% endblock %}">
+  <meta property="og:site_name" content="Artuarium">
+  <meta property="og:image" content="{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'assets/img/og-cover.jpg' %}{% endblock %}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{% block og_image_alt %}Artuarium – Walking Tours in Porto{% endblock %}">
+  <meta property="og:locale" content="{% if CURRENT_LANGUAGE == 'es' %}es_ES{% elif CURRENT_LANGUAGE == 'pt' %}pt_PT{% else %}en_GB{% endif %}">
+
+  {# ─── TWITTER CARD ───────────────────────────────────────────────────────── #}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@artuarium">
+  <meta name="twitter:title" content="{% block twitter_title %}Artuarium – Walking Tours & Cultural Experiences in Porto{% endblock %}">
+  <meta name="twitter:description" content="{% block twitter_description %}Discover Porto with Artuarium: intimate walking tours, curated cultural experiences and art-focused itineraries.{% endblock %}">
+  <meta name="twitter:image" content="{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'assets/img/og-cover.jpg' %}{% endblock %}">
+
+  {# ─── FAVICONS ───────────────────────────────────────────────────────────── #}
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/img/favicon-32x32.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/img/favicon-16x16.png' %}">
+  <link rel="shortcut icon" href="{% static 'assets/img/logo5.png' %}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/img/apple-touch-icon.png' %}">
+  <link rel="manifest" href="{% static 'site.webmanifest' %}">
+
+  {# ─── SCHEMA.ORG JSON-LD ─────────────────────────────────────────────────── #}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TouristInformationCenter",
+        "@id": "{{ request.scheme }}://{{ request.get_host }}/#organization",
+        "name": "Artuarium",
+        "url": "{{ request.scheme }}://{{ request.get_host }}",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "{{ request.scheme }}://{{ request.get_host }}{% static 'assets/img/logo_completo.svg' %}",
+          "width": 200,
+          "height": 60
+        },
+        "image": "{{ request.scheme }}://{{ request.get_host }}{% static 'assets/img/og-cover.jpg' %}",
+        "description": "Walking tours, culture and curated experiences in Porto.",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Porto",
+          "addressCountry": "PT"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 41.1579,
+          "longitude": -8.6291
+        },
+        "email": "artur@arturium.global",
+        "sameAs": [
+          "https://www.instagram.com/_artuarium_/",
+          "https://www.patreon.com/c/Artuarium"
+        ],
+        "priceRange": "$$",
+        "openingHoursSpecification": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+        },
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Porto Walking Tours",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "TouristTrip",
+                "name": "Walking Tour Porto",
+                "touristType": ["Culture lovers", "Art enthusiasts", "History buffs"]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "{{ request.scheme }}://{{ request.get_host }}/#website",
+        "url": "{{ request.scheme }}://{{ request.get_host }}",
+        "name": "Artuarium",
+        "publisher": { "@id": "{{ request.scheme }}://{{ request.get_host }}/#organization" },
+        "inLanguage": ["en", "pt", "es"],
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "{{ request.scheme }}://{{ request.get_host }}/search?q={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "{{ request.build_absolute_uri }}#webpage",
+        "url": "{{ request.build_absolute_uri }}",
+        "name": "{% block schema_title %}Artuarium{% endblock %}",
+        "isPartOf": { "@id": "{{ request.scheme }}://{{ request.get_host }}/#website" },
+        "publisher": { "@id": "{{ request.scheme }}://{{ request.get_host }}/#organization" },
+        "inLanguage": "{{ CURRENT_LANGUAGE|default:'en' }}"
+      }
+    ]
+  }
+  </script>
+  {% block extra_schema %}{% endblock %}
+
+  {# ─── PRECONNECT / DNS-PREFETCH ──────────────────────────────────────────── #}
+  {# Solo preconectamos recursos que se usan en el above-the-fold #}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  {# Bokun: solo dns-prefetch, el script se carga on-demand #}
+  <link rel="dns-prefetch" href="//widgets.bokun.io">
+
+  {# ─── CSS CRÍTICO (vendor + main) ───────────────────────────────────────── #}
+  <link rel="preload" href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}"></noscript>
+
+   <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/css/artuarium.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/css/base.css' %}" rel="stylesheet">
+
+  {% block head %}{% endblock %}
+  {% block extra_css %}{% endblock %}
+</head>
+
+<body class="{% block body_class %}portfolio-details-page{% endblock %}">
+
+  <!-- LOADER -->
+  <div id="artuarium-loader">
+    <div class="loader-content">
+      <img src="{% static 'assets/img/logo_completo.svg' %}"
+           alt="Artuarium"
+           width="160"
+           height="50"
+           fetchpriority="high">
+    </div>
+  </div>
+
+  <!-- ─── HEADER ──────────────────────────────────────────────────────────── -->
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl header-layout">
+
+      <!-- Logo -->
+      <div class="header-left">
+        <a href="{% url 'index' %}" class="logo d-flex align-items-center me-auto me-lg-0">
+          <img src="{% static 'assets/img/logo.png' %}" alt="Logo" class="logo-artuarium">
+        </a>
+      </div>
+
+      <!-- Nav -->
+      <div class="header-center">
+        <nav id="navmenu" class="navmenu" aria-label="{% translate 'Main navigation' %}">
+          <ul>
+            <li>
+              <a href="{% url 'index' %}"
+                 class="{% if url_name == 'index' %}active{% endif %}">
+                {% translate "HOME" %}
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'about' %}"
+                 class="{% if url_name == 'about' %}active{% endif %}">
+                {% translate "ABOUT ME" %}
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'reviews' %}"
+                 class="{% if url_name == 'reviews' %}active{% endif %}">
+                {% translate "SUPPORT" %}
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'contacto' %}"
+                 class="{% if url_name == 'contacto' %}active{% endif %}">
+                {% translate "CONTACT01" %}
+              </a>
+            </li>
+
+            <!-- Selector de idioma -->
+            <li class="nav-item dropdown">
+              <button class="btn btn-secondary dropdown-toggle border-0 bg-transparent p-0"
+                      type="button"
+                      id="dropdownLangButton"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      aria-label="{% translate 'Seleccionar idioma' %}">
+                {% get_current_language as CURRENT_LANGUAGE %}
+                {% if CURRENT_LANGUAGE == 'en' %}
+                  <img src="{% static 'assets/img/england.png' %}" class="flag-icon" alt="English">
+                {% elif CURRENT_LANGUAGE == 'es' %}
+                  <img src="{% static 'assets/img/espana.png' %}" class="flag-icon" alt="Español">
+                {% elif CURRENT_LANGUAGE == 'pt' %}
+                  <img src="{% static 'assets/img/portugal.png' %}" class="flag-icon" alt="Português">
+                {% else %}
+                  <img src="{% static 'assets/img/england.png' %}" class="flag-icon" alt="English">
+                {% endif %}
+              </button>
+
+              <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownLangButton">
+                <form action="{% url 'set_language' %}" method="post" class="px-2 py-1">
+                  {% csrf_token %}
+                  <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                  {% get_available_languages as LANGUAGES %}
+                  {% get_language_info_list for LANGUAGES as languages %}
+                  {% for lang in languages %}
+                    <button type="submit"
+                            class="dropdown-item d-flex align-items-center"
+                            name="language"
+                            value="{{ lang.code }}">
+                      {% if lang.code == 'pt' %}
+                        <img src="{% static 'assets/img/portugal.png' %}" class="flag-icon me-2" alt="Português">
+                        Português
+                      {% elif lang.code == 'es' %}
+                        <img src="{% static 'assets/img/espana.png' %}" class="flag-icon me-2" alt="Español">
+                        Español
+                      {% elif lang.code == 'en' %}
+                        <img src="{% static 'assets/img/england.png' %}" class="flag-icon me-2" alt="English">
+                        English
+                      {% endif %}
+                    </button>
+                  {% endfor %}
+                </form>
+              </div>
+            </li>
+
+            {% if user.is_authenticated %}
+              <li class="nav-item dropdown me-5"></li>
+              <li class="nav-item dropdown me-3">
+                <a class="nav-link dropdown-toggle text-light" href="#" id="dropdown-user" data-toggle="dropdown">
+                  {{ user.get_full_name|default:user.username }}
+                </a>
+                <ul class="dropdown-menu text-start dropdown-menu-right" aria-labelledby="dropdown-user">
+                  <li><a class="dropdown-item" href="{% url 'qr' %}">{% translate "Code QR" %}</a></li>
+                  <li><a class="dropdown-item" href="{% url 'qr_newsletter_code' %}">{% translate "Newsletter QR" %}</a></li>
+                  <li><a class="dropdown-item" href="{% url 'imagenes-views' %}">{% translate "Imagens" %}</a></li>
+                  <li><a class="dropdown-item" href="{% url 'admin_subscribers' %}">{% translate "Subscribers" %}</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li>
+                    <form id="logout-form" action="{% url 'logout' %}" method="post" style="display:none;">
+                      {% csrf_token %}
+                    </form>
+                    <a href="#" class="dropdown-item"
+                       onclick="document.getElementById('logout-form').submit(); return false;">
+                      {% translate "logout_nav" %}
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Acciones header -->
+      <div class="header-right">
+        <div class="header-actions d-flex">
+          <button class="btn-bokun-outline bokunButton"
+            id="bokun_768ab36c_e73f_44ec_ae4b_de23091c41a1"
+            data-src="https://widgets.bokun.io/online-sales/53bbe0a9-5a66-4ab2-b3e5-38cea4fb3e07/experience/1175368?partialView=1">
+            {% translate " AGENDA UN TOUR " %}
+          </button>
+
+          <a class="action-icon ms-4" href="https://www.instagram.com/_artuarium_/" target="_blank">
+            <i class="bi bi-instagram"></i>
+          </a>
+
+          <a class="action-icon" href="mailto:artur@arturium.global">
+            <i class="bi bi-envelope"></i>
+          </a>
+
+          <a class="action-icon patreon-icon"
+             href="https://www.patreon.com/c/Artuarium"
+             target="_blank"
+             aria-label="Patreon">
+            <img src="{% static 'assets/img/pat.png' %}" alt="Patreon">
+          </a>
+        </div>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ─── CONTENIDO ────────────────────────────────────────────────────────── -->
+  <main id="main">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- ─── FOOTER ───────────────────────────────────────────────────────────── -->
+  <footer id="footer" class="footer footer-artuarium" aria-label="Footer">
+    <div class="footer-top">
+      <div class="container text-center">
+        <div class="footer-logo mb-4">
+          <img src="{% static 'assets/img/Selo_Arturium_2.svg' %}"
+               style="height:120px"
+               alt="Artuarium"
+               width="120"
+               height="120"
+               loading="lazy">
+        </div>
+        <nav class="footer-redes d-flex justify-content-center" aria-label="Social links">
+          <div class="redes d-flex gap-3">
+            <a href="https://www.instagram.com/_artuarium_/"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="Instagram">
+              <i class="bi bi-instagram" aria-hidden="true"></i>
+            </a>
+            <a href="mailto:artur@arturium.global" aria-label="Email">
+              <i class="bi bi-envelope" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.patreon.com/c/Artuarium"
+               class="action-icon patreon-icon"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="Patreon">
+              <img src="{% static 'assets/img/pat.png' %}" alt="Patreon" width="20" height="20" loading="lazy">
+            </a>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <div class="copyright" style="background:#080C0A">
+    <div class="container text-center">
+      <p class="credits" style="color:#c2c2c2; font-size:12px; margin:0">
+        Designed by <a href="https://innobrar.com.br/" target="_blank" rel="noopener noreferrer">Innobrar Solutions</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top"
+     class="scroll-top d-flex align-items-center justify-content-center"
+     aria-label="{% translate 'Back to top' %}">
+    <i class="bi bi-arrow-up-short" aria-hidden="true"></i>
+  </a>
+
+  <!-- Preloader -->
+  <div id="preloader" aria-hidden="true"></div>
+
+  <!-- ─── VENDOR JS ─────────────────────────────────────────────────────────── -->
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}" defer></script>
+  <script src="{% static 'assets/vendor/aos/aos.js' %}" defer></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}" defer></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}" defer></script>
+  <script src="{% static 'assets/vendor/imagesloaded/imagesloaded.pkgd.min.js' %}" defer></script>
+  <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}" defer></script>
+  <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}" defer></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}" defer></script>
+
+  <!-- ─── MAIN JS ───────────────────────────────────────────────────────────── -->
+  <script src="{% static 'assets/js/main.js' %}" defer></script>
+
+  <!-- ─── BOKUN ON-DEMAND LOADER ──────────────────────────────────────────────
+       El script de Bokun (~200KB) solo se descarga cuando el usuario
+       hace click en cualquier botón con la clase .js-bokun-trigger.
+       Una vez cargado, el loader se destruye a sí mismo (no hay doble carga).
+  ─────────────────────────────────────────────────────────────────────────── -->
+  <style>
+    /* Spinner dentro del botón Bokun mientras carga */
+    .bokun-btn-loading {
+      pointer-events: none;
+      opacity: 0.75;
+      cursor: wait !important;
+    }
+    .bokun-btn-loading .bokun-spinner {
+      display: inline-block !important;
+    }
+    .bokun-spinner {
+      display: none;
+      width: 14px;
+      height: 14px;
+      border: 2px solid currentColor;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: bokun-spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-right: 6px;
+      flex-shrink: 0;
+    }
+    @keyframes bokun-spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+
+  <script>
+  (function () {
+    var BOKUN_URL =
+      'https://widgets.bokun.io/assets/javascripts/apps/build/BokunWidgetsLoader.js' +
+      '?bookingChannelUUID=53bbe0a9-5a66-4ab2-b3e5-38cea4fb3e07';
+
+    var loaded  = false;
+    var loading = false;
+    var queue   = [];
+
+    /* ── Inyecta el spinner dentro del botón ── */
+    function setLoading(btn, isLoading) {
+      if (isLoading) {
+        // Guarda el texto original y añade spinner
+        if (!btn.dataset.originalHtml) {
+          btn.dataset.originalHtml = btn.innerHTML;
+        }
+        btn.innerHTML =
+          '<span class="bokun-spinner"></span>' +
+          '<span>' + btn.dataset.originalHtml + '</span>';
+        btn.classList.add('bokun-btn-loading');
+      } else {
+        // Restaura el texto original
+        if (btn.dataset.originalHtml) {
+          btn.innerHTML = btn.dataset.originalHtml;
+          delete btn.dataset.originalHtml;
+        }
+        btn.classList.remove('bokun-btn-loading');
+      }
+    }
+
+    function inject(cb) {
+      if (loaded)  { cb && cb(); return; }
+      if (cb) queue.push(cb);
+      if (loading) return;
+      loading = true;
+
+      var s = document.createElement('script');
+      s.src   = BOKUN_URL;
+      s.async = true;
+      s.onload = function () {
+        loaded  = true;
+        loading = false;
+        queue.forEach(function (fn) { fn(); });
+        queue = [];
+      };
+      s.onerror = function () {
+        loading = false;
+        // Restaura todos los botones en caso de error
+        document.querySelectorAll('.bokunButton.bokun-btn-loading')
+          .forEach(function (b) { setLoading(b, false); });
+        console.error('[Artuarium] No se pudo cargar el widget de Bokun.');
+      };
+      document.head.appendChild(s);
+    }
+
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest('.bokunButton');
+      if (!btn) return;
+
+      if (!loaded) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        setLoading(btn, true);
+        inject(function () {
+          setLoading(btn, false);
+          // Pequeño delay para que Bokun registre sus listeners antes del click
+          setTimeout(function () { btn.click(); }, 100);
+        });
+      }
+    }, true);
+
+    /* Precarga silenciosa a los 3s para que el primer click sea instantáneo */
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        if (document.querySelector('.bokunButton')) inject();
+      }, 3000);
+    });
+  })();
+  </script>
+
+  {% block scripts %}{% endblock %}
+</body>
+</html>

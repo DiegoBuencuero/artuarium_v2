@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+
+<style>
+  .reputaciones-container {
+      padding-top: 80px; /* Baja el contenido para que no quede pegado al header */
+      padding-bottom: 120px; /* Empuja para que el footer quede siempre abajo */
+  }
+
+  h2.reputaciones-title {
+      font-weight: 600;
+      margin-bottom: 30px;
+  }
+
+  table.reputaciones-table th {
+      background: #f1f1f1;
+      font-weight: 600;
+  }
+
+  table.reputaciones-table td {
+      vertical-align: middle !important;
+  }
+</style>
+
+<div class="container reputaciones-container">
+
+    <h2 class="reputaciones-title">Gerir reputações</h2>
+
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-success">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+
+    <form method="post">
+      {% csrf_token %}
+      <table class="table table-striped align-middle reputaciones-table">
+        <thead>
+          <tr>
+            <th>Publicar</th>
+            <th>Estrelas</th>
+            <th>Nome</th>
+            <th>Comentário</th>
+            <th>Origem</th>
+            <th>Criado em</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for r in reputacoes %}
+            <tr>
+              <td class="text-center">
+                <input type="checkbox" name="publicar" value="{{ r.id }}"
+                       {% if r.publicar %}checked{% endif %}>
+              </td>
+
+              <td>{{ r.rating }} ★</td>
+              <td>{{ r.nombre }}</td>
+
+              <td style="max-width: 400px;">{{ r.texto|truncatechars:150 }}</td>
+
+              <td>{{ r.origen }}</td>
+
+              <td>{{ r.id }}</td>
+            </tr>
+
+          {% empty %}
+            <tr>
+              <td colspan="6" class="text-center py-4">
+                Ainda não há reputações cadastradas.
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <button type="submit" class="btn btn-primary">
+        Guardar seleção
+      </button>
+    </form>
+
+</div>
+
+{% endblock %}

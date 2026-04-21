@@ -1,0 +1,739 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-07 14:41+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
+
+#: core/settings.py:145
+msgid "English"
+msgstr "Inglés"
+
+#: core/settings.py:146
+msgid "Spanish"
+msgstr "Español"
+
+#: core/settings.py:147
+msgid "Portugues"
+msgstr "Portugués"
+
+#: landing/forms.py:19 landing/templates/admin_subscribers.html:106
+msgid "Name"
+msgstr ""
+
+#: landing/forms.py:22
+msgid "Your Name"
+msgstr "Nombre"
+
+#: landing/forms.py:27 landing/templates/admin_subscribers.html:107
+msgid "Email"
+msgstr "Correo"
+
+#: landing/forms.py:30
+msgid "Your Email"
+msgstr "Correo"
+
+#: landing/forms.py:35
+msgid "Message"
+msgstr "Mensaje"
+
+#: landing/forms.py:38
+msgid "Your Message"
+msgstr "Mensaje"
+
+#: landing/templates/about.html:37 landing/templates/about1.html:28
+msgid "about-0"
+msgstr "Hola, soy Artur."
+
+#: landing/templates/about.html:39 landing/templates/about1.html:31
+msgid "about-1"
+msgstr ""
+"Soy originalmente de Río de Janeiro, Brasil, pero desde niño viajé por el "
+"mundo. He vivido en seis países diferentes, donde encontré una riqueza "
+"cultural y gastronómica inmensa, y al mismo tiempo represión y autoritarismo."
+
+#: landing/templates/about.html:40 landing/templates/about1.html:32
+msgid "about-2"
+msgstr ""
+"Fue un poco demasiado para una mente tan joven, para ser sincero. Incluso "
+"estudié Ciencias Políticas en Estados Unidos y Derecho en Brasil para "
+"intentar comprender todo eso y… francamente, no ayudó."
+
+#: landing/templates/about.html:41 landing/templates/about1.html:33
+msgid "about-3"
+msgstr ""
+"Sin embargo, encontré propósito en mi matrimonio, y mi mente simplemente no "
+"deja de hacerse preguntas sobre el mundo que me rodea."
+
+#: landing/templates/about.html:42 landing/templates/about1.html:34
+msgid "about-4"
+msgstr ""
+"Me mudé a Oporto con mi esposa en busca de una mejor calidad de vida, y esta "
+"ciudad tocó mi propia alma. Aunque tengo vínculos familiares lejanos con "
+"Oporto, nada me preparó para lo profundamente histórica y llena de carácter "
+"que es la Invicta."
+
+#: landing/templates/about.html:43 landing/templates/about1.html:35
+msgid "about-5"
+msgstr ""
+"Convertirme en guía turístico fue una consecuencia natural de toda la "
+"investigación que hacía para saciar mi propia curiosidad. Pero tomó vida "
+"propia. Me enamoré del trabajo de guiar y pretendo llevarlo conmigo para "
+"toda la vida."
+
+#: landing/templates/about.html:44 landing/templates/about1.html:36
+msgid "about-6"
+msgstr ""
+"Artuarium, el templo de mi mente, existe para que pueda conversar y "
+"compartir conocimiento más allá del formato del tour."
+
+#: landing/templates/about.html:45 landing/templates/about1.html:37
+msgid "about-7"
+msgstr ""
+"Tengo muchos planes y toda una vida por delante — una vida dedicada a mi "
+"familia, a mis estudios y al diálogo."
+
+#: landing/templates/about.html:46 landing/templates/about1.html:38
+msgid "about-8"
+msgstr "Si estás aquí, espero que sea porque te interesa mi camino."
+
+#: landing/templates/about.html:47 landing/templates/about1.html:39
+msgid "about-9"
+msgstr "Es un placer tenerte a mi lado."
+
+#: landing/templates/about.html:48 landing/templates/about1.html:40
+msgid "about-10"
+msgstr ""
+"Si deseas apoyarme directamente, accede el enlace abajo para descubrir como:"
+
+#: landing/templates/about.html:59 landing/templates/about1.html:51
+#: landing/templates/reviews.html:275
+msgid "Junte-se ao Clube Artuarium"
+msgstr "APOYA A ARTUARIUM"
+
+#: landing/templates/about.html:65 landing/templates/about1.html:57
+#: landing/templates/contacto.html:45 landing/templates/contacto1.html:59
+msgid "AGENDAR UM TOUR"
+msgstr "AGENDA UN TOUR"
+
+#: landing/templates/about1.html:6 landing/templates/contacto1.html:6
+msgid "Artuarium | Viagens Culturais e Roteiros Históricos no Porto"
+msgstr "Artuarium | Viajes Culturales y Rutas Históricas en Oporto"
+
+#: landing/templates/about1.html:7 landing/templates/contacto1.html:7
+msgid ""
+"Descubra o Porto através da história e beleza. Roteiros guiados exclusivos, "
+"turismo cultural e experiências autênticas em Portugal."
+msgstr ""
+"Descubre Oporto a través de la historia y la belleza. Rutas guiadas "
+"exclusivas, turismo cultural y experiencias auténticas en Portugal."
+
+#: landing/templates/about1.html:21
+msgid "Detalhe arquitetônico clássico do Porto"
+msgstr "Detalle arquitectónico clásico de Oporto"
+
+#: landing/templates/admin_subscribers.html:108
+msgid "Subscribed At"
+msgstr ""
+
+#: landing/templates/admin_subscribers.html:122
+msgid "No subscribers yet."
+msgstr ""
+
+#: landing/templates/base.html:184
+msgid "Main navigation"
+msgstr ""
+
+#: landing/templates/base.html:189 landing/templates/base1.html:326
+msgid "HOME"
+msgstr "INICIO"
+
+#: landing/templates/base.html:195 landing/templates/base1.html:333
+msgid "ABOUT ME"
+msgstr "SOBRE MÍ"
+
+#: landing/templates/base.html:201 landing/templates/base1.html:339
+msgid "SUPPORT"
+msgstr "APOYAME"
+
+#: landing/templates/base.html:207 landing/templates/base1.html:345
+msgid "CONTACT01"
+msgstr "CONTACTO"
+
+#: landing/templates/base.html:218 landing/templates/base1.html:354
+#, fuzzy
+#| msgid "Seleccione su idioma"
+msgid "Seleccionar idioma"
+msgstr "Seleccione su idioma"
+
+#: landing/templates/base.html:265 landing/templates/base1.html:454
+msgid "Code QR"
+msgstr "Código QR"
+
+#: landing/templates/base.html:266 landing/templates/qr_newsletter_code.html:6
+msgid "Newsletter QR"
+msgstr ""
+
+#: landing/templates/base.html:267 landing/templates/base1.html:455
+msgid "Imagens"
+msgstr "Imágenes"
+
+#: landing/templates/base.html:268 landing/templates/base1.html:456
+msgid "Subscribers"
+msgstr "Suscriptores"
+
+#: landing/templates/base.html:276 landing/templates/base1.html:466
+msgid "logout_nav"
+msgstr "Cerrar sesión"
+
+#: landing/templates/base.html:292 landing/templates/base1.html:481
+#: landing/templates/index.html:78 landing/templates/index.html:174
+#: landing/templates/index1.html:35 landing/templates/index1.html:140
+#: landing/templates/test.html:78 landing/templates/test.html:174
+msgid " AGENDA UN TOUR "
+msgstr "AGENDA UN TOUR"
+
+#: landing/templates/base.html:368
+msgid "Back to top"
+msgstr ""
+
+#: landing/templates/contacto.html:30 landing/templates/contacto1.html:29
+msgid "Olá!"
+msgstr "Hola"
+
+#: landing/templates/contacto.html:32 landing/templates/contacto1.html:32
+msgid ""
+"Obrigado pelo seu interesse em trabalhar comigo. Não hesite em me contactar "
+"para qualquer consulta de negócios!."
+msgstr ""
+"Gracias por tu interés en trabajar conmigo. No dudes en contactarme para "
+"cualquier consulta de negocios."
+
+#: landing/templates/contacto.html:33 landing/templates/contacto1.html:35
+msgid ""
+"Você também pode selecionar esta caixinha para se juntar ao Arauto & "
+"Anfitrião, o meu boletim pessoal."
+msgstr ""
+"También puedes seleccionar esta casilla para unirte a Arauto & Anfitrión, mi "
+"boletín personal."
+
+#: landing/templates/contacto.html:34 landing/templates/contacto1.html:38
+msgid ""
+"Se você quiser me conhecer melhor, ou ver como você pode me ajudar, acesse "
+"os links abaixo!."
+msgstr ""
+"Si quieres saber más sobre mí, o ver las formas en que me puedes apoyar, "
+"accede a los enlaces de abajo."
+
+#: landing/templates/contacto.html:38 landing/templates/contacto.html:39
+#: landing/templates/contacto1.html:45 landing/templates/contacto1.html:46
+#: landing/templates/index.html:210 landing/templates/index1.html:176
+#: landing/templates/test.html:210
+msgid "APOIAR"
+msgstr "APOYAR"
+
+#: landing/templates/index.html:60 landing/templates/index1.html:17
+#: landing/templates/test.html:60
+msgid "Introdução Artuarium"
+msgstr "Introducción Artuarium"
+
+#: landing/templates/index.html:66 landing/templates/index1.html:23
+#: landing/templates/test.html:66
+msgid "Seja bem-vindo ao início de um caminho"
+msgstr "Bienvenido al inicio de un camino."
+
+#: landing/templates/index.html:69 landing/templates/index1.html:26
+#: landing/templates/test.html:69
+msgid ""
+"Um encontro entre história, beleza e emoção. Um passeio guiado no Porto que "
+"começa antes de você chegar."
+msgstr ""
+"Un encuentro entre historia, belleza y emoción. Un tour guiado en Oporto que "
+"comienza antes de que llegues."
+
+#: landing/templates/index.html:72 landing/templates/index.html:190
+#: landing/templates/index.html:209 landing/templates/index.html:333
+#: landing/templates/index.html:362 landing/templates/index1.html:29
+#: landing/templates/index1.html:156 landing/templates/index1.html:175
+#: landing/templates/index1.html:298 landing/templates/index1.html:327
+#: landing/templates/test.html:72 landing/templates/test.html:190
+#: landing/templates/test.html:209 landing/templates/test.html:333
+#: landing/templates/test.html:362
+msgid "Ver roteiros culturais"
+msgstr "Ver recorridos culturales"
+
+#: landing/templates/index.html:73 landing/templates/index1.html:30
+#: landing/templates/test.html:73
+msgid "Descubra o caminhho"
+msgstr ""
+
+#: landing/templates/index.html:112 landing/templates/index1.html:69
+#: landing/templates/test.html:112
+msgid "Uma viagem de corpo e alma"
+msgstr "Un viaje del cuerpo y del alma."
+
+#: landing/templates/index.html:116 landing/templates/index1.html:73
+#: landing/templates/test.html:116
+msgid ""
+"Artuarium é o templo da mente do Artur — isto é, da minha mente. Ela nasce "
+"de forma simples: de um único guia turístico no Porto, no começo da carreira "
+"independente, construindo um trabalho onde a história, a beleza e a emoção "
+"caminham juntas."
+msgstr ""
+"Artuarium es el templo de la mente de Artur — es decir, de mi mente. Surge "
+"de forma sencilla: de un único guía turístico en Oporto, al inicio de su "
+"carrera independiente, construyendo un trabajo donde la historia, la belleza "
+"y la emoción caminan juntas."
+
+#: landing/templates/index.html:119 landing/templates/index1.html:76
+#: landing/templates/test.html:119
+msgid ""
+"Para mim, o passado não é algo distante, mas uma força viva que molda quem "
+"somos. Eu rejeito o turismo apressado. Aqui, cada rota é uma narrativa; cada "
+"tour, um convite à reflexão."
+msgstr ""
+"Para mí, el pasado no es distante, sino una fuerza viva que nos forma. "
+"Rechazo el turismo apresurado. Aquí, cada ruta es una narrativa; cada tour, "
+"una invitación a la reflexión."
+
+#: landing/templates/index.html:122 landing/templates/index1.html:79
+#: landing/templates/test.html:122
+msgid ""
+"O trabalho é providenciar uma visita guiada profunda pela cidade. Meu tour "
+"histórico do Porto é uma experiência cultural, além de um leve caminhar por "
+"esta cidade milenar."
+msgstr ""
+"Mi labor es ofrecer una visita guiada profunda en Oporto. Mi tour histórico "
+"de Oporto es una experiencia cultural, además de un caminar ligero por esta "
+"ciudad milenaria."
+
+#: landing/templates/index.html:128 landing/templates/index1.html:85
+#: landing/templates/test.html:128
+msgid ""
+"Nos meus passeios guiados, ofereço um olhar presente, profundo e autêntico "
+"do mundo ao redor."
+msgstr ""
+"En mis paseos guiados, ofrezco una mirada presente, profunda y auténtica del "
+"mundo que nos rodea."
+
+#: landing/templates/index.html:131 landing/templates/index1.html:88
+#: landing/templates/test.html:131
+msgid ""
+"Mal içamos velas, mas a jornada será cumprida e, desde já, cheia de "
+"propósito."
+msgstr ""
+"Apenas izamos velas, pero el camino se cumplirá y, desde ahora, lleno de "
+"propósito."
+
+#: landing/templates/index.html:148 landing/templates/index1.html:105
+#: landing/templates/test.html:148
+msgid "A Essência da Jornada"
+msgstr "La Esencia del Camino"
+
+#: landing/templates/index.html:161 landing/templates/index1.html:120
+#: landing/templates/test.html:161
+msgid "Conhecimento que Ilumina"
+msgstr "Conocimiento que Ilumina"
+
+#: landing/templates/index.html:164 landing/templates/index1.html:123
+#: landing/templates/test.html:164
+msgid ""
+"A pesquisa rigorosa é o coração do meu trabalho. É a partir dela que "
+"construo walking tours no Porto com rigor histórico, entregues com clareza, "
+"paixão e compromisso."
+msgstr ""
+"La investigación rigurosa es el corazón de mi trabajo. A partir de ella "
+"construyo walking tours en Oporto con rigor histórico, entregados con "
+"claridad, pasión y compromiso."
+
+#: landing/templates/index.html:184 landing/templates/index1.html:150
+#: landing/templates/test.html:184
+msgid "Beleza que se Educa"
+msgstr "Belleza que Educa"
+
+#: landing/templates/index.html:187 landing/templates/index1.html:153
+#: landing/templates/test.html:187
+msgid ""
+"A beleza do Porto é natural, construída e vivida. Permita-se o olhar sem "
+"exageros, sem artifícios — apenas com atenção."
+msgstr ""
+"La belleza de Oporto es natural, construida y vivida. Permítete mirar sin "
+"exageraciones, sin artificios, sólo con atención."
+
+#: landing/templates/index.html:191 landing/templates/index1.html:157
+#: landing/templates/test.html:191
+msgid " ACOMPANHAR"
+msgstr "ACOMPAÑAR"
+
+#: landing/templates/index.html:201 landing/templates/index1.html:167
+#: landing/templates/test.html:201
+msgid "Gentileza que Sustenta"
+msgstr "Gentileza que Sostiene"
+
+#: landing/templates/index.html:204 landing/templates/index1.html:170
+#: landing/templates/test.html:204
+msgid ""
+"O objetivo é criar uma experiência única no Porto que permanece na memória "
+"e, por sua vez, sustenta o meu lar e a minha educação contínua."
+msgstr ""
+"El objetivo es crear una experiencia única en Oporto que permanezca en la "
+"memoria y, a su vez, sostenga mi hogar y mi educación continua."
+
+#: landing/templates/index.html:227 landing/templates/index1.html:193
+#: landing/templates/test.html:227
+msgid "JUNTE-SE / COMO PARTICIPAR"
+msgstr "ÚNETE / CÓMO PARTICIPAR"
+
+#: landing/templates/index.html:230 landing/templates/index1.html:196
+#: landing/templates/test.html:230
+msgid "Um passeio que lhe aguarda, uma alma que se ilumina"
+msgstr "Un paseo que te espera, un alma que se ilumina"
+
+#: landing/templates/index.html:246 landing/templates/index1.html:212
+#: landing/templates/test.html:246
+msgid "Agende seu passeio privado"
+msgstr "Reserva tu tour privado"
+
+#: landing/templates/index.html:248 landing/templates/index1.html:214
+#: landing/templates/test.html:248
+msgid ""
+"Entenda o quão importante o Porto é para Portugal, e o quão importante "
+"Portugal é para a história humana. Um tour privado no Porto é o espaço ideal "
+"para explorarmos isso com calma."
+msgstr ""
+"Comprende cuán importante es Oporto para Portugal y cuán importante es "
+"Portugal para la historia humana. Un tour privado en Oporto es el espacio "
+"ideal para explorarlo con calma."
+
+#: landing/templates/index.html:265 landing/templates/index1.html:231
+#: landing/templates/test.html:265
+msgid "Contemple a história comigo"
+msgstr "Contempla la historia conmigo"
+
+#: landing/templates/index.html:267 landing/templates/index1.html:233
+#: landing/templates/test.html:267
+msgid ""
+"Junte-se ao meu boletim ANFITRIÃO & ARAUTO para aprender história comigo. Em "
+"pedacinhos, a cada semana."
+msgstr ""
+"Únete a mi boletín ANFITRIÓN & ARAUTO para aprender historia conmigo. En "
+"pequeños fragmentos, cada semana."
+
+#: landing/templates/index.html:284 landing/templates/index1.html:250
+#: landing/templates/test.html:284
+msgid "Apoie meu crescimento"
+msgstr "Apoya mi crecimiento"
+
+#: landing/templates/index.html:286 landing/templates/index1.html:252
+#: landing/templates/test.html:286
+msgid ""
+"Roma não foi construída em um dia; é do seu apoio que minha vida se "
+"financia. Clique aqui para me apoiar diretamente."
+msgstr ""
+"Roma no se construyó en un día; es con tu apoyo que mi vida se sostiene. Haz "
+"clic aquí para apoyarme directamente."
+
+#: landing/templates/index.html:303 landing/templates/index1.html:269
+#: landing/templates/test.html:303
+msgid "DEIXE UMA AVALIAÇÃO"
+msgstr "DEJA UNA RESEÑA"
+
+#: landing/templates/index.html:310 landing/templates/index1.html:276
+#: landing/templates/test.html:310
+msgid ""
+"A sua avaliação ajuda o algoritmo do Google a reconhecer o meu trabalho como "
+"guia turístico no Porto e melhora a visibilidade dos meus walking tours na "
+"cidade. Uma ou duas frases são suficientes — e fazem toda a diferença."
+msgstr ""
+"Ayuda al algoritmo a reconocer mi trabajo como guía en Oporto dejando una "
+"reseña. Una o dos frases son más que suficientes. Aquí tienes palabras clave "
+"que el algoritmo valora:"
+
+#: landing/templates/index.html:316 landing/templates/index1.html:282
+#: landing/templates/reviews.html:185 landing/templates/test.html:316
+msgid "tour no Porto"
+msgstr "tour en Oporto"
+
+#: landing/templates/index.html:317 landing/templates/index1.html:283
+#: landing/templates/reviews.html:186 landing/templates/test.html:317
+msgid "free tour Porto"
+msgstr "free tour Oporto"
+
+#: landing/templates/index.html:318 landing/templates/index1.html:284
+#: landing/templates/reviews.html:187 landing/templates/test.html:318
+msgid "visita guiada no Porto"
+msgstr "visita guiada en Oporto"
+
+#: landing/templates/index.html:319 landing/templates/index1.html:285
+#: landing/templates/reviews.html:188 landing/templates/test.html:319
+msgid "melhor tour do Porto"
+msgstr "mejor tour de Oporto"
+
+#: landing/templates/index.html:320 landing/templates/index1.html:286
+#: landing/templates/reviews.html:189 landing/templates/test.html:320
+msgid "guia turístico no Porto"
+msgstr "guía turístico en Oporto"
+
+#: landing/templates/index.html:321 landing/templates/index1.html:287
+#: landing/templates/reviews.html:190 landing/templates/test.html:321
+msgid "história do Porto"
+msgstr "historia de Oporto"
+
+#: landing/templates/index.html:322 landing/templates/index1.html:288
+#: landing/templates/reviews.html:191 landing/templates/test.html:322
+msgid "tour histórico no Porto"
+msgstr "tour histórico de Oporto"
+
+#: landing/templates/index.html:323 landing/templates/index1.html:289
+#: landing/templates/reviews.html:192 landing/templates/test.html:323
+msgid "walking tour Porto"
+msgstr "walking tour Oporto"
+
+#: landing/templates/index.html:334 landing/templates/index1.html:299
+#: landing/templates/reviews.html:197 landing/templates/test.html:334
+msgid "Avaliar no Google"
+msgstr "Dejar reseña en Google"
+
+#: landing/templates/index.html:352 landing/templates/index1.html:317
+#: landing/templates/test.html:352
+msgid "Caminhe ao meu lado"
+msgstr "Camina a mi lado"
+
+#: landing/templates/index.html:356 landing/templates/index1.html:321
+#: landing/templates/test.html:356
+msgid ""
+"Para reservar um passeio pelo centro histórico do Porto, tirar dúvidas ou "
+"formar parcerias, escreva-me. Abordarei cada assunto com a calma que merece."
+msgstr ""
+"Para reservar un paseo por el casco histórico de Oporto, resolver dudas o "
+"crear parcerias, escríbeme. Trataré cada asunto con la calma que merece."
+
+#: landing/templates/index.html:363 landing/templates/index1.html:328
+#: landing/templates/test.html:363
+msgid "ENTRE EM CONTATO"
+msgstr "CONTACTO"
+
+#: landing/templates/index.html:369 landing/templates/index1.html:334
+#: landing/templates/test.html:369
+msgid "AGENDA UN TOUR"
+msgstr "AGENDA UN TOUR"
+
+#: landing/templates/index1.html:134
+msgid " AGENDAR"
+msgstr "AGENDAR "
+
+#: landing/templates/login.html:100
+msgid "Invalid username "
+msgstr "Nombre de usuario inválido"
+
+#: landing/templates/login.html:106
+msgid "Username"
+msgstr "Nombre de usuario"
+
+#: landing/templates/login.html:107
+msgid "Password"
+msgstr "Contraseña"
+
+#: landing/templates/login.html:109
+msgid "Login"
+msgstr "Iniciar sesión"
+
+#: landing/templates/nosotros.html:427
+msgid "Viajar não é apenas deslocar-se:"
+msgstr "Viajar no es solo desplazarse:"
+
+#: landing/templates/nosotros.html:428
+msgid "é escutar."
+msgstr "es escuchar."
+
+#: landing/templates/nosotros.html:432
+msgid ""
+"Na Artuarium, cada caminho carrega uma voz — um sopro do passado que "
+"encontra o presente e se transforma em"
+msgstr ""
+"En Artuarium, cada camino carga una voz — un soplo del pasado que encuentra "
+"el presente y se transforma en"
+
+#: landing/templates/nosotros.html:433
+msgid "gesto, memória e encantamento."
+msgstr "gesto, memoria y encantamiento."
+
+#: landing/templates/nosotros.html:437
+msgid "Guiamos jornadas que caminham no ritmo da cidade."
+msgstr "Guiamos jornadas que caminan al ritmo de la ciudad."
+
+#: landing/templates/nosotros.html:438
+msgid "Que não mostram — revelam camadas invisíveis."
+msgstr "Que no muestran — revelan capas invisibles."
+
+#: landing/templates/nosotros.html:439
+msgid "Que não explicam — conectam sentidos e histórias."
+msgstr "Que no explican — conectan sentidos e historias."
+
+#: landing/templates/nosotros.html:443
+msgid "Aqui, o tempo desacelera. As pedras contam segredos."
+msgstr "Aquí, el tiempo se desacelera. Las piedras cuentan secretos."
+
+#: landing/templates/nosotros.html:446
+msgid "E você deixa de olhar — para finalmente ver."
+msgstr "Y dejas de mirar — para finalmente ver."
+
+#: landing/templates/nosotros.html:474
+msgid "Narrativas que despertam ao caminhar."
+msgstr "Narrativas que despiertan al caminar."
+
+#: landing/templates/nosotros.html:477
+msgid "Cada experiência nasce de uma pergunta, de um olhar e de um encontro."
+msgstr ""
+"Cada experiencia nace de una pregunta, de una mirada y de un encuentro."
+
+#: landing/templates/nosotros.html:479
+msgid "Aqui, você escolhe qual história deseja escutar primeiro."
+msgstr "Aquí eliges qué historia deseas escuchar primero."
+
+#: landing/templates/qr.html:6 landing/templates/qr_banderas.html:6
+msgid "Tu CÓDIGO QR "
+msgstr "Tu CÓDIGO QR"
+
+#: landing/templates/qr.html:15 landing/templates/qr_banderas.html:15
+#: landing/templates/qr_newsletter_code.html:13
+msgid "Imprimir"
+msgstr "Imprimir"
+
+#: landing/templates/qr.html:19 landing/templates/qr_banderas.html:19
+#: landing/templates/qr_newsletter_code.html:17
+msgid "Descargar como imagen"
+msgstr "Descargar como imagen"
+
+#: landing/templates/qr_newsletter.html:155
+msgid "Descubra o Porto de outra forma"
+msgstr "Descubre Oporto de otra forma"
+
+#: landing/templates/qr_newsletter.html:173 landing/templates/reviews.html:162
+msgid "Mantenha o laço"
+msgstr "Únete al ARAUTO & ANFITRIÓN"
+
+#: landing/templates/qr_newsletter.html:177 landing/templates/reviews.html:164
+msgid "Recebe novos roteiros, conteúdos exclusivos e histórias vivas de Porto."
+msgstr "Sigue mi humilde publicación para acompañar mi recorrido."
+
+#: landing/templates/qr_newsletter.html:185 landing/templates/reviews.html:171
+msgid "Inscrever-se"
+msgstr "Suscribirse"
+
+#: landing/templates/qr_newsletter.html:190
+msgid "Sem spam. Apenas conteúdo com curadoria."
+msgstr ""
+
+#: landing/templates/qr_newsletter_lang.html:98
+#: landing/templates/reviews-lang.html:98
+msgid "Seleccione su idioma"
+msgstr "Seleccione su idioma"
+
+#: landing/templates/reviews.html:154
+msgid "Obrigado por viver este caminho comigo."
+msgstr "Gracias por caminar conmigo."
+
+#: landing/templates/reviews.html:155
+msgid ""
+"Aqui podes continuar o percurso — partilhar as tuas fotos, deixar uma "
+"review, apoiar o projeto e receber novidades."
+msgstr ""
+"A serguir econtrarás QUATRO PASOS que puedes seguir para apoyar mi camino"
+
+#: landing/templates/reviews.html:179
+msgid "Deixe uma avaliação"
+msgstr "Deja una reseña"
+
+#: landing/templates/reviews.html:182
+msgid ""
+"A sua avaliação ajuda o algoritmo do Google a reconhecer o meu trabalho como "
+"guia turístico no Porto."
+msgstr ""
+"Ayuda al algoritmo a reconocer mi trabajo como guía en Oporto dejando una "
+"reseña. Una o dos frases son más que suficientes y marcan la diferencia."
+
+#: landing/templates/reviews.html:265
+msgid "Junte-se ao meu Patreon"
+msgstr "Únete al Patreon"
+
+#: landing/templates/reviews.html:269
+msgid ""
+"  Roma não foi construída em um dia; é do seu apoio que este trabalho "
+"continua."
+msgstr ""
+"Roma no se construyó en un día; es con tu apoyo que mi vida se sostiene. Haz "
+"clic aquí para apoyarme reurrentemente"
+
+#: landing/templates/reviews.html:281
+msgid "Siga no Instagram"
+msgstr "También puedes seguirme en instagram!"
+
+#: landing/views.py:205
+msgid "Obrigado por se inscrever na newsletter."
+msgstr "Gracias por suscribirte!"
+
+#~ msgid "Memórias Visuais"
+#~ msgstr "Comparte tus recuerdos!"
+
+#~ msgid "Tiraste fotos durante o percurso? Partilha aqui o que capturaste."
+#~ msgstr "Si sacaste fotos de mi o de mi grupo durante el tour, subelas aqui!"
+
+#~ msgid "Escolher fotos"
+#~ msgstr "Elegir fotos"
+
+#~ msgid "Enviar fotos"
+#~ msgstr "Enviar fotos"
+
+#~ msgid "Vista panorâmica do Porto e arquitetura histórica"
+#~ msgstr "Vista panorámica de Oporto y arquitectura histórica"
+
+#~ msgid "Vista do Rio Douro e Ribeira do Porto"
+#~ msgstr "Vista del río Duero y de la Ribeira de Oporto"
+
+#~ msgid "Pôr do sol no Oceano Atlântico, Foz do Douro"
+#~ msgstr "Puesta de sol en el océano Atlántico, Foz do Douro"
+
+#~ msgid "Elétrico histórico do Porto e fachadas coloridas"
+#~ msgstr "Tranvía histórico de Oporto y fachadas coloridas"
+
+#~ msgid "SOBRE MIM"
+#~ msgstr "SOBRE MI"
+
+#~ msgid "A tua voz importa"
+#~ msgstr "Tu voz importa"
+
+#~ msgid "O teu relato ajuda este projeto a crescer."
+#~ msgstr "Tu relato ayuda a que este proyecto crezca."
+
+#~ msgid "CAMINHOS & ROTEIROS"
+#~ msgstr "CAMINOS & RUTAS"
+
+#~ msgid "Junte-se à jornada"
+#~ msgstr "Camina a mi lado"
+
+#~ msgid "Enviar Mensagem"
+#~ msgstr "Enviar mensaje"
+
+#~ msgid "Deixar Review no Google"
+#~ msgstr "Dejar reseña en Google"
+
+#~ msgid "Teu nome"
+#~ msgstr "Tu nombre"
+
+#~ msgid "Teu melhor email"
+#~ msgstr "Tu mejor correo electrónico"

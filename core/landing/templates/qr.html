@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+<div class="container d-flex flex-column align-items-center justify-content-center" style="min-height: 100vh;">
+  <h2 class="mb-4">{% translate "Tu CÓDIGO QR " %}</h2>
+
+  <div class="bg-white p-4 shadow rounded text-center" id="qr-area">
+    <img src="data:image/png;base64,{{ qr_image }}" alt="QR Code" id="qrcode" class="img-fluid mb-3" width="256" height="256">
+    {% comment %} <p class="text-muted small">{{ review_url }}</p> {% endcomment %}
+
+    <div class="botones-qr d-flex align-items-center gap-3 mt-3">    
+        <button class="btn1 me-2" onclick="window.print()">
+            {% translate "Imprimir" %}
+        </button>    
+        <a download="codigo-qr.png"
+           href="data:image/png;base64,{{ qr_image }}" class="btn1">
+           {% translate "Descargar como imagen" %}
+        </a>    
+    </div>    
+  </div>
+</div>
+{% endblock %}
+

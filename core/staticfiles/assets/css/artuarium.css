@@ -1,0 +1,566 @@
+
+/* 1. SWITZER (Corregida la ruta profunda y la extensión .otf) */
+@font-face {
+  font-family: 'Switzer';
+  font-style: normal;
+  font-weight: 400;
+  /* Fíjate en esta ruta: sube (..), entra en fonts, luego Switzer, luego Fonts, luego OTF */
+  src: url('../fonts/Switzer_Complete/Fonts/OTF/Switzer-Regular.otf') format('opentype');
+}
+
+@font-face {
+  font-family: "Playfair Display SC";
+  src: url("/static/assets/fonts/Playfair_Display_SC/PlayfairDisplaySC-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Playfair Display SC";
+  src: url("/static/assets/fonts/Playfair_Display_SC/PlayfairDisplaySC-Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+}
+
+/* services.css */
+
+
+
+
+body.portfolio-details-page {
+  opacity: 1 !important;
+}
+#hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: #F8F3EC !important;
+  /* En escritorio mantenemos el padding y altura original */
+  padding: 100px 0;
+  overflow: hidden; 
+  z-index: 1;
+  min-height: 80vh;
+  /* Quitamos el max-height estricto para evitar cortes si el contenido crece */
+  height: auto; 
+}
+
+#hero .container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px; /* Margen seguro a los lados */
+  position: relative;
+  z-index: 10;
+}
+
+#hero .row-hero {
+  display: flex;
+  align-items: center;
+  min-height: 60vh;
+  /* Flex wrap permite que caigan uno debajo del otro en móvil */
+  flex-wrap: wrap; 
+}
+
+/* --- TEXTO DEL HERO --- */
+.hero1-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* Padding derecho solo en escritorio */
+  padding-right: 40px; 
+}
+
+.hero1-content h1 {
+  /* Usamos CLAMP para que la fuente se escale suavemente entre móvil y escritorio */
+  font-size: clamp(1.8rem, 4vw, 2.5rem); 
+  font-weight: 300;
+  line-height: 1.2;
+  color: #344E41 !important;
+}
+
+.hero1-content h4 {
+  font-size: clamp(1.1rem, 3vw, 1.4rem);
+  color: #344E41 !important;
+  opacity: 0.85;
+  margin-top: 1rem;
+  font-style: italic;
+  font-weight: 300;
+}
+
+.hero1-content .d-flex {
+  margin-top: 40px;
+}
+
+.hero-image-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-image {
+  /* En escritorio */
+  width: 100%;
+  max-width: 620px; 
+  height: auto; 
+  aspect-ratio: 4/3; 
+  object-fit: cover;
+  border-radius: 2px;
+  box-shadow: 0 7px 20px rgba(0,0,0,0.12);
+  border: 1px solid rgba(199,166,106,0.25);
+  transition: transform 0.3s ease;
+}
+
+/* ===========================================
+   MEDIA QUERIES (MÓVIL Y TABLET)
+   =========================================== */
+
+/* Tablets y Laptops pequeñas */
+@media (max-width: 991px) {
+  #hero {
+    padding: 120px 0 60px 0; /* Ajuste intermedio */
+    text-align: center; /* Centramos texto en tablet */
+  }
+
+  .hero1-content {
+    padding-right: 0;
+    margin-bottom: 40px; /* Espacio entre texto e imagen */
+    align-items: center; /* Centrar botón */
+  }
+  
+  .hero-image {
+    max-width: 80%; /* Imagen un poco más pequeña */
+  }
+}
+
+#hero .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+  background: linear-gradient(to bottom, rgba(245,241,237,0) 0%, rgba(245,241,237,0) 55%, rgba(245,241,237,0.6) 75%, rgba(245,241,237,0.1) 88%, rgba(245,241,237,1) 100%);
+}
+
+/* ===========================================
+   BOTONES
+   =========================================== */
+.btn1 {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  border: 1px solid #344E41;
+  color: #344E41;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.8rem;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+  cursor: pointer;
+}
+.btn1:hover {
+  background-color: #344E41;
+  color: #fff;
+}
+
+/* ===========================================
+   FILOSOFIA & SECCIONES
+   =========================================== */
+#filosofia {
+  background-color: #F5F1ED;
+}
+
+#filosofia .container {
+  margin: 0 auto;
+  padding: 50px;
+  background: rgba(255,255,255,0.5);
+}
+
+#filosofia > .container .section-title {
+  text-align: left;
+  margin-bottom: 0;
+}
+
+#filosofia .section-title * {
+    background: transparent !important;
+}
+
+#filosofia > .container h5 {
+  font-family: "Switzer", sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+  color: #1B3A34;
+}
+
+#filosofia .section-title span, 
+#filosofia .filosofia-header .text-caps {
+  letter-spacing: 0.28em;
+  font-size: 0.85rem;
+  color: #52796F;
+}
+
+#filosofia .section-title h2,
+#filosofia .filosofia-title {
+  font-family: "Playfair Display SC", serif;
+  font-size: 2.6rem;
+  font-weight: 300;
+  color: #1B3A34;
+}
+
+#filosofia .filosofia-header {
+    /* padding: px 0 40px; */
+    background: transparent !important;
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+#filosofia .filosofia-header .text-caps {
+    display: block;
+    /* margin-bottom: 0.8rem; */
+}
+
+#filosofia .filosofia-header .text-caps:last-child {
+    margin-top: 1rem;
+    color: #8AA19C;
+}
+.filosofia-title {
+  font-family: var(--heading-font, "Playfair Display SC");
+  font-size: clamp(1.8rem, 4vw, 2.5rem); 
+  color: #344E41;
+  font-weight: 300;
+  line-height: 1.22;
+}
+.pillars-grid
+{
+  margin: 0 auto;
+  padding: 80px;
+  /* background: rgba(255,255,255,0.5); */
+}
+
+
+/* GRID & CARDS */
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+  justify-items: center;
+}
+
+.pillar-card {
+  width: 100%;
+  max-width: 360px;
+  padding: 3rem 2rem;
+  border: 1px solid rgba(26,60,52,0.22);
+  background: rgba(255,255,255,0.7);
+  text-align: center;
+  transition: 0.3s ease;
+}
+
+.pillar-card:hover {
+  transform: translateY(-4px);
+}
+
+.icon-wrapper {
+  font-size: 28px;
+  margin-bottom: 1.2rem;
+  color: #52796F;
+}
+
+.pillar-card h3 {
+  font-family: "Playfair Display SC", serif;
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: #344E41;
+  margin-bottom: 1rem;
+}
+
+.pillar-card p {
+  font-family: "Switzer", sans-serif;
+  font-size: 1rem;
+  color: #344E41;
+  line-height: 1.75;
+  font-weight: 300;
+}
+
+@media (max-width: 991px) {
+    #filosofia .container { max-width: 92%; }
+    .pillars-grid { grid-template-columns: 1fr; }
+    .pillar-card { max-width: 350px; margin: 0 auto; }
+}
+
+
+
+/* PROPÓSITO */
+.section-proposito {
+  padding: 110px 0 130px;
+  background-color: #F5F1ED;
+  font-weight: 300;
+  line-height: 1.9; 
+}
+
+.proposito-title {
+  font-family: var(--heading-font, "Playfair Display SC");
+  font-size: clamp(1.8rem, 4vw, 2.5rem); 
+  color: #344E41;
+  font-weight: 300;
+  line-height: 1.22;
+}
+
+.proposito-lead {
+  font-size: 1.15rem;
+  color: #5B5B5B;
+  margin-bottom: 1.5rem;
+}
+
+.proposito-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 2px;
+  box-shadow: 0 7px 20px rgba(0,0,0,0.10);
+  border: 1px solid rgba(199, 166, 106, 0.25);
+}
+
+/* DIVIDER */
+.divider-artuarium {
+  background-color: #F5F1ED;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  padding: 40px 0;
+}
+
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background: rgba(27,58,52,0.55);
+}
+
+.divider-icon {
+  width: 48px;
+  opacity: 0.9;
+}
+
+/* TOURS IMAGES */
+.tour-img-container {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.tour-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.pillar-card:hover .tour-img-container img {
+  transform: scale(1.05);
+}
+
+/* ===========================================
+   CONTACTO (NUEVO FORMULARIO)
+   =========================================== */
+.contact-section {
+   padding: 8rem 0;
+   text-align: center;
+   background: #F5F1ED;
+}
+
+.contact-box {
+   max-width: 980px;
+   margin: 0 auto;
+   background-color: #344E41;
+   padding: 5rem 4rem;
+   color:#F5F1ED;
+}
+
+.text-caps {
+   display: block;
+   font-size: 0.9rem;
+   letter-spacing: 0.22em;
+   color: #8AB9A3;
+   margin-bottom: 1.5rem;
+   font-family: "Switzer", sans-serif;
+}
+
+.contact-title {
+   font-family: "Playfair Display SC", serif;
+   font-size: 2.3rem;
+   margin-bottom: 1.3rem;
+   color: #F2F0E9;
+   font-weight: 400;
+}
+
+.contact-sub {
+   max-width: 550px;
+   margin: 0 auto 3rem auto;
+   font-family: "Switzer", sans-serif;
+   font-size: 1.1rem;
+   line-height: 1.9;
+   opacity: 0.85;
+   font-weight: 300;
+}
+
+.form-group {
+   margin-bottom: 2.5rem;
+   text-align: left;
+}
+
+/* Importante para el widget de Django */
+.form-input {
+   width: 100%;
+   padding: 0.8rem 0;
+   background: transparent;
+   border: none;
+   border-bottom: 1px solid rgba(255,255,255,0.35);
+   font-size: 1.1rem;
+   font-family: "Switzer", sans-serif;
+   color: #ffffff;
+   font-weight: 300;
+}
+
+.form-input::placeholder {
+   color: rgba(255,255,255,0.7);
+}
+
+.form-input:focus {
+   border-bottom-color: #6BA688;
+   outline: none;
+}
+
+.btn-submit {
+   background-color: #F2F0E9;
+   color: #14332E;
+   padding: 1rem 3rem;
+   border: none;
+   letter-spacing: 0.13em;
+   cursor: pointer;
+   transition: 0.3s ease;
+   font-family: "Switzer", sans-serif;
+}
+
+.btn-submit:hover {
+   background-color: #6BA688;
+   color: #ffffff;
+}
+
+@media (max-width: 768px) {
+    .contact-box { padding: 3rem 2rem; }
+}
+
+@media (max-width: 768px) {
+
+  /* ---------- ABOUT (Propósito) ---------- */
+  #about {
+    padding-top: 20px !important;
+    padding-bottom: 20px !important; 
+  }
+
+  #about .container {
+    padding: 0 !important;
+  }
+
+  #about .row {
+    margin: 0 !important;
+    flex-direction: column-reverse !important;
+  }
+
+  #about .col-lg-7 {
+    padding: 0 16px !important;
+    margin-bottom: 20px !important;
+  }
+
+  .proposito-img {
+    height: 200px !important;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px !important;
+  }
+
+  .proposito-title {
+    font-size: 1.8rem !important;
+    margin-bottom: 10px !important;
+  }
+
+  .text-reading p {
+    margin-bottom: 10px !important;
+    line-height: 1.55 !important;
+  }
+
+  /* Columna vacía desaparece */
+  #about .col-lg-1 {
+    display: none !important;
+  }
+
+
+  /* ---------- DIVIDER ---------- */
+  .divider-artuarium {
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+  }
+
+  .divider-icon {
+    width: 36px !important;
+  }
+
+
+  /* ---------- FILOSOFIA (Nossos Pilares) ---------- */
+  #filosofia .container {
+    padding: 20px 0 !important;
+    max-width: 100% !important;
+  }
+
+  .filosofia-header {
+    padding: 20px 15px !important;
+    text-align: center !important;
+  }
+
+  .filosofia-title {
+    font-size: 2rem !important;
+  }
+
+  /* GRID a UNA sola columna */
+  .pillars-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+    padding: 0 15px !important;
+  }
+
+  .pillar-card {
+    padding: 2rem 1.5rem !important;
+    margin: 0 auto !important;
+  }
+
+
+  /* ---------- SECCIÓN CAMINHOS / ROTEIROS ---------- */
+  #caminhos .container {
+    padding: 10px 0 !important;
+    max-width: 100% !important;
+  }
+
+  /* ---------- CONTACTO ---------- */
+  .contact-section {
+    padding: 3rem 1rem !important;
+  }
+
+  .contact-box {
+    padding: 2.5rem 1.2rem !important;
+  }
+
+  .contact-title {
+    font-size: 1.8rem !important;
+  }
+
+  .btn-submit {
+    width: 100% !important;
+  }
+}

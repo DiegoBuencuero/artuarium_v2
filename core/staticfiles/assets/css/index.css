@@ -1,0 +1,477 @@
+
+  html {
+    scroll-behavior: smooth;
+  }
+/* ===========================================================
+   TITULOS ARTUARIUM – UNIFICACIÓN GLOBAL
+   =========================================================== */
+
+h1,
+h2,
+h3,
+.title-artuarium {
+    font-family: "Playfair Display", serif !important;
+    color: var(--green-dark);
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 1.2rem;
+    letter-spacing: 0.01em;
+}
+
+/* Títulos en mayúsculas por estilo editorial cuando se use .upper-text */
+.upper-text,
+h1.upper-text,
+h2.upper-text,
+h3.upper-text {
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+/* Escala tipográfica elegante */
+h1 {
+    font-size: 3rem;   /* hero principal */
+}
+
+h2 {
+    font-size: 2.4rem; /* títulos de secciones */
+}
+
+h3 {
+    font-size: 1.6rem; /* subtítulos / cards */
+}
+
+/* Responsivo: ajuste suave en mobile */
+@media (max-width: 768px) {
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.85rem; }
+    h3 { font-size: 1.4rem; }
+}
+
+/* ===========================================================
+   PALETA ARTUARIUM (estable, coherente y usada en toda la web)
+   =========================================================== */
+:root {
+    --ivory: #F5F2EA;
+    --green-dark: #0F2823;
+    --green-medium: #4A6B5D;
+    --green-light: #BBD1C5;
+    --gold: #C5A065;
+
+    /* Alias específico para secciones de avaliação, por si se reutiliza */
+    --arty-bg: #F5F2EA;
+}
+
+/* ===========================================================
+   HERO – MAPA DE FONDO SUAVE
+   =========================================================== */
+#hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    /* background-image: url("/static/assets/img/mapa.svg"); */
+    background-image: url("/static/assets/img/mapa-1.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.12;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* ===========================================================
+   TIPOGRAFÍA GENERAL DE TEXTO CORRIDO
+   =========================================================== */
+.upper-text {
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.text-reading {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--green-dark);
+}
+
+/* ===========================================================
+   SECCIÓN — Avaliação Artuarium (Estética Premium Editorial)
+   =========================================================== */
+.review-section,
+#avaliacao-artuarium {
+    background: var(--arty-bg);
+    padding: 4rem 0;
+}
+
+.review-card {
+    background: #fff;
+    border: 1px solid rgba(15, 40, 35, 0.1);
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    padding: 2rem;
+}
+
+/* Título destacado de la sección de avaliação */
+.review-title {
+    font-family: "Playfair Display", serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--green-dark);
+}
+
+/* Texto explicativo */
+.review-description,
+.review-text {
+    font-size: 1.1rem;
+    color: #4a4a4a;
+    line-height: 1.35;
+}
+
+/* Label de palabras clave */
+.keywords-label {
+    font-size: 0.9rem;
+    letter-spacing: 0.12em;
+    font-weight: 600;
+    color: var(--green-medium);
+}
+/* ===========================================================
+   KEYWORDS — Chips (colores invertidos)
+   =========================================================== */
+
+   .keyword-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.1rem 0.5rem;
+
+    font-size: 0.8rem;
+    font-weight: 500;
+    border-radius: 30px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.25s ease-in-out;
+
+    background: rgba(15, 40, 35, 0.85);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Hover — más sutil, no chillón */
+.keyword-chip:hover {
+    background: rgba(74, 107, 93, 0.9); /* verde medio */
+    color: #ffffff;
+}
+
+/* Estado activo / seleccionado */
+.keyword-chip.active,
+.keyword-chip.selected {
+    background: var(--green-dark);     /* verde pleno Artuarium */
+    color: #ffffff;
+    border-color: rgba(255,255,255,0.15);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    transform: scale(1.02);             /* menos exagerado */
+}
+
+
+
+.selected-tag {
+    display: inline-flex;
+    align-items: center;
+    margin: 0.15rem 0.25rem;
+    padding: 0.3rem 0.85rem;
+    border-radius: 20px;
+
+    /* coherente con chips */
+    background: rgba(15, 40, 35, 0.15);
+    font-size: 0.80rem;
+    color: var(--green-dark);
+}
+
+
+.selected-box {
+    background: rgba(245, 242, 234, 0.7);
+    border: 1px dashed rgba(74, 107, 93, 0.5);
+    padding: 1.5rem;
+    border-radius: 10px;
+    min-height: 70px;
+}
+
+/* ===========================================================
+   BOTÓN PRINCIPAL (limpio, una sola versión)
+   =========================================================== */
+.review-btn {
+    display: inline-block;
+    background: var(--green-dark);
+    color: #fff !important;
+    padding: 0.9rem 2.8rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+}
+
+.review-btn:hover {
+    background: var(--green-medium);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+}
+.text-reading strong {
+  font-weight: 700 !important;
+}
+.pillar-text strong {
+  font-weight: 700 !important;
+}
+.text-reading strong {
+  font-weight: 700 !important;
+}
+
+.btn2 {
+  background-color: rgba(52, 78, 65, 1);
+  color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(52, 78, 65, 1);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.85rem;
+  padding: 0.75rem 2rem;
+  transition: all 0.3s ease;
+}
+
+.btn2:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-color: rgba(52, 78, 65, 1);
+  color: rgba(52, 78, 65, 1);
+}
+
+.pillar-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.pillar-link:hover .pillar-card {
+  transform: translateY(-2px);
+  transition: 0.2s ease;
+  cursor: pointer;
+}
+
+
+
+@media (max-width: 768px) {
+    .review-title {
+        font-size: 2.2rem;
+    }
+
+    .keyword-chip {
+        padding: 0.45rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+/* ===========================================================
+   PILLARS GRID – Cards alineadas profesionalmente
+   =========================================================== */
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+}
+
+@media (max-width: 992px) {
+  .pillars-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.pillar-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #fff;
+  border: 1px solid rgba(15, 40, 35, 0.15);
+
+}
+.pillar-card .pillar-text {
+  flex-grow: 1;
+}
+
+.pillar-card .d-flex {
+  margin-bottom: 0.5rem;  /* espacio al fondo del card */
+  justify-content: center;
+  margin-top: auto; /* 🔑 empuja el botón al fondo */
+}
+/* Imagen */
+.pillar-card .tour-img-container {
+  margin-bottom: 1.5rem;
+}
+
+.pillar-card > .mt-2 {
+  flex-grow: 1;
+}
+
+/* CTA */
+.pillar-card .btn1 {
+  margin-top: 2rem;
+  min-width: 200px; 
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+
+  border: 1px solid var(--green-dark);
+  background: transparent;
+  color: var(--green-dark);
+  
+  transition: all 0.25s ease;
+}
+.pillar-card .btn1:hover {
+  background: var(--green-dark);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+#subtitle-hero1 {
+  font-family: "Playfair Display", serif; /* coherente con títulos */
+  font-size: 1.25rem;          /* MÁS GRANDE */
+  font-style: italic;          /* ITÁLICA */
+  font-weight: 300;            /* elegante, no pesada */
+  line-height: 1.6;
+  color:  var(--green-dark);
+  max-width: 720px;
+  margin: 1.6rem auto 2.2rem;
+
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  #subtitle-hero1 {
+    font-size: 1.25rem;
+    line-height: 1.55;
+    padding: 0 1rem;
+  }
+}
+/* Color de la marca (basado en tus imágenes: verde oscuro profundo) */
+    :root {
+        --brand-dark-green: #1e3d32;
+        --brand-cream: #f9f7f2;
+        --brand-border: #cccccc; /* Gris suave para bordes sutiles */
+    }
+    
+    /* Contenedor principal para que parezca una de las tarjetas blancas del sitio */
+    .review-card {
+        background-color: #ffffff;
+        border: 1px solid #e0e0e0; /* Borde muy sutil como las tarjetas de arriba */
+        padding: 3rem 2rem;
+        max-width: 900px; /* Ancho controlado */
+        margin: 0 auto; /* Centrado */
+    }
+    
+    /* Tipografía del Título (Para coincidir con "JUNTE-SE / COMO PARTICIPAR") */
+    .section-title {
+        font-family: 'Times New Roman', Times, serif; /* O la fuente serif que usa el sitio */
+        color: var(--brand-dark-green);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 500;
+    }
+    
+    /* Estilo de las Etiquetas (Tags) - EL CAMBIO IMPORTANTE */
+    .tag-pill {
+        background-color: var(--brand-dark-green);
+        border: 1px solid #b0b0b0; /* Borde fino y gris, no negro pesado */
+        color: #ffffff; /* Texto gris elegante, no negro total */
+        font-family: Helvetica, Arial, sans-serif; /* Sans serif para legibilidad */
+        font-size: 0.7rem; /* Bien pequeñas (aprox 11px o 12px) */
+        padding: 4px 12px;
+        border-radius: 50px; /* Forma ovalada completa */
+        display: inline-block;
+        margin: 3px;
+        text-transform: lowercase; /* Opcional: minúsculas se ven más sutiles */
+        transition: all 0.3s ease;
+        opacity: 0.8; /* Le da esa ligereza visual */
+    }
+    
+    /* Efecto Hover sutil */
+    .tag-pill:hover {
+        border-color: transparent;
+        color: var(--brand-dark-green);
+        opacity: 1;
+    }
+    
+    /* Botón principal (Coincide con el botón "APOIAR" o "AGENDAR") */
+    .btn-brand-outline {
+        border: 1px solid var(--brand-dark-green);
+        color: var(--brand-dark-green);
+        background: transparent;
+        border-radius: 0; /* Bordes cuadrados como en la imagen "AGENDAR" */
+        font-size: 0.85rem;
+        padding: 10px 30px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 600;
+        transition: all 0.3s;
+    }
+    
+    .btn-brand-outline:hover {
+        background-color: var(--brand-dark-green);
+        color: #fff;
+    }
+
+    :root {
+      --artuarium-green: #1e3d32; /* Verde oscuro del PDF */
+      --artuarium-cream: #f9f7f2;
+  }
+  
+  /* Estilo del Botón "Cápsula Invertida" */
+  .btn-brand-solid {
+      background-color: var(--artuarium-green); /* Fondo VERDE */
+      color: #ffffff; /* Letras BLANCAS */
+      border: 1px solid var(--artuarium-green);
+      
+      /* Tipografía y Espaciado */
+      font-family: Helvetica, Arial, sans-serif; /* Sans serif para lectura clara */
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+      padding: 12px 35px; /* Un poco más grande para ser el cierre */
+      font-size: 0.9rem;
+      
+      /* Forma: Si quieres esquinas rectas (elegante) usa 0. Si quieres cápsula usa 50px */
+      border-radius: 0; /* Estilo clásico Artuarium */
+      /* border-radius: 50px; <--- Usa esta línea si prefieres que sea redondo como una pastilla */
+      
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+  }
+  
+  /* Efecto Hover (Al pasar el mouse) */
+  .btn-brand-solid:hover {
+      background-color: transparent; /* Fondo transparente */
+      color: var(--artuarium-green); /* Letras VERDES */
+      border: 1px solid var(--artuarium-green);
+      cursor: pointer;
+  }
+.btn2 {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+
+  border: 1px solid #344E41;
+
+  background: #344E41;   /* verde */
+  color: #FFFFFF;        /* texto blanco */
+
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.8rem;
+
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.btn2:hover {
+  background: transparent;  /* transparente */
+  color: #344E41;           /* texto verde */
+  border-color: #344E41;
+}

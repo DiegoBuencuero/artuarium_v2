@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{# BLOCO DE SEO #}
+{% block title %}{% translate "Artuarium | Viagens Culturais e Roteiros Históricos no Porto" %}{% endblock %}
+{% block meta_description %}{% translate "Descubra o Porto através da história e beleza. Roteiros guiados exclusivos, turismo cultural e experiências autênticas em Portugal." %}{% endblock %}
+
+{% block extra_css %}
+{% comment %} <link rel="stylesheet" href="{% static 'assets/css/services.css' %}"> {% endcomment %}
+{% block extra_css %}
+<link href="{% static 'assets/css/contacto.css' %}" rel="stylesheet">
+{% endblock %}
+<style>
+    /* Estilos existentes... */
+   
+</style>
+
+{% endblock %}
+
+{% block content %}
+<section id="about" class="section-proposito" aria-labelledby="about-heading">
+  <div class="container">      
+    <div class="mx-auto p-5 p-md-5" >
+      <div class="card-body text-center">
+        <div class="mb-5">
+          <h2 class="display-6 font-serif fst-italic mb-3">
+            {% translate "Olá!" %}
+          </h2>
+          <p class="">
+            {% translate "Obrigado pelo seu interesse em trabalhar comigo. Não hesite em me contactar para qualquer consulta de negócios!." %}
+          </p>
+          <p class="">
+            {% translate "Você também pode selecionar esta caixinha para se juntar ao Arauto & Anfitrião, o meu boletim pessoal." %}
+          </p>
+          <p class="">
+            {% translate "Se você quiser me conhecer melhor, ou ver como você pode me ajudar, acesse os links abaixo!." %}
+          </p>
+        </div>
+        <div>  
+          <div class="d-flex gap-3 justify-content-center flex-wrap mt-4">
+            <a href="{% url 'reviews' %}"
+              class="btn1"
+              title="{% translate 'APOIAR' %}">
+              {% translate "APOIAR" %}
+            </a>
+            
+            {% comment %} <a href="{% url 'about' %}"
+              class="btn2"
+              title="{% translate 'SOBRE MIM' %}">
+              {% translate "SOBRE MIM" %}
+            </a> {% endcomment %}
+              <button class="btn2 bokunButton"
+              id="bokun_cta_contact_section"
+              data-src="https://widgets.bokun.io/online-sales/53bbe0a9-5a66-4ab2-b3e5-38cea4fb3e07/experience/1175368?partialView=1">
+              
+              {% translate "AGENDAR UM TOUR" %}
+
+            </button>
+          </div>              
+        </div>  
+      </div>
+    </div>
+  </div> 
+</section>
+{% endblock %}
+
+{% block scrips %}
+<script>
+
+</script>
+{% endblock %}

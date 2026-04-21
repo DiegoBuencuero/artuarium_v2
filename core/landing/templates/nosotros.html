@@ -1,0 +1,544 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<style>
+  body.portfolio-details-page {
+    opacity: 1 !important;
+  }
+  /* ===========================================
+   HERO — CONTENEDOR GENERAL
+   =========================================== */
+#hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: #F8F3EC !important;
+  padding: 140px 0;         /* separación del header */
+  overflow: hidden;
+  z-index: 1;
+  min-height: 80vh;         /* altura elegante y consistente */
+  max-height: 85vh;
+}
+
+/* Mapa de fondo */
+#hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("{% static 'assets/img/mapa.svg' %}");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.22;
+  z-index: -1;
+}
+
+/* ===========================================
+   OVERLAY — Degradado perfecto hasta el borde
+   =========================================== */
+#hero .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;        /* 100% real del viewport */
+  height: 100%;        /* cubre TODO el hero y un poco más */
+  pointer-events: none;
+  z-index: 5;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(245,241,237,0) 0%,
+    rgba(245,241,237,0) 55%,
+    rgba(245,241,237,0.6) 75%,
+    rgba(245,241,237,0.1) 88%,
+    rgba(245,241,237,1) 100%
+  );
+}
+
+/* ===========================================
+   CONTENEDOR
+   =========================================== */
+#hero .container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+  position: relative;
+  z-index: 10;
+}
+
+/* ===========================================
+   FILA — Centrado vertical real
+   =========================================== */
+#hero .row-hero {
+  display: flex;
+  align-items: center;     /* centra TEXTO + IMAGEN */
+  min-height: 60vh;
+}
+
+/* ===========================================
+   COLUMNA DE TEXTO
+   =========================================== */
+.hero1-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 40px;
+}
+
+.hero1-content h1 {
+  font-size: 2.9rem;
+  font-weight: 600;
+  line-height: 1.22;
+  color: #080C0A !important;
+}
+
+.hero1-content h4 {
+  font-size: 1.4rem;
+  color: #344E41 !important;
+  opacity: 0.85;
+  margin-top: 1rem;
+}
+
+.hero1-content .d-flex {
+  margin-top: 40px;
+}
+
+/* ===========================================
+   IMAGEN — Grande, elegante, independiente
+   =========================================== */
+.hero-image {
+  width: 520px;
+  height: 330px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 7px 20px rgba(0,0,0,0.12);
+  border: 1px solid rgba(199,166,106,0.25);
+}
+
+/* Imagen más grande en pantallas grandes */
+@media (min-width: 1600px) {
+  .hero-image {
+    width: 600px;
+    height: 380px;
+  }
+}
+
+/* Tablet */
+@media (max-width: 991px) {
+  .hero-image {
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  #hero .row-hero {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero1-content {
+    padding-right: 0;
+  }
+
+  .hero-image {
+    margin-top: 40px;
+    width: 100%;
+  }
+}
+
+/* ===========================================
+   BOTONES
+   =========================================== */
+.hero1-buttons {
+  padding: 10px 26px;
+  border-radius: 6px;
+  border: 1px solid #1B3A34;
+  background: transparent;
+  color: #1B3A34;
+  font-size: 0.85rem;
+  transition: 0.3s ease;
+}
+
+.hero1-buttons:hover {
+  background-color: #1B3A34;
+  color: #FBF7F2;
+}
+
+.hero1-btn {
+  padding: 10px 26px;
+  border-radius: 6px;
+  background-color: #344E41;
+  color: #FBF7F2;
+  border: 1px solid #344E41;
+  font-size: 0.85rem;
+  transition: 0.3s ease;
+}
+
+.hero1-btn:hover {
+  background-color: #1B3A34;
+  border-color: #1B3A34;
+}
+
+
+/* ============================================================
+   SECCIÓN PROPÓSITO
+   ============================================================ */
+.section-proposito {
+  padding: 110px 0 130px;
+  background-color: #F5F1ED;
+}
+
+.proposito-title {
+  font-family: var(--heading-font);
+  font-size: clamp(2.5rem, 3.2vw, 2.7rem);
+  color: #1B3A34;
+  font-weight: 600;
+  line-height: 1.22;
+  margin-bottom: 1.4rem;
+}
+
+.proposito-title .nivel {
+  color: #0F2622;
+  font-weight: 700;
+}
+
+.proposito-lead {
+  font-size: 1.15rem;
+  color: #5B5B5B;
+  margin-bottom: 1.5rem;
+}
+
+.proposito-lead .enfase {
+  font-weight: 600;
+  color: #1B3A34;
+}
+
+.proposito-list li {
+  font-size: 1.08rem;
+  margin-bottom: 1.2rem;
+  display: flex;
+  gap: 12px;
+  color: #2e2e2e;
+}
+
+.ornamento {
+  color: #c7a66a;
+  font-size: 1.3rem;
+  margin-top: 4px;
+}
+
+.proposito-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 7px 20px rgba(0,0,0,0.10);
+  border: 1px solid rgba(199, 166, 106, 0.25);
+}
+
+/* ============================================================
+   SECCIÓN NARRATIVAS
+   ============================================================ */
+.section-narrativas {
+  background: #F5F1ED;
+  padding: 100px 0 120px;
+}
+
+.narrativas-title {
+  font-family: var(--heading-font);
+  font-size: clamp(2.4rem, 3vw, 2.7rem);
+  font-weight: 600;
+  color: #1B3A34;
+  margin-bottom: 0.8rem;
+}
+
+.narrativas-subtitle {
+  color: #5B5B5B;
+  font-size: 1.1rem;
+  line-height: 1.55;
+  text-align: left;
+}
+
+.narrativa-card {
+  background: white;
+  padding: 40px 30px;
+  border-radius: 14px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+  transition: 0.35s ease;
+}
+.narrativa-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.10);
+}
+
+.icon-box {
+  width: 68px;
+  height: 68px;
+  background: #F4EFE4;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 18px;
+}
+
+.icon-box i {
+  font-size: 26px;
+  color: #1B3A34;
+}
+
+/* ============================================================
+   DIVISOR ARTUARIUM
+   ============================================================ */
+.divider-artuarium {
+  background-color: #F5F1ED;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  padding: 40px 0;
+}
+
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background: rgba(27,58,52,0.55);
+}
+
+.divider-icon {
+  width: 48px;
+  opacity: 0.9;
+}
+
+
+   /* ============================================================
+   CTA FINAL — ARTUARIUM (SIN MAPA) • Paleta Oficial
+   ============================================================ */
+   /* CTA Artuarium — verde profundo */
+   .cta-artuarium {
+     background-color: #0F2622; /* Verde profundo del manual */
+     padding: 130px 0 110px;
+     text-align: center;
+   }
+   
+   /* Títulos */
+   .cta-title {
+     font-family: 'Cormorant Garamond', serif;
+     font-size: 42px;
+     font-weight: 500;
+     color: #F5F1ED; /* Off white */
+     margin-bottom: 20px;
+   }
+   
+   .cta-sub {
+     font-family: 'Cormorant Garamond', serif;
+     font-size: 22px;
+     color: #E8E3DD;
+     margin-bottom: 50px;
+   }
+   
+   /* Botón */
+   .cta-btn {
+     display: inline-block;
+     padding: 12px 40px;
+     border: 1px solid #F5F1ED;
+     color: #F5F1ED;
+     text-decoration: none;
+     font-size: 18px;
+     transition: 0.3s;
+   }
+   
+   .cta-btn:hover {
+     background-color: rgba(255,255,255,0.15);
+   }
+   
+   /* BANDA SEPARADORA (COLOR HUESO / OFF WHITE) */
+   .cta-divider {
+     background-color: #F5F1ED; /* Off White del manual */
+     height: 120px;            /* Ajustable */
+   }
+   
+
+
+</style>
+
+<main class="main">
+
+<!-- ============================================================
+     HERO
+     ============================================================   
+     
+     
+     
+     {% comment %} <section id="hero">
+      <div class="overlay"></div>
+      <div class="container mt-5">
+      
+        <div class="row row-hero" data-aos="fade-up" data-aos-delay="100">
+    
+          <!-- TEXTO -->
+          <div class="col-xl-7 col-lg-7 hero1-content">
+            <h1 id="title-hero1" class="smooth-fade">
+              {% translate "Seja bem-vindo a uma história que começa antes de você chegar." %}
+            </h1>
+    
+            <h4 id="subtitle-hero1" class="smooth-fade">
+              {% translate "Um encontro entre história, beleza e emoção." %}
+            </h4>
+    
+            <div class="d-flex gap-3 mt-5">
+              <a class="hero1-buttons" href="#about">{% translate "Agendar" %}</a>
+              <a class="hero1-btn" href="#about">{% translate "Saiba Mais" %}</a>
+            </div>
+          </div>
+    
+          <!-- IMAGEN -->
+          <div class="col-lg-5 d-flex hero-image-col">
+            <img src="{% static 'assets/img/porto.webp' %}" class="hero-image">
+        </div>
+    
+        </div>
+      </div>
+    </section>
+     {% endcomment %}
+    
+    
+
+<!-- ============================================================
+     PROPÓSITO
+     ============================================================ -->
+<section id="about" class="section-proposito">
+  <div class="container">
+    <div class="row justify-content-between align-items-stretch">
+
+      <div class="col-lg-4 d-flex">
+        <img src="{% static 'assets/img/porto3.jpg' %}" class="img-fluid proposito-img">
+      </div>
+      <div class="col-lg-1">
+      </div>
+
+      <div class="col-lg-7">
+
+        <h2 class="proposito-title">
+          {% translate "Viajar não é apenas deslocar-se:" %}<br>
+          <span class="nivel">{% translate "é escutar." %}</span>
+        </h2>
+
+        <p class="proposito-lead fst-italic">
+          {% translate "Na Artuarium, cada caminho carrega uma voz — um sopro do passado que encontra o presente e se transforma em" %}
+          <span class="enfase">{% translate "gesto, memória e encantamento." %}</span>
+        </p>
+
+        <ul class="proposito-list list-unstyled">
+          <li><span class="ornamento">✦</span> {% translate "Guiamos jornadas que caminham no ritmo da cidade." %}</li>
+          <li><span class="ornamento">✦</span> {% translate "Que não mostram — revelam camadas invisíveis." %}</li>
+          <li><span class="ornamento">✦</span> {% translate "Que não explicam — conectam sentidos e histórias." %}</li>
+        </ul>
+
+        <p>
+          {% translate "Aqui, o tempo desacelera. As pedras contam segredos." %}
+          <br>
+          <span class="final-frase mt-3">
+            {% translate "E você deixa de olhar — para finalmente ver." %}
+          </span>
+        </p>
+
+      </div>
+
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     DIVISOR
+     ============================================================ -->
+<div class="divider-artuarium">
+  <span class="divider-line"></span>
+  <img src="{% static 'assets/img/icono_arturium.png' %}" class="divider-icon">
+  <span class="divider-line"></span>
+</div>
+
+<!-- ============================================================
+     NARRATIVAS
+     ============================================================ -->
+    <section id="services" class="section-narrativas">
+      <div class="container">
+
+        <div class="mb-5 text-left">
+          <h2 class="narrativas-title">
+            {% translate "Narrativas que despertam ao caminhar." %}
+          </h2>
+          <p class="narrativas-subtitle">
+            {% translate "Cada experiência nasce de uma pergunta, de um olhar e de um encontro." %}
+            <br>
+            {% translate "Aqui, você escolhe qual história deseja escutar primeiro." %}
+          </p>
+        </div>
+
+        <div class="row gy-4">
+          <div class="col-lg-4 col-md-6">
+            <div class="narrativa-card">
+              <div class="icon-box"><i class="bi bi-eye"></i></div>
+              <h3>Olhar Devagar</h3>
+              <p>Estética da contemplação. Pequenos instantes que mudam o ritmo do mundo.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6">
+            <div class="narrativa-card">
+              <div class="icon-box"><i class="bi bi-journal-bookmark"></i></div>
+              <h3>Cuidar das Histórias</h3>
+              <p>Memórias não são fatos: são heranças vivas que precisam de cuidado.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6">
+            <div class="narrativa-card">
+              <div class="icon-box"><i class="bi bi-signpost-split"></i></div>
+              <h3>Caminhar com Alma</h3>
+              <p>O caminho importa tanto quanto o destino. Cada passo também narra.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="cta-artuarium">
+      <div class="cta-inner">
+        <h2 class="cta-title">
+          Permita-se uma jornada com olhos de quem vê além das fachadas.
+        </h2>
+
+        <p class="cta-sub">
+          Descubra um novo jeito de viajar.
+        </p>
+
+        <a href="#contato" class="cta-btn">Agendar</a>
+      </div>
+    </section>
+
+    <!-- BANDA SEPARADORA DEL MANUAL -->
+    <section class="cta-divider"></section>
+
+    
+
+</main>
+{% endblock %}
+
+{% block scrips %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // animaciones hero
+    const title = document.getElementById("title-hero1");
+    const subtitle = document.getElementById("subtitle-hero1");
+
+    setTimeout(() => title.classList.add("show"), 300);
+    setTimeout(() => subtitle.classList.add("show"), 1400);
+});
+</script>
+{% endblock %}

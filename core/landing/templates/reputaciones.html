@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+<div class="container my-5">
+  <h2 class="mb-4 text-center">O que dizem sobre a Artuarium</h2>
+
+  <div class="row g-4">
+    {% for r in reputacoes %}
+      <div class="col-md-4">
+        <div class="p-4 h-100 shadow-sm rounded" style="background:#fff;">
+          <p class="mb-1 small text-warning">
+            {% for i in "12345"|slice:":r.rating"|make_list %}★{% endfor %}
+          </p>
+          <p class="fw-semibold mb-1">{{ r.nome }}</p>
+          <p class="small text-muted mb-2">{{ r.get_origem_display }}</p>
+          <p class="mb-0">“{{ r.texto }}”</p>
+        </div>
+      </div>
+    {% empty %}
+      <p class="text-center">Ainda não há depoimentos publicados.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+

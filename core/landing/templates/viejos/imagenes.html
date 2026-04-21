@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+
+<style>
+    :root {
+        --art-marfim: #F2F0E9;
+        --art-dark: #1A3C34;
+        --art-medium: #5D8C7B;
+        --art-light: #E0E8E5;
+    }
+
+    body {
+        background-color: var(--art-marfim);
+        color: var(--art-dark);
+        font-family: 'Lato', sans-serif;
+    }
+
+    .font-serif { font-family: 'Playfair Display', serif; }
+    .font-sans { font-family: 'Lato', sans-serif; }
+
+    .text-art-dark { color: var(--art-dark) !important; }
+    .text-art-medium { color: var(--art-medium) !important; }
+
+    .art-header-line {
+        width: 60px;
+        height: 1px;
+        background-color: var(--art-dark);
+        opacity: 0.3;
+        margin: 1.5rem auto;
+    }
+
+    .art-card {
+        border: none;
+        border-radius: 2px;
+        overflow: hidden;
+        background-color: var(--art-light);
+        aspect-ratio: 1/1;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .art-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.8s ease, filter 0.5s ease;
+        filter: grayscale(10%);
+    }
+
+    .art-card:hover img {
+        transform: scale(1.1);
+        filter: grayscale(0%);
+    }
+
+    .art-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(26,60,52,0.9), transparent);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 1.25rem;
+    }
+
+    .modal-content {
+        background-color: var(--art-marfim);
+        border: none;
+        border-radius: 2px;
+    }
+
+    .modal-backdrop.show {
+        opacity: 0.9;
+        background-color: var(--art-dark);
+    }
+
+.imagenes-wrapper { margin-top: 140px; }
+@media (max-width: 768px) {
+    .imagenes-wrapper { margin-top: 170px; }
+}
+</style>
+
+
+<!-- MAIN CONTENT -->
+<div class="container-fluid min-vh-100 py-5">
+
+    <!-- Header -->
+    <div class="row justify-content-center text-center mb-5">
+        <div class="col-12 col-md-8">
+            {% comment %} <h1 class="font-serif display-5 text-art-dark mt-5">Artuarium</h1>
+            <div class="art-header-line"></div> {% endcomment %}
+            {% comment %} <p class="font-serif fst-italic h5 text-art-medium">
+                "Reencantar o mundo através da história."
+            </p> {% endcomment %}
+        </div>
+    </div>
+
+
+    <div class="row mb-4 px-3 px-md-5 mt-5">
+        <div class="col-12 d-flex justify-content-between align-items-end border-bottom border-secondary border-opacity-25 pb-2">
+            <h2 class="font-serif h4 mb-0 text-art-dark">Jornadas Recentes</h2>
+            <span class="font-sans small text-uppercase text-art-medium d-none d-sm-block">Ordenado por data</span>
+        </div>
+    </div>
+
+
+    <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-3 px-3 px-md-5">
+        {% for photo in photos %}
+        <div class="col">
+            <div class="card art-card shadow-sm"
+                 data-bs-toggle="modal"
+                 data-bs-target="#artModal"
+                 data-img="{{ photo.image.url }}"
+                 data-token="{{ photo.token }}"
+                 data-date="{{ photo.uploaded_at|date:'d de F de Y' }}">
+
+                <img src="{{ photo.image.url }}" alt="Foto" loading="lazy">
+
+                <div class="art-overlay">
+                    <span class="font-serif text-white h6 mb-1">{{ photo.uploaded_at|date:"d M Y" }}</span>
+                    <span class="font-sans text-white-50 small text-uppercase px-2 rounded-pill border border-light">
+                        {{ photo.token }}
+                    </span>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <p class="font-serif h4 text-muted fst-italic">Nenhuma memória encontrada.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="modal fade" id="artModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content overflow-hidden">
+            <div class="row g-0">
+                <div class="col-md-8 bg-black d-flex align-items-center justify-content-center" style="min-height: 50vh;">
+                    <img id="modalImg" src="" class="img-fluid w-100" style="max-height: 90vh; object-fit: contain;">
+                </div>
+                <div class="col-md-4 p-5 d-flex flex-column justify-content-between">
+                    <div>
+                        <h3 class="font-serif display-6 text-art-dark">Detalhes</h3>
+                        <div style="width: 40px; height: 1px;" class="bg-art-medium mb-4"></div>
+                        <div class="mt-4">
+                            <p class="font-sans text-art-medium mb-2">
+                                <strong>Data:</strong> <span id="modalDate"></span>
+                            </p>
+                            <p class="font-sans text-art-medium mb-2">
+                                <strong>Token:</strong> <span id="modalToken"></span>
+                            </p>
+                        </div>
+                        <a id="modalDownload"
+                           href=""
+                           download
+                           class="btn btn-artuarium-primary w-100 mt-4">
+                            Baixar imagem
+                        </a>
+                    </div>
+                    <div class="text-center border-top border-secondary border-opacity-10 pt-4 mt-4">
+                        <span class="font-serif fst-italic text-muted small">Artuarium</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- SCRIPT MODAL -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        var modal = document.getElementById('artModal');
+
+        modal.addEventListener('show.bs.modal', function (event) {
+
+            var card = event.relatedTarget;
+
+            var imgUrl = card.getAttribute('data-img');
+            var token = card.getAttribute('data-token');
+            var date = card.getAttribute('data-date');
+
+            document.getElementById('modalImg').src = imgUrl;
+            document.getElementById('modalToken').textContent = token;
+            document.getElementById('modalDate').textContent = date;
+            document.getElementById('modalDownload').href = imgUrl;
+        });
+    });
+</script>
+
+{% endblock %}

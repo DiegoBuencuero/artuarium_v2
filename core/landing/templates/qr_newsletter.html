@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+
+<style>
+:root {
+    --ivory: #F5F2EA;
+    --green-dark: #0F2823;
+    --green-medium: #4A6B5D;
+    --green-light: #BBD1C5;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    background: var(--ivory)
+        url('https://www.transparenttextures.com/patterns/clean-gray-paper.png');
+    color: var(--green-dark);
+    font-family: 'Lato', sans-serif;
+}
+
+/* WRAPPER */
+.qr-newsletter-page {
+    min-height: calc(100vh - 180px);
+    display: flex;
+    align-items: center;
+}
+
+/* TYPO */
+h1, h2 {
+    font-family: 'Playfair Display', serif;
+}
+
+/* HERO */
+.hero {
+    padding-top: 120px;
+    padding-bottom: 2rem;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 2rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+/* CARD */
+.card-soft {
+    background: rgba(255,255,255,0.75);
+    border: 1px solid rgba(187,209,197,0.4);
+    padding: 2.2rem;
+    margin-top: 1rem;
+}
+
+/* STEP */
+.step-title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.step-badge {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--green-dark);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+}
+
+/* INPUT */
+input,
+input[type="email"],
+.form-control {
+    width: 100%;
+    padding: 0.9rem;
+    border: 1px solid rgba(0,0,0,0.2);
+    margin-top: 1rem;
+    background: #fff;
+}
+
+/* BUTTON */
+.btn-artuarium {
+    margin-top: 1rem;
+    width: 100%;
+    border: 1px solid var(--green-dark);
+    background: var(--green-dark);
+    color: white;
+    padding: 0.9rem;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    transition: .2s ease;
+}
+
+.btn-artuarium:hover {
+    background: #16352f;
+}
+
+/* SUCCESS MESSAGE */
+.alert-success {
+    background: #e6f2ed;
+    border: 1px solid #bcd8cc;
+    color: var(--green-dark);
+    padding: 12px;
+    margin-bottom: 15px;
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+/* NOTE */
+.note {
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    color: #777;
+    text-align: center;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .qr-newsletter-page {
+        min-height: auto;
+        padding: 2rem 0 3rem;
+    }
+
+    .card-soft {
+        padding: 1.6rem 1.2rem;
+    }
+
+    .hero h1 {
+        font-size: 1.7rem;
+    }
+
+    .step-title-wrapper h2 {
+        font-size: 1.3rem;
+    }
+}
+</style>
+
+<div class="qr-newsletter-page">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+
+                <!-- HERO -->
+                <header class="hero">
+                    <h1>{% translate "Descubra o Porto de outra forma" %}</h1>
+                </header>
+
+                <!-- CARD -->
+                <section class="card-soft">
+
+                    <!-- MENSAJE -->
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert-success">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <!-- STEP -->
+                    <div class="step-title-wrapper">
+                        <span class="step-badge">1</span>
+                        <h2>{% translate "Mantenha o laço" %}</h2>
+                    </div>
+
+                    <p>
+                        {% translate "Recebe novos roteiros, conteúdos exclusivos e histórias vivas de Porto." %}
+                    </p>
+
+                    <!-- FORM -->
+                    <form method="POST" action="{% url 'subscribe' %}">
+                        {% csrf_token %}
+                        {{ form.email }}
+                        <button class="btn-artuarium" type="submit">
+                            {% translate "Inscrever-se" %}
+                        </button>
+                    </form>
+
+                    <div class="note">
+                        {% translate "Sem spam. Apenas conteúdo com curadoria." %}
+                    </div>
+
+                </section>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
