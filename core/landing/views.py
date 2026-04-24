@@ -38,11 +38,9 @@ def index(request):
 def about(request):
     return render(request, "about.html")
 
-
 @login_required
 def test(request):
     return render(request, "test.html")
-
 
 def reviews(request):
     form_fotos = UploadFotosForm()
@@ -61,7 +59,6 @@ def qr_newsletter(request):
         "form": form
     })
 
-
 def qr_newsletter_code(request):
     newsletter_url = request.build_absolute_uri(
         reverse('qr_newsletter_lang')
@@ -77,10 +74,8 @@ def qr_newsletter_code(request):
         'newsletter_url': newsletter_url
     })
 
-
 def qr_newsletter_lang(request):
     return render(request, 'qr_newsletter_lang.html')
-
 
 def correo(request):
     print("Método:", request.method)
@@ -150,7 +145,6 @@ def qr_code_view(request):
         'qr_image': img_base64,
     })
 
-
 @login_required
 def reviews_lang(request):
     return render(request, "reviews-lang.html", {
@@ -178,7 +172,6 @@ def compress_image(file, max_width=1600, quality=80):
     img.save(buffer, format="JPEG", quality=quality)
     buffer.seek(0)
     return buffer
-
 
 def upload_fotos(request):
     if request.method != "POST":
@@ -222,7 +215,6 @@ def subscribe(request):
             return redirect(request.META.get("HTTP_REFERER", "/"))
     return redirect("index")
 
-
 @login_required
 def subscribers_admin(request):
 
@@ -251,3 +243,72 @@ def subscribers_admin(request):
 
     subscribers = NewsletterSubscriber.objects.all().order_by("-created_at")
     return render(request, "admin_subscribers.html", {"subscribers": subscribers})
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+from django.db.models import Sum, Count
+from promotions.models import Partner, Promotion, TrackingLink, Redemption
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+from django.db.models import Sum, Count
+from promotions.models import Partner, Promotion, TrackingLink, Redemption
+
+
+@login_required
+def promociones_panel(request):
+    """Panel principal de gestión de promociones para partners."""
+
+    # Filtro opcional por tipo de partner
+    tipo_filtro = request.GET.get("tipo", "")
+
+    partners_qs = Partner.objects.all()
+    if tipo_filtro:
+        partners_qs = partners_qs.filter(tipo=tipo_filtro)
+
+    # Indicadores generales
+    total_partners = Partner.objects.filter(activo=True).count()
+    total_promociones_activas = Promotion.objects.filter(estado="activa").count()
+    total_links = TrackingLink.objects.filter(activo=True).count()
+
+    # Stats de redenciones
+    redemptions_qs = Redemption.objects.filter(estado__in=["confirmada", "pagada"])
+    total_reservas = redemptions_qs.count()
+    monto_total = redemptions_qs.aggregate(total=Sum("monto_neto"))["total"] or 0
+    comision_total = redemptions_qs.aggregate(total=Sum("comision_partner_monto"))["total"] or 0
+
+    # Top partners por reservas
+    top_partners = (
+        Partner.objects
+        .annotate(
+            reservas=Count("redemptions"),
+            ingreso=Sum("redemptions__monto_neto"),
+        )
+        .filter(reservas__gt=0)
+        .order_by("-reservas")[:5]
+    )
+
+    # Conteo por tipo (para badges/filtros)
+    conteo_por_tipo = (
+        Partner.objects.values("tipo")
+        .annotate(total=Count("id"))
+        .order_by("-total")
+    )
+
+    context = {
+        "url_name": "promociones",
+        "total_partners": total_partners,
+        "total_promociones_activas": total_promociones_activas,
+        "total_links": total_links,
+        "total_reservas": total_reservas,
+        "monto_total": monto_total,
+        "comision_total": comision_total,
+        "top_partners": top_partners,
+        "conteo_por_tipo": conteo_por_tipo,
+        "tipo_filtro": tipo_filtro,
+        "partners": partners_qs.order_by("nombre"),
+        "promociones": Promotion.objects.all().order_by("-created_at")[:20],
+        "tracking_links": TrackingLink.objects.select_related("promotion", "partner").order_by("-created_at")[:20],
+        "tipos_partner": Partner.TIPO_CHOICES,
+    }
+    return render(request, "promociones.html", context)

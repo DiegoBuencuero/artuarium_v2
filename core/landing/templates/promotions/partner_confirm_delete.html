@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Eliminar partner" %} · Artuarium{% endblock %}
+{% block meta_robots %}noindex, nofollow{% endblock %}
+
+{% block extra_css %}
+<style>
+  :root {
+    --off-white:       #F5F1ED;
+    --verde-profundo:  #344E41;
+    --verde-claro:     #62937B;
+    --verde-hover:     #2A3F35;
+    --texto-primario:  #1A231E;
+    --texto-secundario:#4A5850;
+    --borde-sutil:     rgba(52,78,65,.12);
+    --rojo:            #842828;
+    --serif: 'Playfair Display SC', Georgia, serif;
+    --sans:  'Switzer', -apple-system, 'Segoe UI', sans-serif;
+  }
+  body { background: var(--off-white); }
+
+  .wrap { max-width: 620px; margin: 0 auto; padding: 160px 48px 80px; }
+
+  .page-kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: .58rem; letter-spacing: .26em; text-transform: uppercase;
+    color: var(--rojo); margin-bottom: 14px; font-weight: 500;
+  }
+  .page-kicker::before {
+    content: ''; width: 24px; height: 1px; background: var(--rojo); opacity: .5;
+  }
+
+  .confirm-card {
+    background: rgba(255,255,255,.7);
+    border: 1px solid rgba(132,40,40,.2);
+    border-radius: 3px;
+    padding: 48px;
+  }
+
+  .confirm-title {
+    font-family: var(--serif);
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--verde-profundo);
+    line-height: 1.2;
+    margin-bottom: 20px;
+    letter-spacing: .02em;
+  }
+  .confirm-title em { font-style: italic; color: var(--rojo); }
+
+  .partner-info {
+    background: rgba(52,78,65,.04);
+    border-left: 3px solid var(--verde-claro);
+    padding: 18px 22px;
+    margin: 28px 0;
+  }
+  .partner-info .label {
+    font-size: .58rem;
+    text-transform: uppercase;
+    letter-spacing: .16em;
+    color: var(--texto-secundario);
+    margin-bottom: 4px;
+    display: block;
+  }
+  .partner-info .value {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    color: var(--verde-profundo);
+  }
+  .partner-info .meta {
+    font-size: .8rem;
+    color: var(--texto-secundario);
+    margin-top: 6px;
+    font-weight: 300;
+  }
+
+  .warning-text {
+    color: var(--texto-secundario);
+    font-weight: 300;
+    line-height: 1.8;
+    font-size: .92rem;
+  }
+
+  .warning-text strong {
+    color: var(--rojo);
+    font-weight: 500;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding-top: 28px;
+    margin-top: 28px;
+    border-top: 1px solid var(--borde-sutil);
+  }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 13px 24px;
+    border-radius: 2px; text-decoration: none; border: none;
+    font-family: var(--sans); font-size: .68rem;
+    text-transform: uppercase; letter-spacing: .16em; font-weight: 500;
+    cursor: pointer; transition: background .2s, transform .15s;
+  }
+  .btn.danger { background: var(--rojo); color: #fff; }
+  .btn.danger:hover { background: #6a1f1f; transform: translateY(-1px); color: #fff; }
+  .btn.ghost {
+    background: transparent; color: var(--verde-profundo);
+    border: 1px solid rgba(52,78,65,.28);
+  }
+  .btn.ghost:hover { background: rgba(52,78,65,.04); border-color: var(--verde-profundo); }
+
+  @media (max-width: 768px) {
+    .wrap { padding: 120px 20px 60px; }
+    .confirm-card { padding: 30px 24px; }
+    .actions { flex-direction: column-reverse; }
+    .actions .btn { width: 100%; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="wrap">
+
+  <div class="page-kicker">{% translate "Confirmación" %}</div>
+
+  <div class="confirm-card">
+    <h1 class="confirm-title">
+      {% translate "¿Eliminar este" %} <em>{% translate "partner" %}</em>?
+    </h1>
+
+    <div class="partner-info">
+      <span class="label">{{ partner.get_tipo_display }} · {{ partner.codigo }}</span>
+      <div class="value">{{ partner.nombre }}</div>
+      {% if partner.contacto_email %}
+        <div class="meta">{{ partner.contacto_email }}</div>
+      {% endif %}
+    </div>
+
+    <p class="warning-text">
+      {% blocktranslate trimmed %}
+        Esta acción no se puede deshacer. Se eliminará el partner junto con todas sus
+        <strong>promociones, links de tracking y materiales</strong> asociados.
+      {% endblocktranslate %}
+    </p>
+    <p class="warning-text" style="margin-top:12px;">
+      {% translate "Si el partner tiene redenciones registradas (reservas concretadas), no podrá eliminarse — en ese caso considerá desactivarlo en lugar de eliminarlo." %}
+    </p>
+
+    <form method="post">
+      {% csrf_token %}
+      <div class="actions">
+        <a href="{% url 'partner_list' %}" class="btn ghost">{% translate "Cancelar" %}</a>
+        <button type="submit" class="btn danger">
+          {% translate "Sí, eliminar" %}
+        </button>
+      </div>
+    </form>
+  </div>
+
+</section>
+{% endblock %}

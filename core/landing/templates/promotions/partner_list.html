@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}Partners · Artuarium{% endblock %}
+{% block meta_robots %}noindex, nofollow{% endblock %}
+
+{% block extra_css %}
+<style>
+  :root {
+    --off-white:       #F5F1ED;
+    --verde-profundo:  #344E41;
+    --verde-claro:     #62937B;
+    --verde-hover:     #2A3F35;
+    --texto-primario:  #1A231E;
+    --texto-secundario:#4A5850;
+    --borde-sutil:     rgba(52,78,65,.12);
+    --serif: 'Playfair Display SC', Georgia, serif;
+    --sans:  'Switzer', -apple-system, 'Segoe UI', sans-serif;
+  }
+  body { background: var(--off-white); }
+
+  .wrap { max-width: 1340px; margin: 0 auto; padding: 140px 48px 80px; }
+
+  .page-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    gap: 24px; margin-bottom: 40px; flex-wrap: wrap;
+  }
+  .page-kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: .58rem; letter-spacing: .26em; text-transform: uppercase;
+    color: var(--verde-claro); margin-bottom: 14px; font-weight: 500;
+  }
+  .page-kicker::before {
+    content: ''; width: 24px; height: 1px; background: var(--verde-claro); opacity: .5;
+  }
+  .page-title {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 400; color: var(--verde-profundo); letter-spacing: .02em;
+  }
+  .page-title em { font-style: italic; color: var(--verde-claro); }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 22px;
+    background: var(--verde-profundo); color: var(--off-white);
+    border: none; border-radius: 2px; text-decoration: none;
+    font-family: var(--sans); font-size: .68rem;
+    text-transform: uppercase; letter-spacing: .16em; font-weight: 500;
+    cursor: pointer; transition: background .2s, transform .15s;
+  }
+  .btn:hover { background: var(--verde-hover); transform: translateY(-1px); color: var(--off-white); }
+  .btn.ghost {
+    background: transparent; color: var(--verde-profundo);
+    border: 1px solid rgba(52,78,65,.28);
+  }
+  .btn.ghost:hover { background: rgba(52,78,65,.04); border-color: var(--verde-profundo); }
+  .btn.danger {
+    background: #842828; color: var(--off-white);
+  }
+  .btn.danger:hover { background: #6a1f1f; }
+  .btn.sm { padding: 8px 14px; font-size: .62rem; letter-spacing: .14em; }
+
+  .table-wrap {
+    background: rgba(255,255,255,.6);
+    border: 1px solid var(--borde-sutil);
+    border-radius: 3px; overflow: hidden;
+  }
+  table.editorial { width: 100%; border-collapse: collapse; }
+  table.editorial th {
+    text-align: left;
+    font-size: .58rem; text-transform: uppercase; letter-spacing: .16em;
+    color: var(--texto-secundario); font-weight: 500;
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--borde-sutil);
+    background: rgba(52,78,65,.03);
+  }
+  table.editorial td {
+    padding: 18px 22px;
+    font-size: .88rem; font-weight: 300; color: var(--texto-primario);
+    border-bottom: 1px solid var(--borde-sutil);
+    vertical-align: middle;
+  }
+  table.editorial tr:last-child td { border-bottom: none; }
+  table.editorial tr:hover td { background: rgba(245,241,237,.5); }
+
+  .badge {
+    display: inline-block; padding: 4px 10px;
+    font-size: .58rem; text-transform: uppercase; letter-spacing: .12em;
+    border-radius: 2px; font-weight: 500;
+  }
+  .badge.activo { background: rgba(98,147,123,.18); color: var(--verde-profundo); }
+  .badge.inactivo { background: rgba(74,88,80,.12); color: var(--texto-secundario); }
+  .badge.tipo { background: rgba(52,78,65,.08); color: var(--verde-profundo); }
+
+  .actions-cell { display: flex; gap: 6px; justify-content: flex-end; }
+
+  .empty-state {
+    text-align: center; padding: 80px 24px;
+    background: rgba(255,255,255,.6);
+    border: 1px solid var(--borde-sutil);
+    border-radius: 3px;
+  }
+  .empty-title {
+    font-family: var(--serif); font-size: 1.6rem;
+    color: var(--verde-profundo); margin-bottom: 12px;
+  }
+  .empty-text {
+    font-size: .9rem; color: var(--texto-secundario);
+    line-height: 1.7; font-weight: 300; max-width: 420px;
+    margin: 0 auto 24px;
+  }
+
+  @media (max-width: 768px) {
+    .wrap { padding: 110px 20px 60px; }
+    .page-header { flex-direction: column; align-items: flex-start; }
+    table.editorial th, table.editorial td { padding: 12px 10px; font-size: .78rem; }
+    .hide-mobile { display: none; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="wrap">
+
+  <header class="page-header">
+    <div>
+      <div class="page-kicker">{% translate "Gestión" %}</div>
+      <h1 class="page-title">Partners <em>comerciales</em></h1>
+    </div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap">
+      <a href="{% url 'promociones' %}" class="btn ghost">{% translate "← Volver al panel" %}</a>
+      <a href="{% url 'partner_create' %}" class="btn">+ {% translate "Nuevo partner" %}</a>
+    </div>
+  </header>
+
+  {% if partners %}
+    <div class="table-wrap">
+      <table class="editorial">
+        <thead>
+          <tr>
+            <th>{% translate "Código" %}</th>
+            <th>{% translate "Nombre" %}</th>
+            <th>{% translate "Tipo" %}</th>
+            <th class="hide-mobile">{% translate "Contacto" %}</th>
+            <th class="hide-mobile">{% translate "Comisión" %}</th>
+            <th>{% translate "Estado" %}</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p in partners %}
+            <tr>
+              <td><strong>{{ p.codigo }}</strong></td>
+              <td>{{ p.nombre }}</td>
+              <td><span class="badge tipo">{{ p.get_tipo_display }}</span></td>
+              <td class="hide-mobile">{{ p.contacto_email|default:"—" }}</td>
+              <td class="hide-mobile">{{ p.comision_default }}%</td>
+              <td>
+                {% if p.activo %}
+                  <span class="badge activo">{% translate "Activo" %}</span>
+                {% else %}
+                  <span class="badge inactivo">{% translate "Inactivo" %}</span>
+                {% endif %}
+              </td>
+              <td>
+                <div class="actions-cell">
+                  <a href="{% url 'partner_update' p.pk %}" class="btn ghost sm">{% translate "Editar" %}</a>
+                  <a href="{% url 'partner_delete' p.pk %}" class="btn danger sm">{% translate "Eliminar" %}</a>
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="empty-state">
+      <div class="empty-title">{% translate "Todavía no hay partners" %}</div>
+      <p class="empty-text">
+        {% translate "Empezá agregando los hoteles, restaurantes, tiendas u otros socios con los que vas a trabajar." %}
+      </p>
+      <a href="{% url 'partner_create' %}" class="btn">+ {% translate "Crear primer partner" %}</a>
+    </div>
+  {% endif %}
+
+</section>
+{% endblock %}

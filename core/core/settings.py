@@ -29,13 +29,16 @@ SECRET_KEY = 'django-insecure-71kjr2lg3f0$k-7f9%fo**=gsf!d3-^4++sov$q4li!hg%xo3+
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '127.0.0.1',
-    'artuarium.pythonanywhere.com',
-    'artuarium.global',
-    'www.artuarium.global',
-    'testdb.pythonanywhere.com'
+    "127.0.0.1",
+    "localhost",
+    "artuarium.pythonanywhere.com",
+    "artuarium.global",
+    "www.artuarium.global",
 ]
 
+
+# URL pública del sitio (la que va embebida en los QR y links de hoteles)
+SITE_BASE_URL = "https://artuarium.pythonanywhere.com"  # cambiar a https://artuarium.global cuando esté listo
 
 
 # Application definition
@@ -48,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'landing',
+    'promotions'
 ]
 
 MIDDLEWARE = [

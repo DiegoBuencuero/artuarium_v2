@@ -5,10 +5,10 @@ name = "pypi"
 
 [packages]
 django = "*"
-qrcode = "*"
 pillow = "*"
 requests = "*"
 openpyxl = "*"
+qrcode = {extras = ["pil"], version = "*"}
 
 [dev-packages]
 

@@ -3,9 +3,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from django.urls import path, include
+
+from promotions.views import (partner_list, partner_create, partner_update, partner_delete, )
 from landing.views import (index,  reviews, correo, qr_code_view, upload_fotos, imagenes_views, 
                            reviews_lang, about, subscribe, subscribers_admin, test, qr_newsletter, 
-                           qr_newsletter_code, qr_newsletter_lang)
+                           qr_newsletter_code, qr_newsletter_lang, promociones_panel, )
 
 from django.conf.urls.i18n import i18n_patterns
 from django.conf import settings
@@ -36,6 +38,18 @@ urlpatterns += i18n_patterns(
     path('qr/newsletter/', qr_newsletter, name='qr_newsletter'),
     path('qr/newsletter/code/',qr_newsletter_code, name='qr_newsletter_code'),
     path('qr/newsletter/lang/', qr_newsletter_lang, name='qr_newsletter_lang'),
+    path("admin/promociones/", promociones_panel, name="promociones"),
+    # path("p/<str:codigo>/", landing_promocion, name="landing"),
+
+    path("partners/",                  partner_list,   name="partner_list"),
+    path("partners/crear/",            partner_create, name="partner_create"),
+    path("partners/<int:pk>/editar/",  partner_update, name="partner_update"),
+    path("partners/<int:pk>/eliminar/",partner_delete, name="partner_delete"),
+
+
+
+
+
 
 
     path("test/", test, name="test"),
