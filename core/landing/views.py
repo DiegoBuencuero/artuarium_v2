@@ -24,7 +24,6 @@ def logout(request):
 #     form = ContactoForm()
 #     return render(request, "index.html", {"form": form})
 
-
 def index(request):
     form = ContactoForm()
     tours = Tour.objects.filter(is_active=True)
@@ -33,7 +32,6 @@ def index(request):
         "form": form,
         "tours": tours
     })
-
 
 def about(request):
     return render(request, "about.html")
@@ -51,7 +49,6 @@ def reviews(request):
         "form": newsletter_form,
         "url_name": "reviews",
     })
-
 
 def qr_newsletter(request):
     form = NewsletterForm()
@@ -311,4 +308,4 @@ def promociones_panel(request):
         "tracking_links": TrackingLink.objects.select_related("promotion", "partner").order_by("-created_at")[:20],
         "tipos_partner": Partner.TIPO_CHOICES,
     }
-    return render(request, "promociones.html", context)
+    return render(request, "promotions/dashboard-promos.html", context)
