@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-
+from django.utils.translation import gettext_lazy as _
 from .models import Partner, Promotion, PromotionRule, Tour, TrackingLink
 
 
@@ -77,7 +77,7 @@ class TourForm(BaseForm):
 
 
 
-class TrackingLinkForm(forms.ModelForm):
+class TrackingLinkForm(BaseForm):
     class Meta:
         model = TrackingLink
         fields = ['partner', 'tour', 'canal', 'notas']
