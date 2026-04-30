@@ -26,7 +26,7 @@ class Tour(models.Model):
         blank=True, null=True,
         help_text="El data-src del widget. Ej: https://widgets.bokun.io/online-sales/.../experience/1175368?partialView=1",
     )
-    is_active  = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

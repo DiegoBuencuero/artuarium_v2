@@ -25,11 +25,16 @@ class PartnerForm(BaseForm):
             "direccion": forms.TextInput(attrs={
                 "placeholder": "Ej: Rua de Santa Catarina 123, Porto"
             }),
-
             "activo": forms.CheckboxInput(attrs={
                 "class": "form-check-input"
             }),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Remove form-control do checkbox
+        self.fields["activo"].widget.attrs.pop("class", None)
+        self.fields["activo"].widget.attrs["class"] = "form-check-input"
 
 
 class PromotionForm(BaseForm):
@@ -80,6 +85,12 @@ class TourForm(BaseForm):
         super().__init__(*args, **kwargs)
         if self.instance and self.instance.pk:
             self.fields["image"].required = False
+        else:
+            self.fields["is_active"].initial = True
+        
+        # Remove form-control do checkbox
+        self.fields["is_active"].widget.attrs.pop("class", None)
+        self.fields["is_active"].widget.attrs["class"] = "form-check-input"
 
 
 

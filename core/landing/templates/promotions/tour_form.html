@@ -106,10 +106,13 @@
 
         <div class="field full">
           <div class="field-check">
-            {{ tour_form.is_active }}
-            <label for="{{ tour_form.is_active.id_for_label }}">
-              {% translate "Tour activo (visible en la landing)" %}
-            </label>
+              <input type="checkbox" 
+                    id="id_is_active" 
+                    name="is_active"
+                    {% if tour_form.initial.is_active or tour_form.instance.is_active %}checked{% endif %}>
+              <label for="id_is_active">
+                  {% translate "Tour activo (visible en la landing)" %}
+              </label>
           </div>
         </div>
 
