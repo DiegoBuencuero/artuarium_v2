@@ -34,6 +34,8 @@ ALLOWED_HOSTS = [
     "artuarium.pythonanywhere.com",
     "artuarium.global",
     "www.artuarium.global",
+    'testDB.pythonanywhere.com'
+
 ]
 
 
