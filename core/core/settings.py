@@ -39,7 +39,7 @@ ALLOWED_HOSTS = [
 
 
 # URL pública del sitio (la que va embebida en los QR y links de hoteles)
-SITE_URL = "http://testDB.pythonanywhere.com"  # cambiar a https://artuarium.global cuando esté listo
+SITE_BASE_URL = "http://testDB.pythonanywhere.com" # cambiar a https://artuarium.global cuando esté listo
 
 
 # Application definition
