@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect, reverse
 from django.core.mail import EmailMessage
 from django.contrib import messages
 from django.conf import settings
-from .models import ReviewPhoto, NewsletterSubscriber, Tour
+from .models import ReviewPhoto, NewsletterSubscriber
+from promotions.models import Tour
 from .forms import ContactoForm,UploadFotosForm, NewsletterForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden, JsonResponse, HttpResponse
@@ -305,7 +306,8 @@ def promociones_panel(request):
         "tipo_filtro": tipo_filtro,
         "partners": partners_qs.order_by("nombre"),
         "promociones": Promotion.objects.all().order_by("-created_at")[:20],
-        "tracking_links": TrackingLink.objects.select_related("promotion", "partner").order_by("-created_at")[:20],
+        "tours": Tour.objects.all().order_by("-created_at"),
+        "tracking_links": TrackingLink.objects.select_related("partner", "tour").filter(activo=True).order_by("-created_at")[:20],
         "tipos_partner": Partner.TIPO_CHOICES,
     }
     return render(request, "promotions/dashboard-promos.html", context)

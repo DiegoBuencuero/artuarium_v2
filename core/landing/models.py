@@ -32,28 +32,3 @@ class NewsletterSubscriber(models.Model):
         return f"{self.name} - {self.email}"
     
 
-from django.db import models
-
-class Tour(models.Model):
-    title = models.CharField(max_length=200)
-    subtitle = models.CharField(max_length=255, blank=True)
-    description = models.TextField()
-    price = models.DecimalField(max_digits=8, decimal_places=2)
-    image = models.ImageField(upload_to='tours/')
-    button_text = models.CharField(max_length=100, default='VER JORNADA')
-    button_url = models.URLField(blank=True, null=True)
-    bokun_widget_url = models.URLField(
-    "URL del widget de Bókun",
-    blank=True, null=True,
-    help_text="El data-src del widget. Ej: https://widgets.bokun.io/online-sales/.../experience/1175368?partialView=1",
-)
-
-    is_active = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        ordering = ['-created_at']
-
-    def __str__(self):
-        return self.title

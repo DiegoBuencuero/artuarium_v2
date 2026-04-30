@@ -454,6 +454,27 @@
     font-weight:400;
   }
 
+  .tour-thumb {
+    width:48px;
+    height:48px;
+    object-fit:cover;
+    border-radius:2px;
+    border:1px solid var(--borde-sutil);
+    display:block;
+  }
+
+  .tour-thumb-empty {
+    width:48px;
+    height:48px;
+    border-radius:2px;
+    border:1px dashed var(--borde-sutil);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--texto-secundario);
+    font-size:.6rem;
+  }
+
   @media (max-width:1100px) {
     .kpis-grid { grid-template-columns:repeat(2, 1fr); }
   }
@@ -519,7 +540,11 @@
       + {% translate "Nueva promoción" %}
     </a>
 
-    <a href="#materiales" class="btn-action ghost" data-open-tab="materiales">
+    <a href="{% url 'tour_create' %}" class="btn-action ghost">
+      + {% translate "Nuevo tour" %}
+    </a>
+
+    <a href="{% url 'tracking_create' %}" class="btn-action ghost" data-open-tab="materiales">
       {% translate "Ver materiales" %}
     </a>
   </div>
@@ -528,6 +553,7 @@
     <button class="tab-btn active" data-tab="resumen">{% translate "Resumen" %}</button>
     <button class="tab-btn" data-tab="partners">{% translate "Partners" %}</button>
     <button class="tab-btn" data-tab="promociones">{% translate "Promociones" %}</button>
+    <button class="tab-btn" data-tab="tours">{% translate "Tours" %}</button>
     <button class="tab-btn" data-tab="materiales">{% translate "Materiales" %}</button>
   </nav>
 
@@ -666,9 +692,9 @@
         <p>{{ total_promociones_activas|default:0 }} {% translate "activas" %}</p>
       </div>
 
-    <a href="{% url 'promotion_create' %}" class="btn-action ghost">
-      + {% translate "Nueva promoción" %}
-    </a>
+      <a href="{% url 'promotion_create' %}" class="btn-action ghost">
+        + {% translate "Nueva promoción" %}
+      </a>
     </div>
 
     {% if promociones %}
@@ -714,9 +740,6 @@
                     <a href="{% url 'promotion_update' p.pk %}" class="row-link">
                       {% translate "Editar" %}
                     </a>
-                    {% comment %} <a href="{% url 'promotion_delete' p.pk %}" class="row-link danger">
-                      {% translate "Eliminar" %}
-                    </a> {% endcomment %}
                   </div>
                 </td>
               </tr>
@@ -737,6 +760,93 @@
     {% endif %}
   </div>
 
+  <div class="tab-panel" id="tab-tours">
+
+    <div class="tab-header">
+      <div>
+        <h2>{% translate "Tours" %}</h2>
+        <p>{{ tours|length|default:0 }} {% translate "cargados" %}</p>
+      </div>
+
+      <a href="{% url 'tour_create' %}" class="btn-action">
+        + {% translate "Nuevo tour" %}
+      </a>
+    </div>
+
+    {% if tours %}
+      <div class="table-wrap">
+        <table class="editorial">
+          <thead>
+            <tr>
+              <th></th>
+              <th>{% translate "Título" %}</th>
+              <th>{% translate "Precio" %}</th>
+              <th>{% translate "Bókun" %}</th>
+              <th>{% translate "Estado" %}</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {% for t in tours %}
+              <tr>
+                <td>
+                  {% if t.image %}
+                    <img src="{{ t.image.url }}" alt="" class="tour-thumb">
+                  {% else %}
+                    <div class="tour-thumb-empty">—</div>
+                  {% endif %}
+                </td>
+                <td>
+                  <strong>{{ t.title }}</strong>
+                  {% if t.subtitle %}
+                    <br>
+                    <small style="color:var(--texto-secundario); font-size:.74rem">
+                      {{ t.subtitle }}
+                    </small>
+                  {% endif %}
+                </td>
+                <td>€{{ t.price|floatformat:0 }}</td>
+                <td>
+                  {% if t.bokun_widget_url %}
+                    <span class="badge widget">{% translate "Conectado" %}</span>
+                  {% else %}
+                    <span class="badge borrador">{% translate "Sin widget" %}</span>
+                  {% endif %}
+                </td>
+                <td>
+                  {% if t.is_active %}
+                    <span class="badge activa">{% translate "Activo" %}</span>
+                  {% else %}
+                    <span class="badge borrador">{% translate "Inactivo" %}</span>
+                  {% endif %}
+                </td>
+                <td>
+                  <div class="row-actions">
+                    <a href="{% url 'tour_update' t.pk %}" class="row-link">
+                      {% translate "Editar" %}
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <div class="empty-state">
+        <div class="empty-title">{% translate "Todavía no hay tours" %}</div>
+        <div class="empty-text">
+          {% translate "Creá los tours que se mostrarán en la landing y que podrás asociar a promociones para partners." %}
+        </div>
+        <a href="{% url 'tour_create' %}" class="btn-action">
+          + {% translate "Crear primer tour" %}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+
+
   <div class="tab-panel" id="tab-materiales">
 
     <div class="tab-header">
@@ -744,6 +854,10 @@
         <h2>{% translate "Materiales (QR y links)" %}</h2>
         <p>{{ total_links|default:0 }} {% translate "activos" %}</p>
       </div>
+
+      <a href="{% url 'tracking_create' %}" class="btn-action">
+        + {% translate "Nuevo QR" %}
+      </a>
     </div>
 
     {% if tracking_links %}
@@ -751,11 +865,12 @@
         <table class="editorial">
           <thead>
             <tr>
-              <th>{% translate "Código" %}</th>
-              <th>{% translate "Partner" %}</th>
-              <th>{% translate "Promoción" %}</th>
-              <th>{% translate "Canal" %}</th>
               <th>{% translate "QR" %}</th>
+              <th>{% translate "Partner" %}</th>
+              <th>{% translate "Tour" %}</th>
+              <th>{% translate "Canal" %}</th>
+              <th>{% translate "Código" %}</th>
+              <th>{% translate "Scans" %}</th>
               <th></th>
             </tr>
           </thead>
@@ -763,31 +878,49 @@
           <tbody>
             {% for tl in tracking_links %}
               <tr>
-                <td><strong>{{ tl.codigo }}</strong></td>
                 <td>
-                  {{ tl.partner.nombre }}
+                  {% if tl.qr_image %}
+                    <img src="{{ tl.qr_image.url }}" alt="QR"
+                         style="width:48px;height:48px;object-fit:contain;border:1px solid var(--borde-sutil);border-radius:2px;">
+                  {% else %}
+                    <span style="color:var(--texto-secundario);">—</span>
+                  {% endif %}
+                </td>
+                <td>
+                  <strong>{{ tl.partner.nombre }}</strong>
                   <br>
                   <small style="color:var(--texto-secundario); font-size:.7rem">
-                    {{ tl.partner.get_tipo_display }}
+                    {{ tl.partner.codigo }} · {{ tl.partner.get_tipo_display }}
                   </small>
                 </td>
-                <td>{{ tl.promotion.nombre }}</td>
+                <td>{{ tl.tour.title }}</td>
                 <td>
                   <span class="badge {{ tl.canal }}">
                     {{ tl.get_canal_display }}
                   </span>
                 </td>
                 <td>
-                  {% if tl.qr_image %}
-                    ✓
-                  {% else %}
-                    —
-                  {% endif %}
+                  <span style="font-family:monospace; font-size:.8rem; color:var(--verde-claro); background:rgba(98,147,123,.08); padding:2px 7px; border-radius:2px;">
+                    /p/{{ tl.codigo }}
+                  </span>
+                </td>
+                <td>
+                  <strong style="font-size:.9rem; color:var(--verde-profundo);">
+                    {{ tl.clics|default:0 }}
+                  </strong>
                 </td>
                 <td>
                   <div class="row-actions">
-                    <a href="#" class="row-link" onclick="alert('Próximamente: ver material'); return false;">
-                      {% translate "Ver" %}
+                    {% if tl.qr_image %}
+                      <a href="{{ tl.qr_image.url }}" download="qr_{{ tl.codigo }}.png"
+                         class="row-link">
+                        {% translate "Descargar" %}
+                      </a>
+                    {% endif %}
+                    <a href="{% url 'tracking_delete' tl.pk %}"
+                      class="row-link danger"
+                      onclick="return confirm('{% translate "¿Eliminás este QR?" %}');">
+                      {% translate "Eliminar" %}
                     </a>
                   </div>
                 </td>
@@ -800,11 +933,16 @@
       <div class="empty-state">
         <div class="empty-title">{% translate "Todavía no hay materiales" %}</div>
         <div class="empty-text">
-          {% translate "Los materiales (QR y links) se generan al crear un Tracking Link asociado a una promoción y un partner." %}
+          {% translate "Generá un QR por partner y tour. Cada escaneo queda registrado automáticamente." %}
         </div>
+        <a href="{% url 'tracking_create' %}" class="btn-action">
+          + {% translate "Crear primer QR" %}
+        </a>
       </div>
     {% endif %}
+
   </div>
+
 
 </section>
 

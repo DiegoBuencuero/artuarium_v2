@@ -1,9 +1,7 @@
 # promotions/admin.py
 
 from django.contrib import admin
-from .models import Partner, Promotion, PromotionRule, TrackingLink, Redemption
-from landing.models import Tour
-
+from .models import Partner, Promotion, PromotionRule, TrackingLink, Redemption, Tour
 
 @admin.register(Tour)
 class TourAdmin(admin.ModelAdmin):

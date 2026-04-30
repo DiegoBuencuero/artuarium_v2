@@ -1,0 +1,302 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{{ title|default:"Tours" }} · Artuarium{% endblock %}
+{% block meta_robots %}noindex, nofollow{% endblock %}
+
+{% block extra_css %}
+<style>
+  body { background:#F5F1ED; }
+
+  .wrap {
+    max-width:1100px;
+    margin:0 auto;
+    padding:140px 40px 80px;
+  }
+
+  .page-title {
+    font-size:2rem;
+    margin-bottom:30px;
+    color:#344E41;
+  }
+
+  .grid {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+  }
+
+  .full { grid-column:1/-1; }
+
+  .form-card {
+    background:white;
+    padding:30px;
+    border:1px solid rgba(0,0,0,.05);
+    margin-bottom:40px;
+  }
+
+  label {
+    font-size:.65rem;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    margin-bottom:6px;
+    display:block;
+  }
+
+  .form-control {
+    width:100%;
+    padding:10px;
+    border:1px solid #ddd;
+  }
+
+  .actions {
+    margin-top:20px;
+    display:flex;
+    justify-content:space-between;
+  }
+
+  .btn {
+    padding:10px 18px;
+    border:none;
+    background:#344E41;
+    color:white;
+    cursor:pointer;
+    text-decoration:none;
+  }
+
+  .btn.delete {
+    background:#842828;
+  }
+
+  table {
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+  }
+
+  th, td {
+    padding:12px;
+    border-bottom:1px solid #eee;
+    font-size:.9rem;
+    vertical-align:middle;
+  }
+
+  th {
+    font-size:.65rem;
+    text-transform:uppercase;
+    color:#666;
+    text-align:left;
+  }
+
+  .row-actions {
+    display:flex;
+    gap:10px;
+  }
+
+  .link {
+    font-size:.7rem;
+    text-transform:uppercase;
+    color:#62937B;
+    text-decoration:none;
+  }
+
+  .thumb {
+    width:48px;
+    height:48px;
+    object-fit:cover;
+    border-radius:2px;
+  }
+
+  .current-image {
+    margin-top:8px;
+  }
+
+  .current-image img {
+    max-height:120px;
+    border:1px solid #eee;
+    border-radius:2px;
+  }
+
+  .checkbox-row {
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+
+  .checkbox-row label {
+    margin-bottom:0;
+  }
+
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="wrap">
+
+  <h1 class="page-title">
+    {% if modificacion %}
+      {% translate "Editar tour" %}
+    {% else %}
+      {% translate "Crear tour" %}
+    {% endif %}
+  </h1>
+
+  <!-- FORM -->
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="form-card">
+
+      <div class="grid">
+
+        <div class="full">
+          {{ tour_form.title.label_tag }}
+          {{ tour_form.title }}
+        </div>
+
+        <div class="full">
+          {{ tour_form.subtitle.label_tag }}
+          {{ tour_form.subtitle }}
+        </div>
+
+        <div class="full">
+          {{ tour_form.description.label_tag }}
+          {{ tour_form.description }}
+        </div>
+
+        <div>
+          {{ tour_form.price.label_tag }}
+          {{ tour_form.price }}
+        </div>
+
+        <div>
+          {{ tour_form.button_text.label_tag }}
+          {{ tour_form.button_text }}
+        </div>
+
+        <div class="full">
+          {{ tour_form.button_url.label_tag }}
+          {{ tour_form.button_url }}
+        </div>
+
+        <div class="full">
+          {{ tour_form.bokun_widget_url.label_tag }}
+          {{ tour_form.bokun_widget_url }}
+          {% if tour_form.bokun_widget_url.help_text %}
+            <small style="color:#666; font-size:.7rem; display:block; margin-top:4px;">
+              {{ tour_form.bokun_widget_url.help_text }}
+            </small>
+          {% endif %}
+        </div>
+
+        <div class="full">
+          {{ tour_form.image.label_tag }}
+          {{ tour_form.image }}
+
+          {% if modificacion and tour.image %}
+            <div class="current-image">
+              <small style="color:#666; font-size:.7rem;">{% translate "Imagen actual" %}:</small><br>
+              <img src="{{ tour.image.url }}" alt="{{ tour.title }}">
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="full">
+          <div class="checkbox-row">
+            {{ tour_form.is_active }}
+            {{ tour_form.is_active.label_tag }}
+          </div>
+        </div>
+
+      </div>
+
+      <div class="actions">
+
+        <a href="{% url 'tour_create' %}" class="btn">{% translate "Cancelar" %}</a>
+
+        {% if modificacion %}
+          <div style="display:flex; gap:10px;">
+            <button name="borrar" type="submit" class="btn delete">
+              {% translate "Eliminar" %}
+            </button>
+            <button type="submit" class="btn">
+              {% translate "Guardar" %}
+            </button>
+          </div>
+        {% else %}
+          <button type="submit" class="btn">
+            {% translate "Crear" %}
+          </button>
+        {% endif %}
+
+      </div>
+
+    </div>
+  </form>
+
+  <!-- LISTADO -->
+  <h2>{% translate "Tours" %}</h2>
+
+  {% if tours %}
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>{% translate "Título" %}</th>
+          <th>{% translate "Precio" %}</th>
+          <th>{% translate "Bókun" %}</th>
+          <th>{% translate "Activo" %}</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for t in tours %}
+        <tr>
+          <td>
+            {% if t.image %}
+              <img src="{{ t.image.url }}" alt="" class="thumb">
+            {% else %}
+              —
+            {% endif %}
+          </td>
+          <td>
+            <strong>{{ t.title }}</strong>
+            {% if t.subtitle %}
+              <br><small style="color:#666;">{{ t.subtitle }}</small>
+            {% endif %}
+          </td>
+          <td>€{{ t.price }}</td>
+          <td>
+            {% if t.bokun_widget_url %}
+              ✓
+            {% else %}
+              —
+            {% endif %}
+          </td>
+          <td>
+            {% if t.is_active %}
+              ✓
+            {% else %}
+              —
+            {% endif %}
+          </td>
+          <td>
+            <div class="row-actions">
+              <a href="{% url 'tour_update' t.id %}" class="link">
+                {% translate "Editar" %}
+              </a>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+  {% else %}
+    <p>{% translate "No hay tours todavía." %}</p>
+  {% endif %}
+
+</section>
+{% endblock %}
