@@ -31,7 +31,6 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
-    "artuarium.pythonanywhere.com",
     "artuarium.global",
     "www.artuarium.global",
     'testDB.pythonanywhere.com'
@@ -40,7 +39,7 @@ ALLOWED_HOSTS = [
 
 
 # URL pública del sitio (la que va embebida en los QR y links de hoteles)
-SITE_BASE_URL = "https://artuarium.pythonanywhere.com"  # cambiar a https://artuarium.global cuando esté listo
+SITE_URL = "http://testDB.pythonanywhere.com"  # cambiar a https://artuarium.global cuando esté listo
 
 
 # Application definition
