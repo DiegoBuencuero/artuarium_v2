@@ -153,172 +153,145 @@
 
   {% block head %}{% endblock %}
 
+  <style>
 
-  {% block extra_css %}
-<style>
+#header {
+  background: transparent;
+  transition: background-color 0.35s ease, box-shadow 0.35s ease;
+}
 
-  #header {
-    background: transparent;
-    transition: background-color 0.35s ease, box-shadow 0.35s ease;
-  }
+#header.scrolled {
+  background: #F5F1ED;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
 
-  #header.scrolled {
-    background: #F5F1ED;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-  }
+/* Links menú */
+#header.scrolled .navmenu a {
+  color: #344E41 !important;
+}
 
-  /* Links menú */
-  #header.scrolled .navmenu a {
-    color: #344E41 !important;
-  }
+/* ICONOS (instagram + email) */
+#header.scrolled .action-icon i {
+  color: #344E41 !important;
+}
 
-  /* ICONOS (instagram + email) */
-  #header.scrolled .action-icon i {
-    color: #344E41 !important;
-  }
+/* PATREON → convertir a verde */
+#header.scrolled .patreon-icon img {
+  filter: brightness(0) saturate(100%) 
+          invert(27%) sepia(18%) 
+          saturate(700%) hue-rotate(95deg) 
+          brightness(90%) contrast(90%);
+}
 
-  /* PATREON → convertir a verde */
-  #header.scrolled .patreon-icon img {
-    filter: brightness(0) saturate(100%) 
-            invert(27%) sepia(18%) 
-            saturate(700%) hue-rotate(95deg) 
-            brightness(90%) contrast(90%);
-  }
+/* quitar fondo negro de iconos */
+#header.scrolled .action-icon {
+  background: transparent !important;
+}
 
-  /* quitar fondo negro de iconos */
-  #header.scrolled .action-icon {
-    background: transparent !important;
-  }
+/* botón bokun */
+#header.scrolled .btn-bokun-outline {
+  border-color: #344E41 !important;
+  color: #344E41 !important;
+}
 
-  /* botón bokun */
-  #header.scrolled .btn-bokun-outline {
-    border-color: #344E41 !important;
-    color: #344E41 !important;
-  }
+#header.scrolled .btn-bokun-outline:hover {
+  background: #344E41 !important;
+  color: #F5F1ED !important;
+}
 
-  #header.scrolled .btn-bokun-outline:hover {
-    background: #344E41 !important;
-    color: #F5F1ED !important;
-  }
+/* dropdown idioma */
+#header.scrolled .dropdown-toggle {
+  color: #344E41 !important;
+}
 
-  /* dropdown idioma */
-  #header.scrolled .dropdown-toggle {
-    color: #344E41 !important;
-  }
+/* LOGO */
+.logo {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
 
-  /* LOGO */
-  .logo {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-  }
+.logo-artuarium {
+  display: block;
+  height: 50px;
+  width: auto;
+}
 
-  .logo-artuarium {
-    display: block;
-    height: 50px;
-    width: auto;
-  }
+.logo-dark {
+  display: none;
+}
 
-  .logo-dark {
-    display: none;
-  }
+#header.scrolled .logo-light {
+  display: none;
+}
 
-  #header.scrolled .logo-light {
-    display: none;
-  }
+#header.scrolled .logo-dark {
+  display: block;
+}
+.footer-artuarium {
+  background: linear-gradient(
+    to bottom,
+    rgba(8,12,10,0) 0%,
+    #080C0A 40%
+  ) !important;
 
-  #header.scrolled .logo-dark {
-    display: block;
-  }
-  .footer-artuarium {
-    background: linear-gradient(
-      to bottom,
-      rgba(8,12,10,0) 0%,
-      #080C0A 40%
-    ) !important;
+  background-color: #080C0A !important;
 
-    background-color: #080C0A !important;
+  padding: 70px 0 50px;
+  position: relative;
+}
 
-    padding: 70px 0 50px;
-    position: relative;
-  }
+.footer-artuarium .footer-top {
+  padding: 0;
+}
 
-  .footer-artuarium .footer-top {
-    padding: 0;
-  }
+.footer-artuarium .footer-logo img {
+  height: 120px;
+  width: auto;
+  display: block;
+  margin: 0 auto;
+}
 
-  .footer-artuarium .footer-logo img {
-    height: 120px;
-    width: auto;
-    display: block;
-    margin: 0 auto;
-  }
+.footer-artuarium .redes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin-top: 10px;
+}
 
-  .footer-artuarium .redes {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 18px;
-    margin-top: 10px;
-  }
+.footer-artuarium .footer-social {
+  width: 46px;
+  height: 46px;
+  background: rgba(122, 156, 133, 0.35);
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
 
-  .footer-artuarium .footer-social {
-    width: 46px;
-    height: 46px;
-    background: rgba(122, 156, 133, 0.35);
-    border-radius: 4px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
+.footer-artuarium .footer-social i {
+  font-size: 20px;
+  color: #f5f1ed;
+  line-height: 1;
+}
 
-  .footer-artuarium .footer-social i {
-    font-size: 20px;
-    color: #f5f1ed;
-    line-height: 1;
-  }
+.footer-artuarium .patreon-icon img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  display: block;
+  filter: brightness(0) invert(1);
+}
 
-  .footer-artuarium .patreon-icon img {
-    width: 20px;
-    height: 20px;
-    object-fit: contain;
-    display: block;
-    filter: brightness(0) invert(1);
-  }
-
-  .footer-artuarium .footer-social:hover {
-    transform: translateY(-2px);
-    background: rgba(160, 190, 170, 0.45);
-  }
-      /* Spinner dentro del botón Bokun mientras carga */
-    .bokun-btn-loading {
-      pointer-events: none;
-      opacity: 0.75;
-      cursor: wait !important;
-    }
-    .bokun-btn-loading .bokun-spinner {
-      display: inline-block !important;
-    }
-    .bokun-spinner {
-      display: none;
-      width: 14px;
-      height: 14px;
-      border: 2px solid currentColor;
-      border-top-color: transparent;
-      border-radius: 50%;
-      animation: bokun-spin 0.7s linear infinite;
-      vertical-align: middle;
-      margin-right: 6px;
-      flex-shrink: 0;
-    }
-    @keyframes bokun-spin {
-      to { transform: rotate(360deg); }
-    }
+.footer-artuarium .footer-social:hover {
+  transform: translateY(-2px);
+  background: rgba(160, 190, 170, 0.45);
+}
 </style>
-
-  {% endblock %}
+  {% block extra_css %}{% endblock %}
 </head>
 
 <body class="{% block body_class %}portfolio-details-page{% endblock %}">
@@ -549,6 +522,7 @@
     <i class="bi bi-arrow-up-short" aria-hidden="true"></i>
   </a>
 
+  <!-- Preloader -->
   <div id="preloader" aria-hidden="true"></div>
 
   <!-- ─── VENDOR JS ─────────────────────────────────────────────────────────── -->
@@ -569,7 +543,32 @@
        hace click en cualquier botón con la clase .js-bokun-trigger.
        Una vez cargado, el loader se destruye a sí mismo (no hay doble carga).
   ─────────────────────────────────────────────────────────────────────────── -->
-  
+  <style>
+    /* Spinner dentro del botón Bokun mientras carga */
+    .bokun-btn-loading {
+      pointer-events: none;
+      opacity: 0.75;
+      cursor: wait !important;
+    }
+    .bokun-btn-loading .bokun-spinner {
+      display: inline-block !important;
+    }
+    .bokun-spinner {
+      display: none;
+      width: 14px;
+      height: 14px;
+      border: 2px solid currentColor;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: bokun-spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-right: 6px;
+      flex-shrink: 0;
+    }
+    @keyframes bokun-spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
 <script>
   window.addEventListener('scroll', function () {
     const header = document.getElementById('header');
@@ -663,3 +662,5 @@
   {% block scripts %}{% endblock %}
 </body>
 </html>
+                  
+                  

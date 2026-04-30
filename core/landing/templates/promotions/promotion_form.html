@@ -4,257 +4,149 @@
 
 {% block title %}{{ title|default:"Promociones" }} · Artuarium{% endblock %}
 {% block meta_robots %}noindex, nofollow{% endblock %}
+{% block body_class %}admin-page{% endblock %}
 
 {% block extra_css %}
-<style>
-  body { background:#F5F1ED; }
-
-  .wrap {
-    max-width:1100px;
-    margin:0 auto;
-    padding:140px 40px 80px;
-  }
-
-  .page-title {
-    font-size:2rem;
-    margin-bottom:30px;
-    color:#344E41;
-  }
-
-  .grid {
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:20px;
-  }
-
-  .full { grid-column:1/-1; }
-
-  .form-card {
-    background:white;
-    padding:30px;
-    border:1px solid rgba(0,0,0,.05);
-    margin-bottom:40px;
-  }
-
-  label {
-    font-size:.65rem;
-    text-transform:uppercase;
-    letter-spacing:.1em;
-    margin-bottom:6px;
-    display:block;
-  }
-
-  .form-control {
-    width:100%;
-    padding:10px;
-    border:1px solid #ddd;
-  }
-
-  .actions {
-    margin-top:20px;
-    display:flex;
-    justify-content:space-between;
-  }
-
-  .btn {
-    padding:10px 18px;
-    border:none;
-    background:#344E41;
-    color:white;
-    cursor:pointer;
-    text-decoration:none;
-  }
-
-  .btn.delete {
-    background:#842828;
-  }
-
-  table {
-    width:100%;
-    border-collapse:collapse;
-    background:white;
-  }
-
-  th, td {
-    padding:12px;
-    border-bottom:1px solid #eee;
-    font-size:.9rem;
-  }
-
-  th {
-    font-size:.65rem;
-    text-transform:uppercase;
-    color:#666;
-  }
-
-  .row-actions {
-    display:flex;
-    gap:10px;
-  }
-
-  .link {
-    font-size:.7rem;
-    text-transform:uppercase;
-    color:#62937B;
-    text-decoration:none;
-  }
-
-</style>
+  <link href="{% static 'assets/css/promotions.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
-<section class="wrap">
+<section class="admin-wrap medium">
 
+  <div class="page-kicker">{% translate "Promociones" %}</div>
   <h1 class="page-title">
     {% if modificacion %}
-      Editar promoción
+      {% translate "Editar promoción" %}
     {% else %}
-      Crear promoción
+      {% translate "Crear promoción" %}
     {% endif %}
   </h1>
 
-  <!-- FORM -->
   <form method="post">
     {% csrf_token %}
 
-    <div class="form-card">
+    <div class="card padded">
+      <div class="form-grid">
 
-      <div class="grid">
-
-        <!-- PROMO -->
-        <div class="full">
+        <div class="field full">
           {{ promo_form.nombre.label_tag }}
           {{ promo_form.nombre }}
         </div>
 
-        <div class="full">
+        <div class="field full">
           {{ promo_form.descripcion.label_tag }}
           {{ promo_form.descripcion }}
         </div>
 
-        <div>
+        <div class="field">
           {{ promo_form.tipo.label_tag }}
           {{ promo_form.tipo }}
         </div>
 
-        <div>
+        <div class="field">
           {{ promo_form.estado.label_tag }}
           {{ promo_form.estado }}
         </div>
 
-        <div>
+        <div class="field">
           {{ promo_form.vigencia_desde.label_tag }}
           {{ promo_form.vigencia_desde }}
         </div>
 
-        <div>
+        <div class="field">
           {{ promo_form.vigencia_hasta.label_tag }}
           {{ promo_form.vigencia_hasta }}
         </div>
 
-        <div>
+        <div class="field">
           {{ promo_form.limite_usos.label_tag }}
           {{ promo_form.limite_usos }}
         </div>
 
-        <div>
+        <div class="field">
           {{ promo_form.prioridad.label_tag }}
           {{ promo_form.prioridad }}
         </div>
 
-        <!-- REGLA -->
-        <div class="full">
-          <h3>Regla</h3>
+        {# ─── Regla ─────────────────────────────────────────── #}
+        <div class="section-divider">
+          <h3 class="section-title">{% translate "Regla" %}</h3>
         </div>
 
-        <div>
+        <div class="field">
           {{ rule_form.partner.label_tag }}
           {{ rule_form.partner }}
         </div>
 
-        <div>
+        <div class="field">
           {{ rule_form.tour.label_tag }}
           {{ rule_form.tour }}
         </div>
 
-        <div>
+        <div class="field">
           {{ rule_form.descuento_pct.label_tag }}
           {{ rule_form.descuento_pct }}
         </div>
 
-        <div>
+        <div class="field">
           {{ rule_form.comision_partner_pct.label_tag }}
           {{ rule_form.comision_partner_pct }}
         </div>
 
       </div>
 
-      <div class="actions">
-
-        <a href="{% url 'promociones' %}" class="btn">Cancelar</a>
+      <div class="form-actions">
+        <a href="{% url 'promociones' %}" class="btn ghost">{% translate "Cancelar" %}</a>
 
         {% if modificacion %}
           <div style="display:flex; gap:10px;">
-            <button name="borrar" type="submit" class="btn delete">
-              Eliminar
-            </button>
-            <button type="submit" class="btn">
-              Guardar
-            </button>
+            <button name="borrar" type="submit" class="btn danger">{% translate "Eliminar" %}</button>
+            <button type="submit" class="btn">{% translate "Guardar" %}</button>
           </div>
         {% else %}
-          <button type="submit" class="btn">
-            Crear
-          </button>
+          <button type="submit" class="btn">{% translate "Crear" %}</button>
         {% endif %}
-
       </div>
-
     </div>
   </form>
 
-  <!-- LISTADO -->
-  <h2>Promociones</h2>
-
+  {# ─── Listado ─────────────────────────────────────────────── #}
   {% if promociones %}
-    <table>
-      <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>Tipo</th>
-          <th>Estado</th>
-          <th>Vigencia</th>
-          <th></th>
-        </tr>
-      </thead>
+    <h2 class="page-title" style="font-size:1.4rem; margin: 50px 0 24px;">
+      {% translate "Promociones existentes" %}
+    </h2>
 
-      <tbody>
-        {% for p in promociones %}
-        <tr>
-          <td>{{ p.nombre }}</td>
-          <td>{{ p.get_tipo_display }}</td>
-          <td>{{ p.get_estado_display }}</td>
-          <td>
-            {{ p.vigencia_desde }}
-            {% if p.vigencia_hasta %}
-              → {{ p.vigencia_hasta }}
-            {% endif %}
-          </td>
-
-          <td>
-            <div class="row-actions">
-              <a href="{% url 'promotion_update' p.id %}" class="link">
-                Editar
-              </a>
-            </div>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-
-  {% else %}
-    <p>No hay promociones todavía.</p>
+    <div class="table-wrap">
+      <table class="editorial">
+        <thead>
+          <tr>
+            <th>{% translate "Nombre" %}</th>
+            <th>{% translate "Tipo" %}</th>
+            <th>{% translate "Estado" %}</th>
+            <th>{% translate "Vigencia" %}</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p in promociones %}
+            <tr>
+              <td><strong>{{ p.nombre }}</strong></td>
+              <td>{{ p.get_tipo_display }}</td>
+              <td><span class="badge {{ p.estado }}">{{ p.get_estado_display }}</span></td>
+              <td>
+                {{ p.vigencia_desde|date:"d/m/Y" }}
+                {% if p.vigencia_hasta %} → {{ p.vigencia_hasta|date:"d/m/Y" }}{% endif %}
+              </td>
+              <td>
+                <div class="row-actions">
+                  <a href="{% url 'promotion_update' p.id %}" class="row-link">{% translate "Editar" %}</a>
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
   {% endif %}
 
 </section>
