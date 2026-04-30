@@ -75,15 +75,32 @@ class TourForm(BaseForm):
         if self.instance and self.instance.pk:
             self.fields["image"].required = False
 
-class TrackingLinkForm(BaseForm):
+
+
+class TrackingLinkForm(forms.ModelForm):
     class Meta:
         model = TrackingLink
-        fields = ["partner", "tour", "canal", "notas"]
+        fields = ['partner', 'tour', 'canal', 'notas']
         widgets = {
-            "notas": forms.TextInput(attrs={"placeholder": "Ej: recepción planta baja"}),
+            'partner': forms.Select(attrs={'class': 'form-control'}),
+            'tour':    forms.Select(attrs={'class': 'form-control'}),
+            'canal':   forms.Select(attrs={'class': 'form-control'}),
+            'notas':   forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': _('Ej: recepción, lobby...'),
+            }),
+        }
+        labels = {
+            'partner': _('Partner'),
+            'tour':    _('Tour'),
+            'canal':   _('Canal'),
+            'notas':   _('Notas'),
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["tour"].queryset = Tour.objects.filter(is_active=True).order_by("title")
-        self.fields["partner"].queryset = Partner.objects.filter(activo=True).order_by("nombre")
+        # Mostrar TODOS los partners y tours, no solo los activos
+        self.fields['partner'].queryset = Partner.objects.all().order_by('nombre')
+        self.fields['tour'].queryset = Tour.objects.all().order_by('title')
+        self.fields['partner'].empty_label = _("— Elegí un partner —")
+        self.fields['tour'].empty_label    = _("— Elegí un tour —")

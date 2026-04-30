@@ -244,10 +244,12 @@ def tour_update(request, pk):
 # TRACKING / QR
 # =============================================================================
 
+from django.db.models import F
+
 @require_GET
 def tracking_redirect(request, codigo):
     link = get_object_or_404(TrackingLink, codigo=codigo, activo=True)
-    TrackingLink.objects.filter(pk=link.pk).update(clics=link.clics + 1)
+    TrackingLink.objects.filter(pk=link.pk).update(clics=F('clics') + 1)
     destino = link.tour.bokun_widget_url or link.tour.button_url or "/"
     return redirect(destino)
 
