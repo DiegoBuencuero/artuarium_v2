@@ -71,12 +71,17 @@
           {% endif %}
         </div>
 
-        <div class="field">
-          <label>{% translate "Estado" %}</label>
-          <div class="field-check">
-            {{ form.activo }}
-            <label for="{{ form.activo.id_for_label }}">{% translate "Partner activo" %}</label>
-          </div>
+        <div class="mb-3 form-check">
+          {{ form.activo }}
+          <label class="form-check-label" for="{{ form.activo.id_for_label }}">
+            {% translate "Partner activo" %}
+          </label>
+
+          {% if form.activo.errors %}
+            <div class="invalid-feedback d-block">
+              {% for e in form.activo.errors %}{{ e }}{% endfor %}
+            </div>
+          {% endif %}
         </div>
 
         {# ─── Contacto ───────────────────────────────────────── #}

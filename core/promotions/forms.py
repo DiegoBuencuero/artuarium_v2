@@ -21,8 +21,14 @@ class PartnerForm(BaseForm):
             "sitio_web", "direccion", "comision_default", "notas",
         ]
         widgets = {
-            "notas":     forms.Textarea(attrs={"rows": 3}),
-            "direccion": forms.TextInput(attrs={"placeholder": "Ej: Rua de Santa Catarina 123, Porto"}),
+            "notas": forms.Textarea(attrs={"rows": 3}),
+            "direccion": forms.TextInput(attrs={
+                "placeholder": "Ej: Rua de Santa Catarina 123, Porto"
+            }),
+
+            "activo": forms.CheckboxInput(attrs={
+                "class": "form-check-input"
+            }),
         }
 
 
