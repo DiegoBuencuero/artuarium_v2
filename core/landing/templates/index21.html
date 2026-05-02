@@ -373,12 +373,12 @@ body {
       .cta-band{padding:72px 24px}
     }
 
-  .hero--artuarium {
+.hero--artuarium {
   min-height: 92vh;
   position: relative;
   display: flex;
-  align-items: flex-end;
-  padding: 150px 48px 72px;
+  align-items: center; /* 🔥 CAMBIO CLAVE */
+  padding: 120px 48px; /* menos peso abajo */
   overflow: hidden;
   background: #080C0A;
 }
@@ -664,400 +664,249 @@ body {
     font-size: .6em;
   }
 }
+.hero-inner--artuarium {
+  position: relative;
+  z-index: 2;
+  max-width: 1340px;
+  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.15fr .62fr;
+  gap: 56px;
+  align-items: center; /* 🔥 antes: end */
+}
 
   </style>
-</head>
-  <section class="hero hero--artuarium">
-    <div class="hero-bg hero-bg--artuarium" aria-hidden="true"></div>
-    <div class="hero-overlay" aria-hidden="true"></div>
-    <div class="hero-grain" aria-hidden="true"></div>
+</head>{% load i18n %}
 
-    <div class="hero-inner hero-inner--artuarium">
-      <div class="hero-copy hero-copy--artuarium">
-        <div class="hero-eyebrow hero-eyebrow--artuarium">
-          Porto · Experiencia caminada curada
-        </div>
+<section class="hero hero--artuarium">
+  <div class="hero-bg hero-bg--artuarium" aria-hidden="true"></div>
+  <div class="hero-overlay" aria-hidden="true"></div>
+  <div class="hero-grain" aria-hidden="true"></div>
 
-        <h1 class="hero-h1 hero-h1--artuarium">
-          Porto Essencial
-          <em>donde la historia respira y la jornada se vuelve memoria</em>
-        </h1>
+  <div class="hero-inner hero-inner--artuarium">
+    <div class="hero-copy hero-copy--artuarium">
 
-        <p class="hero-sub hero-sub--artuarium">
-          No seguimos mapas — seguimos memorias. Caminamos con ojos entrenados para lo invisible: inscripciones en piedra, ventanas de conventos olvidados, aromas de historias que resisten al tiempo. Cada parada es una coma en un párrafo ancestral.
-        </p>
+      <div class="hero-eyebrow hero-eyebrow--artuarium">
+        {% translate "Porto · Experiencia caminada curada" %}
+      </div> 
+      <h1 class="hero-h1 hero-h1--artuarium">
+        {% translate "Porto Essencial" %}
+        <em>{% translate "donde la historia respira y la jornada se vuelve memoria" %}</em>
+      </h1>
 
-        <div class="hero-meta hero-meta--artuarium">
-          <span>⏱ 3 horas</span>
-          <span>👥 Máx. 8 personas</span>
-          <span>📍 Sé do Porto</span>
-          <span>🗣 EN · PT · ES</span>
-        </div>
+      <p class="hero-sub hero-sub--artuarium">
+        {% blocktrans trimmed %}
+        No seguimos mapas — seguimos memorias. Caminamos con ojos entrenados para lo invisible: inscripciones en piedra, ventanas de conventos olvidados, aromas de historias que resisten al tiempo. Cada parada es una coma en un párrafo ancestral.
+        {% endblocktrans %}
+      </p>
 
-        <div class="hero-rating hero-rating--artuarium">
-          <span class="stars">★★★★★</span>
-          <span>4.9 · 128 evaluaciones verificadas</span>
-        </div>
-      </div>
+      {% comment %} <div class="hero-meta hero-meta--artuarium">
+        <span>⏱ {% translate "3 horas" %}</span>
+        <span>👥 {% translate "Máx. 8 personas" %}</span>
+        <span>📍 {% translate "Sé do Porto" %}</span>
+        <span>🗣 EN · PT · ES</span>
+      </div> {% endcomment %}
 
-      <aside class="booking-card booking-card--artuarium" id="book">
-        <div class="urgency-block urgency-block--artuarium">
-          <span class="badge-urgency badge-urgency--artuarium">Semi-private walking tour</span>
-          <div class="next-departure next-departure--artuarium">
-            Próxima salida
-            <strong>Sábado 19 abril</strong>
-          </div>
-        </div>
+      {% comment %} <div class="hero-rating hero-rating--artuarium">
+        <span class="stars">★★★★★</span>
+        <span>{% translate "4.9 · 128 evaluaciones verificadas" %}</span>
+      </div> {% endcomment %}
 
-        <div class="booking-price booking-price--artuarium">
-          <div class="price price--artuarium">
-            €35 <small>/ persona</small>
-          </div>
-
-          <div class="availability availability--artuarium">
-            <div class="progress-bar progress-bar--artuarium">
-              <div class="progress-fill progress-fill--artuarium"></div>
-            </div>
-            Desde · reserva en Bokun
-          </div>
-        </div>
-
-        <div class="booking-summary booking-summary--artuarium">
-          <div class="booking-summary__item">
-            <span class="booking-summary__label">Formato</span>
-            <strong class="booking-summary__value">Semi-privado</strong>
-          </div>
-
-          <div class="booking-summary__item">
-            <span class="booking-summary__label">Recorrido</span>
-            <strong class="booking-summary__value">Centro histórico</strong>
-          </div>
-
-          <div class="booking-summary__item">
-            <span class="booking-summary__label">Duración</span>
-            <strong class="booking-summary__value">3 horas</strong>
-          </div>
-
-          <div class="booking-summary__item">
-            <span class="booking-summary__label">Punto de partida</span>
-            <strong class="booking-summary__value">Sé do Porto</strong>
-          </div>
-        </div>
-
-        <button
-          class="btn-primary bokunButton"
-          id="bokun_cta_porto_essencial"
-          data-src="https://widgets.bokun.io/online-sales/53bbe0a9-5a66-4ab2-b3e5-38cea4fb3e07/experience/1175368?partialView=1">
-          Reservar esta jornada
-        </button>
-
-        <a href="#overview" class="btn-secondary btn-secondary--link">
-          Ver recorrido
-        </a>
-
-        <p class="booking-note booking-note--artuarium">
-          Sin prisa, sin presión. La disponibilidad, fechas y participantes se confirman dentro del calendario de reserva.
-        </p>
-      </aside>
     </div>
-  </section>
-  {% comment %} 
-  <!-- ══ OVERVIEW ══════════════════════════════════════ -->
-  <section class="section" id="overview">
-    <div class="container intro-grid">
-      <div class="reveal">
-        <div class="kicker">Overview</div>
-        <h2 class="section-title">Más que ver: <em>comprender, sentir y recordar</em></h2>
 
-        <p class="lead" style="margin-bottom:16px">
-          Donde otros ven ruinas, nosotros vemos ecos. Donde otros clican, nosotros contamos. Esta ruta no está diseñada para mostrarte Porto — está diseñada para ayudarte a entender cómo llegó a ser lo que es.
-        </p>
-        <p class="lead" style="margin-bottom:16px">
-          Nos movemos por la ciudad con la lentitud suficiente para notar sus capas: piedra, comercio, devoción, imperio, melancolía, reinvención. Las calles se conectan con símbolos, los edificios con memoria política, los miradores con formas de leer cómo la ciudad se configuró a lo largo de siglos.
-        </p>
-        <p class="lead">
-          Para quienes visitan por primera vez, ofrece orientación con profundidad. Para quienes regresan, suele ser el momento en que Porto empieza a tener sentido real — el momento en que la jornada se vuelve memoria.
-        </p>
+    <aside class="booking-card booking-card--artuarium" id="book">
+
+      <div class="urgency-block urgency-block--artuarium">
+        <span class="badge-urgency badge-urgency--artuarium">
+          {% translate "Semi-private walking tour" %}
+        </span>
+
+        <div class="next-departure next-departure--artuarium">
+          {% translate "Próxima salida" %}
+          <strong>{% translate "Sábado 19 abril" %}</strong>
+        </div>
       </div>
 
-      <aside class="aside-box reveal reveal-d2">
-        <div class="aside-title">Datos del recorrido</div>
-        <div class="facts">
-          <div class="fact"><span>Duración</span><strong>3 horas</strong></div>
-          <div class="fact"><span>Grupo</span><strong>Hasta 8 personas</strong></div>
-          <div class="fact"><span>Punto de encuentro</span><strong>Sé do Porto</strong></div>
-          <div class="fact"><span>Punto final</span><strong>Ribeira</strong></div>
-          <div class="fact"><span>Ritmo</span><strong>Fácil a moderado</strong></div>
-          <div class="fact"><span>Idiomas</span><strong>EN / PT / ES</strong></div>
-          <div class="fact"><span>Ideal para</span><strong>Primera visita</strong></div>
-          <div class="fact"><span>Formato</span><strong>Caminata curada</strong></div>
+      <div class="booking-price booking-price--artuarium">
+        <div class="price price--artuarium">
+          €35 <small>{% translate "/ persona" %}</small>
         </div>
-      </aside>
+
+        <div class="availability availability--artuarium">
+          <div class="progress-bar progress-bar--artuarium">
+            <div class="progress-fill progress-fill--artuarium"></div>
+          </div>
+          {% translate "Desde · reserva en Bokun" %}
+        </div>
+      </div>
+
+      <div class="booking-summary booking-summary--artuarium">
+
+        <div class="booking-summary__item">
+          <span class="booking-summary__label">{% translate "Formato" %}</span>
+          <strong class="booking-summary__value">{% translate "Semi-privado" %}</strong>
+        </div>
+
+        <div class="booking-summary__item">
+          <span class="booking-summary__label">{% translate "Recorrido" %}</span>
+          <strong class="booking-summary__value">{% translate "Centro histórico" %}</strong>
+        </div>
+
+        <div class="booking-summary__item">
+          <span class="booking-summary__label">{% translate "Duración" %}</span>
+          <strong class="booking-summary__value">{% translate "3 horas" %}</strong>
+        </div>
+
+        <div class="booking-summary__item">
+          <span class="booking-summary__label">{% translate "Punto de partida" %}</span>
+          <strong class="booking-summary__value">{% translate "Sé do Porto" %}</strong>
+        </div>
+
+      </div>
+
+      <button
+        class="btn-primary bokunButton"
+        id="bokun_cta_porto_essencial"
+        data-src="https://widgets.bokun.io/online-sales/53bbe0a9-5a66-4ab2-b3e5-38cea4fb3e07/experience/1175368?partialView=1">
+        {% translate "Reservar esta jornada" %}
+      </button>
+
+      <a href="#overview" class="btn-secondary btn-secondary--link">
+        {% translate "Ver recorrido" %}
+      </a>
+
+      <p class="booking-note booking-note--artuarium">
+        {% blocktrans trimmed %}
+        Sin prisa, sin presión. La disponibilidad, fechas y participantes se confirman dentro del calendario de reserva.
+        {% endblocktrans %}
+      </p>
+
+    </aside>
+  </div>
+</section>
+
+<!-- RELATED TOURS -->
+<section class="section section-alt">
+  <div class="container">
+
+    <div class="reveal">
+      <div class="kicker">{% translate "Continúa explorando" %}</div>
+      <h2 class="section-title">
+        {% translate "Otras jornadas que podrías" %} <em>{% translate "querer considerar" %}</em>
+      </h2>
     </div>
-  </section> {% endcomment %}
 
-  <!-- ══ RELATED TOURS ════════════════════════════════ -->
-  <section class="section section-alt">
-    <div class="container">
-      <div class="reveal">
-        <div class="kicker">Continúa explorando</div>
-        <h2 class="section-title">Otras jornadas que podrías <em>querer considerar</em></h2>
-      </div>
-      <div class="related-grid">
-        <article class="tour-card reveal reveal-d1">
-          <div class="tour-image"><img src="https://images.unsplash.com/photo-1519677100203-a0e668c92439?w=900&q=88" alt="El alma de los azulejos"></div>
-          <div class="tour-body">
-            <span class="tour-badge">Artuarium Original</span>
-            <h3 class="tour-title">El alma de los azulejos</h3>
-            <p class="tour-text">Una ruta centrada en fachadas, ornamento y superficies simbólicas — donde cada azulejo cuenta un fragmento de historia que resiste al tiempo.</p>
-            <div class="tour-footer"><div class="tour-price">€30</div><a href="#" class="tour-link">Ver jornada</a></div>
-          </div>
-        </article>
-        <article class="tour-card reveal reveal-d2">
-          <div class="tour-image"><img src="https://images.unsplash.com/photo-1559827291-72ee739d0d9a?w=900&q=88" alt="Porto al atardecer"></div>
-          <div class="tour-body">
-            <span class="tour-badge">Artuarium Original</span>
-            <h3 class="tour-title">Porto al atardecer</h3>
-            <p class="tour-text">Una caminata vespertina más tranquila donde la luz y el ánimo urbano se vuelven la guía principal — cuando la ciudad se tiñe de oro y silencio.</p>
-            <div class="tour-footer"><div class="tour-price">€40</div><a href="#" class="tour-link">Ver jornada</a></div>
-          </div>
-        </article>
-        <article class="tour-card reveal reveal-d3">
-          <div class="tour-image"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=88" alt="Experiencia del Duero"></div>
-          <div class="tour-body">
-            <span class="tour-badge">Partner seleccionado</span>
-            <h3 class="tour-title">Experiencia de cata del Duero</h3>
-            <p class="tour-text">Una experiencia curada para quienes quieren extender la jornada a través del vino — sabor esquecido de una historia que respira.</p>
-            <div class="tour-footer"><div class="tour-price">€65</div><a href="#" class="tour-link">Ver fechas</a></div>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-  <!-- ══ HIGHLIGHTS ════════════════════════════════════ -->
-  <section class="section section-alt">
-    <div class="container">
-      <div class="reveal">
-        <div class="kicker">Por qué esta ruta</div>
-        <h2 class="section-title">No ofrecemos información: <em>ofrecemos sentido</em></h2>
-      </div>
+    <div class="related-grid">
 
-      <div class="highlights-grid">
-        <article class="highlight-card reveal reveal-d1">
-          <div class="highlight-num">01</div>
-          <div class="highlight-icon"><i class="bi bi-eye"></i></div>
-          <h3 class="highlight-title">{% translate "Conhecimento que Ilumina" %}</h3>
-          <p class="highlight-text">{% blocktrans trimmed with b1="<strong>" b2="</strong>" %}
-              A pesquisa rigorosa é o coração do meu trabalho. 
-              É a partir dela que construo walking tours no Porto com rigor histórico, 
-              entregues com clareza, paixão e compromisso.
-              {% endblocktrans %}</p>
-                        <div class="d-flex justify-content-center">
-              <button class="btn1 bokunButton"
-                id="bokun_cta_essencia"
-                data-src="https://widgets.bokun.io/online-sales/53bbe0a9-5a66-4ab2-b3e5-38cea4fb3e07/experience/1175368?partialView=1">
-                {% translate " AGENDA UN TOUR " %}
-              </button>
-            </div>
-        </article>
-        <article class="highlight-card reveal reveal-d2">
-          <div class="highlight-num">02</div>
-          <div class="highlight-icon"><i class="bi bi-journal-bookmark"></i></div>
-          <h3 class="highlight-title">{% translate "Beleza que se Educa" %}</h3>
-          <p class="highlight-text"> {% translate "A beleza do Porto é natural, construída e vivida. Permita-se o olhar sem exageros, sem artifícios — apenas com atenção." %}</p>
-          <div class="d-flex justify-content-center mt-5">
-              <a href="{% url 'reviews' %}" class="btn1" title="{% translate 'Ver roteiros culturais' %}">
-                {% translate " ACOMPANHAR" %}
-              </a>
-            </div>
-        </article>
-        <article class="highlight-card reveal reveal-d3">
-          <div class="highlight-num">03</div>
-          <div class="highlight-icon"><i class="bi bi-signpost-split"></i></div>
-          <h3 class="highlight-title"> {% translate "Gentileza que Sustenta" %}</h3>
-          <p class="highlight-text">{% blocktrans trimmed with b1="<strong>" b2="</strong>" %}
-              O objetivo é criar uma experiência única no Porto que permanece na memória e, por sua vez, sustenta o meu lar e a minha educação contínua.
-              {% endblocktrans %}</p>
-            <div class="d-flex justify-content-center mt-5">
-              <a href="{% url 'reviews' %}" class="btn1" title="{% translate 'Ver roteiros culturais' %}">
-                {% translate "APOIAR" %}
-              </a>
-            </div>
-        </article>
-      </div>
-    </div>
-  </section>
-  <!-- ══ ITINERARY ════════════════════════════════════ -->
-  {% comment %} <section class="section section-alt" id="itinerary">
-    <div class="container itinerary-wrap">
-      <div>
-        <div class="reveal">
-          <div class="kicker">Itinerario</div>
-          <h2 class="section-title">La ruta, en <em>cuatro movimientos</em></h2>
+      <article class="tour-card reveal reveal-d1">
+        <div class="tour-image">
+          <img src="https://images.unsplash.com/photo-1519677100203-a0e668c92439?w=900&q=88">
         </div>
-        <div class="timeline">
-          <div class="step reveal reveal-d1">
-            <div class="step-number">01</div>
-            <div>
-              <h4>La ciudad alta</h4>
-              <p>Comenzamos cerca de la catedral, donde elevación, defensa y presencia sacra configuraron la lectura más temprana de Porto. Aquí la piedra aún habla — y nosotros la escuchamos.</p>
-            </div>
-          </div>
-          <div class="step reveal reveal-d2">
-            <div class="step-number">02</div>
-            <div>
-              <h4>Comercio y paso</h4>
-              <p>Al descender por el tejido histórico, la ruta se abre a cuestiones de intercambio, trabajo y movimiento — la ciudad como lugar de circulación, no de belleza estática. Pegadas sobre piedras antiguas.</p>
-            </div>
-          </div>
-          <div class="step reveal reveal-d3">
-            <div class="step-number">03</div>
-            <div>
-              <h4>Piedras, fachadas, memoria</h4>
-              <p>Iglesias, casas, rastros de reforma e intervención urbana. No monumentos aislados, sino parte de un carácter cívico cambiante — vestigios que respiran bajo la superficie.</p>
-            </div>
-          </div>
-          <div class="step reveal">
-            <div class="step-number">04</div>
-            <div>
-              <h4>El río y la vista abierta</h4>
-              <p>La caminata cierra en Ribeira, donde la imagen pública de Porto se encuentra con su horizonte emocional. Lo que parecía fragmentado se vuelve legible como un todo — y la jornada se convierte en memoria.</p>
-            </div>
+        <div class="tour-body">
+          <span class="tour-badge">{% translate "Artuarium Original" %}</span>
+          <h3 class="tour-title">{% translate "El alma de los azulejos" %}</h3>
+          <p class="tour-text">
+            {% blocktrans trimmed %}
+            Una ruta centrada en fachadas, ornamento y superficies simbólicas — donde cada azulejo cuenta un fragmento de historia que resiste al tiempo.
+            {% endblocktrans %}
+          </p>
+          <div class="tour-footer">
+            <div class="tour-price">€30</div>
+            <a href="#" class="tour-link">{% translate "Ver jornada" %}</a>
           </div>
         </div>
-      </div>
-      <div class="itinerary-image reveal reveal-d2">
-        <img src="https://images.unsplash.com/photo-1572116469696-31de0f17cc34?w=1100&q=88" alt="Vista de Porto desde el Duero">
-      </div>
-    </div>
-  </section> {% endcomment %}
+      </article>
 
-  <!-- ══ GALLERY ══════════════════════════════════════ -->
-  <section class="section">
-    <div class="container">
-      <div class="reveal">
-        <div class="kicker">Momentos</div>
-        <h2 class="section-title">Un vistazo a la <em>atmósfera</em></h2>
-      </div>
-      <div class="gallery-grid">
-        <div><img src="https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=1200&q=88" alt="Calles de Porto"></div>
-        <div><img src="https://images.unsplash.com/photo-1519677100203-a0e668c92439?w=900&q=88" alt="Azulejos"></div>
-        <div><img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=900&q=88" alt="Ribera del Duero"></div>
-        <div><img src="https://images.unsplash.com/photo-1559827291-72ee739d0d9a?w=900&q=88" alt="Porto al atardecer"></div>
-        <div><img src="https://images.unsplash.com/photo-1503220317375-aaad61436b1b?w=900&q=88" alt="Caminata urbana"></div>
-      </div>
-    </div>
-  </section>
+      <article class="tour-card reveal reveal-d2">
+        <div class="tour-image">
+          <img src="https://images.unsplash.com/photo-1559827291-72ee739d0d9a?w=900&q=88">
+        </div>
+        <div class="tour-body">
+          <span class="tour-badge">{% translate "Artuarium Original" %}</span>
+          <h3 class="tour-title">{% translate "Porto al atardecer" %}</h3>
+          <p class="tour-text">
+            {% blocktrans trimmed %}
+            Una caminata vespertina más tranquila donde la luz y el ánimo urbano se vuelven la guía principal.
+            {% endblocktrans %}
+          </p>
+          <div class="tour-footer">
+            <div class="tour-price">€40</div>
+            <a href="#" class="tour-link">{% translate "Ver jornada" %}</a>
+          </div>
+        </div>
+      </article>
 
-  <!-- ══ REVIEWS ══════════════════════════════════════ -->
-  <section class="section section-alt" id="reviews">
-    <div class="container">
-      <div class="reviews-header reveal">
-        <div>
-          <div class="kicker">Opiniones</div>
-          <h2 class="section-title">Lo que queda <em>después de la caminata</em></h2>
+      <article class="tour-card reveal reveal-d3">
+        <div class="tour-image">
+          <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=88">
         </div>
-        <div class="rating-summary">
-          <div class="rating-number">4.9</div>
-          <div class="rating-detail">
-            <div class="stars">★★★★★</div>
-            <div class="rating-count">128 evaluaciones verificadas</div>
+        <div class="tour-body">
+          <span class="tour-badge">{% translate "Partner seleccionado" %}</span>
+          <h3 class="tour-title">{% translate "Experiencia de cata del Duero" %}</h3>
+          <p class="tour-text">
+            {% blocktrans trimmed %}
+            Una experiencia curada para quienes quieren extender la jornada a través del vino.
+            {% endblocktrans %}
+          </p>
+          <div class="tour-footer">
+            <div class="tour-price">€65</div>
+            <a href="#" class="tour-link">{% translate "Ver fechas" %}</a>
           </div>
         </div>
-      </div>
-      <div class="reviews-grid">
-        <article class="review reveal reveal-d1">
-          <div class="stars">★★★★★</div>
-          <p>"Esto no se sintió como un tour. Se sintió como que me enseñaban a leer Porto correctamente — con los ojos brillando de curiosidad."</p>
-          <small>Anna R. · Berlín</small>
-        </article>
-        <article class="review reveal reveal-d2">
-          <div class="stars">★★★★★</div>
-          <p>"La ruta fue hermosa, pero lo que nos quedó fue la estructura de la historia. Todo conectaba. Donde otros ven ruinas, Artur ve ecos."</p>
-          <small>James H. · Londres</small>
-        </article>
-        <article class="review reveal reveal-d3">
-          <div class="stars">★★★★★</div>
-          <p>"Ya habíamos visitado Porto antes. Esta fue la primera vez que sentimos que la entendíamos — más que ver, comprender y sentir."</p>
-          <small>Clara & Tomás · Porto</small>
-        </article>
-      </div>
-    </div>
-  </section>
+      </article>
 
-  <!-- ══ FAQ ══════════════════════════════════════════ -->
-  <section class="section" id="faq">
-    <div class="container">
-      <div class="reveal">
-        <div class="kicker">Detalles prácticos</div>
-        <h2 class="section-title">Preguntas frecuentes <em>antes de reservar</em></h2>
-      </div>
-      <div class="faq-grid">
-        <div class="faq-item reveal reveal-d1">
-          <div class="faq-toggle">
-            <div class="faq-question">¿Es adecuado para quienes visitan Porto por primera vez?</div>
-            <div class="faq-icon">+</div>
-          </div>
-          <div class="faq-answer">Sí — de hecho, es uno de los mejores puntos de entrada a la ciudad. Ofrece orientación con profundidad, por lo que funciona especialmente bien al inicio de una estancia. Bienvenido a una historia que comienza antes de que llegues.</div>
-        </div>
-        <div class="faq-item reveal reveal-d2">
-          <div class="faq-toggle">
-            <div class="faq-question">¿Qué tan exigente es la caminata?</div>
-            <div class="faq-icon">+</div>
-          </div>
-          <div class="faq-answer">El ritmo es moderado, con algunas pendientes y calles de piedra típicas de Porto. Se recomiendan zapatos cómodos. La ruta es manejable para la mayoría de los visitantes — caminamos con respeto por los pasos.</div>
-        </div>
-        <div class="faq-item reveal reveal-d3">
-          <div class="faq-toggle">
-            <div class="faq-question">¿Puedo reservar una versión privada?</div>
-            <div class="faq-icon">+</div>
-          </div>
-          <div class="faq-answer">Sí. Las salidas privadas se organizan bajo pedido y son ideales para parejas, familias o grupos pequeños que buscan una jornada más personalizada — el mismo cuidado, mayor intimidad.</div>
-        </div>
-        <div class="faq-item reveal">
-          <div class="faq-toggle">
-            <div class="faq-question">¿Qué pasa si llueve?</div>
-            <div class="faq-icon">+</div>
-          </div>
-          <div class="faq-answer">La lluvia ligera no impide la jornada. Porto suele entenderse mejor bajo clima cambiante — hay una belleza particular en la piedra mojada. En condiciones severas, discutimos alternativas con cuidado.</div>
-        </div>
-      </div>
     </div>
-  </section>
-  <!-- ══ CTA FINAL ════════════════════════════════════ -->
-  <section class="cta-band">
-    <div class="cta-inner reveal">
-      <h2>Permítete una jornada con ojos de quien ve <em>más allá de las fachadas</em></h2>
-      <p>Algunos visitantes saben de inmediato qué caminata es la suya. Otros prefieren preguntar primero. Ambas opciones son bienvenidas — gentileza genera gentileza.</p>
-      <div class="cta-actions">
-        <button class="btn-cta-primary">Reservar Porto Essencial</button>
-        <button class="btn-cta-secondary">Pedir orientación</button>
-      </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-band">
+  <div class="cta-inner reveal">
+    <h2>
+      {% translate "Permítete una jornada con ojos de quien ve" %}
+      <em>{% translate "más allá de las fachadas" %}</em>
+    </h2>
+
+    <p>
+      {% blocktrans trimmed %}
+      Algunos visitantes saben de inmediato qué caminata es la suya. Otros prefieren preguntar primero. Ambas opciones son bienvenidas.
+      {% endblocktrans %}
+    </p>
+
+    <div class="cta-actions">
+      <button class="btn-cta-primary">
+        {% translate "Reservar Porto Essencial" %}
+      </button>
+      <button class="btn-cta-secondary">
+        {% translate "Pedir orientación" %}
+      </button>
     </div>
-  </section>
+  </div>
+</section>
 
-  <script>
-  (function(){
-    // Scroll reveal
-    var els=document.querySelectorAll('.reveal');
-    var io=new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}
-      });
-    },{threshold:.1,rootMargin:'0px 0px -40px 0px'});
-    els.forEach(function(el){io.observe(el)});
-
-    // FAQ
-    document.querySelectorAll('.faq-toggle').forEach(function(t){
-      t.addEventListener('click',function(){
-        var item=t.closest('.faq-item');
-        var open=item.classList.contains('open');
-        document.querySelectorAll('.faq-item.open').forEach(function(i){i.classList.remove('open')});
-        if(!open)item.classList.add('open');
-      });
+<script>
+(function(){
+  // Scroll reveal
+  var els=document.querySelectorAll('.reveal');
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}
     });
-  })();
-  </script>
+  },{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+  els.forEach(function(el){io.observe(el)});
+
+  // FAQ
+  document.querySelectorAll('.faq-toggle').forEach(function(t){
+    t.addEventListener('click',function(){
+      var item=t.closest('.faq-item');
+      var open=item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function(i){i.classList.remove('open')});
+      if(!open)item.classList.add('open');
+    });
+  });
+})();
+</script>
 
 
-  {% endblock %}
+{% endblock %}
