@@ -10,7 +10,7 @@ BASE_URL = "https://api.bokun.io"
 
 
 def _headers(method: str, path: str) -> dict:
-    date = datetime.datetime.now(datetime.UTC).strftime("%Y-%m-%d %H:%M:%S")
+    date = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
     # Formato oficial Bókun: date + accessKey + METHOD + path (sin separadores)
     msg = f"{date}{settings.BOKUN_API_KEY}{method.upper()}{path}"
     sig = base64.b64encode(
