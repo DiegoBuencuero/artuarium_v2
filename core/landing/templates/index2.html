@@ -675,88 +675,81 @@ body {
     <div class="hero-inner hero-inner--artuarium">
       <div class="hero-copy hero-copy--artuarium">
         <div class="hero-eyebrow hero-eyebrow--artuarium">
-          Porto · Experiencia caminada curada
+          Porto · {% translate "Experiencia caminada curada" %}
         </div>
 
         <h1 class="hero-h1 hero-h1--artuarium">
-          Porto Essencial
-          <em>donde la historia respira y la jornada se vuelve memoria</em>
+          {% if featured_tour %}
+            {{ featured_tour.title }}
+            {% if featured_tour.subtitle %}<em>{{ featured_tour.subtitle }}</em>{% endif %}
+          {% else %}
+            Porto Essencial
+          {% endif %}
         </h1>
 
-        <p class="hero-sub hero-sub--artuarium">
-          No seguimos mapas — seguimos memorias. Caminamos con ojos entrenados para lo invisible: inscripciones en piedra, ventanas de conventos olvidados, aromas de historias que resisten al tiempo. Cada parada es una coma en un párrafo ancestral.
-        </p>
+        {% if featured_tour and featured_tour.subtitle %}
+          <p class="hero-sub hero-sub--artuarium">
+            {{ featured_tour.subtitle }}
+          </p>
+        {% endif %}
 
         <div class="hero-meta hero-meta--artuarium">
-          <span>⏱ 3 horas</span>
-          <span>👥 Máx. 8 personas</span>
-          <span>📍 Sé do Porto</span>
+          {% if featured_tour and featured_tour.duration %}
+            <span>⏱ {{ featured_tour.duration }}</span>
+          {% endif %}
+          <span>📍 Porto</span>
           <span>🗣 EN · PT · ES</span>
-        </div>
-
-        <div class="hero-rating hero-rating--artuarium">
-          <span class="stars">★★★★★</span>
-          <span>4.9 · 128 evaluaciones verificadas</span>
         </div>
       </div>
 
       <aside class="booking-card booking-card--artuarium" id="book">
         <div class="urgency-block urgency-block--artuarium">
-          <span class="badge-urgency badge-urgency--artuarium">Semi-private walking tour</span>
-          <div class="next-departure next-departure--artuarium">
-            Próxima salida
-            <strong>Sábado 19 abril</strong>
-          </div>
+          <span class="badge-urgency badge-urgency--artuarium">{% translate "Walking Tour" %}</span>
         </div>
 
         <div class="booking-price booking-price--artuarium">
           <div class="price price--artuarium">
-            €35 <small>/ persona</small>
+            {% if featured_tour %}
+              €{{ featured_tour.price|floatformat:0 }} <small>/ {% translate "persona" %}</small>
+            {% else %}
+              —
+            {% endif %}
           </div>
-
           <div class="availability availability--artuarium">
             <div class="progress-bar progress-bar--artuarium">
               <div class="progress-fill progress-fill--artuarium"></div>
             </div>
-            Desde · reserva en Bokun
+            {% translate "Desde · reserva en Bókun" %}
           </div>
         </div>
 
         <div class="booking-summary booking-summary--artuarium">
           <div class="booking-summary__item">
-            <span class="booking-summary__label">Formato</span>
-            <strong class="booking-summary__value">Semi-privado</strong>
+            <span class="booking-summary__label">{% translate "Duración" %}</span>
+            <strong class="booking-summary__value">
+              {% if featured_tour and featured_tour.duration %}{{ featured_tour.duration }}{% else %}—{% endif %}
+            </strong>
           </div>
-
           <div class="booking-summary__item">
-            <span class="booking-summary__label">Recorrido</span>
-            <strong class="booking-summary__value">Centro histórico</strong>
-          </div>
-
-          <div class="booking-summary__item">
-            <span class="booking-summary__label">Duración</span>
-            <strong class="booking-summary__value">3 horas</strong>
-          </div>
-
-          <div class="booking-summary__item">
-            <span class="booking-summary__label">Punto de partida</span>
-            <strong class="booking-summary__value">Sé do Porto</strong>
+            <span class="booking-summary__label">{% translate "Punto de partida" %}</span>
+            <strong class="booking-summary__value">Porto</strong>
           </div>
         </div>
 
-        <button
-          class="btn-primary bokunButton"
-          id="bokun_cta_porto_essencial"
-          data-src="https://widgets.bokun.io/online-sales/53bbe0a9-5a66-4ab2-b3e5-38cea4fb3e07/experience/1175368?partialView=1">
-          Reservar esta jornada
-        </button>
+        {% if featured_tour and featured_tour.bokun_widget_url %}
+          <button
+            class="btn-primary bokunButton"
+            data-src="{{ featured_tour.bokun_widget_url }}">
+            {% translate "Reservar esta jornada" %}
+          </button>
+        {% endif %}
 
-        <a href="#overview" class="btn-secondary btn-secondary--link">
-          Ver recorrido
+        <a href="#tours" class="btn-secondary btn-secondary--link">
+          {% translate "Ver todos los tours" %}
         </a>
 
         <p class="booking-note booking-note--artuarium">
-          Sin prisa, sin presión. La disponibilidad, fechas y participantes se confirman dentro del calendario de reserva.
+          {% translate "Sin prisa, sin presión. La disponibilidad, fechas y participantes se confirman dentro del calendario de reserva." %}
         </p>
       </aside>
     </div>
@@ -797,43 +790,47 @@ body {
   </section> {% endcomment %}
 
   <!-- ══ RELATED TOURS ════════════════════════════════ -->
-  <section class="section section-alt">
+  {% if other_tours %}
+  <section class="section section-alt" id="tours">
     <div class="container">
       <div class="reveal">
-        <div class="kicker">Continúa explorando</div>
-        <h2 class="section-title">Otras jornadas que podrías <em>querer considerar</em></h2>
+        <div class="kicker">{% translate "Continúa explorando" %}</div>
+        <h2 class="section-title">{% translate "Otras jornadas que podrías" %} <em>{% translate "querer considerar" %}</em></h2>
       </div>
       <div class="related-grid">
-        <article class="tour-card reveal reveal-d1">
-          <div class="tour-image"><img src="https://images.unsplash.com/photo-1519677100203-a0e668c92439?w=900&q=88" alt="El alma de los azulejos"></div>
+        {% for tour in other_tours %}
+        <article class="tour-card reveal reveal-d{{ forloop.counter }}">
+          <div class="tour-image">
+            {% if tour.image %}
+              <img src="{{ tour.image.url }}" alt="{{ tour.title }}">
+            {% elif tour.bokun_image_url %}
+              <img src="{{ tour.bokun_image_url }}" alt="{{ tour.title }}">
+            {% else %}
+              <img src="https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=900&q=88" alt="{{ tour.title }}">
+            {% endif %}
+          </div>
           <div class="tour-body">
-            <span class="tour-badge">Artuarium Original</span>
-            <h3 class="tour-title">El alma de los azulejos</h3>
-            <p class="tour-text">Una ruta centrada en fachadas, ornamento y superficies simbólicas — donde cada azulejo cuenta un fragmento de historia que resiste al tiempo.</p>
-            <div class="tour-footer"><div class="tour-price">€30</div><a href="#" class="tour-link">Ver jornada</a></div>
+            <span class="tour-badge">Artuarium</span>
+            <h3 class="tour-title">{{ tour.title }}</h3>
+            {% if tour.subtitle %}
+              <p class="tour-text">{{ tour.subtitle }}</p>
+            {% endif %}
+            <div class="tour-footer">
+              <div class="tour-price">€{{ tour.price|floatformat:0 }}</div>
+              {% if tour.bokun_widget_url %}
+                <button class="tour-link bokunButton" style="background:none;border:none;cursor:pointer;padding:0;"
+                  data-src="{{ tour.bokun_widget_url }}">
+                  {% translate "Reservar" %}
+                </button>
+              {% endif %}
+            </div>
           </div>
         </article>
-        <article class="tour-card reveal reveal-d2">
-          <div class="tour-image"><img src="https://images.unsplash.com/photo-1559827291-72ee739d0d9a?w=900&q=88" alt="Porto al atardecer"></div>
-          <div class="tour-body">
-            <span class="tour-badge">Artuarium Original</span>
-            <h3 class="tour-title">Porto al atardecer</h3>
-            <p class="tour-text">Una caminata vespertina más tranquila donde la luz y el ánimo urbano se vuelven la guía principal — cuando la ciudad se tiñe de oro y silencio.</p>
-            <div class="tour-footer"><div class="tour-price">€40</div><a href="#" class="tour-link">Ver jornada</a></div>
-          </div>
-        </article>
-        <article class="tour-card reveal reveal-d3">
-          <div class="tour-image"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=88" alt="Experiencia del Duero"></div>
-          <div class="tour-body">
-            <span class="tour-badge">Partner seleccionado</span>
-            <h3 class="tour-title">Experiencia de cata del Duero</h3>
-            <p class="tour-text">Una experiencia curada para quienes quieren extender la jornada a través del vino — sabor esquecido de una historia que respira.</p>
-            <div class="tour-footer"><div class="tour-price">€65</div><a href="#" class="tour-link">Ver fechas</a></div>
-          </div>
-        </article>
+        {% endfor %}
       </div>
     </div>
   </section>
+  {% endif %}
   <!-- ══ HIGHLIGHTS ════════════════════════════════════ -->
   <section class="section section-alt">
     <div class="container">

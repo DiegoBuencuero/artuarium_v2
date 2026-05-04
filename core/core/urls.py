@@ -8,7 +8,9 @@ from promotions.views import (
     partner_list, partner_create, partner_update, partner_delete,
     promotion_create, promotion_update,
     tour_create, tour_update,
-    tracking_redirect, tracking_create, tracking_delete, promociones_panel
+    tracking_redirect, tracking_create, tracking_delete, promociones_panel,
+    sync_bokun_tours, set_featured_tour, register_redemption,
+    tracking_regenerate_qr,
 )
 from landing.views import (
     index, reviews, correo, qr_code_view, upload_fotos, imagenes_views,
@@ -71,10 +73,14 @@ urlpatterns += i18n_patterns(
     # QR / Tracking
     path("promotions/qr/", tracking_create, name="tracking_create"),
     path("promotions/qr/<int:pk>/delete/", tracking_delete, name="tracking_delete"),
+    path("promotions/qr/<int:pk>/regenerate/", tracking_regenerate_qr, name="tracking_regenerate_qr"),
 
     # Tours
     path("dashboard/tours/", tour_create, name="tour_create"),
     path("dashboard/tours/<int:pk>/", tour_update, name="tour_update"),
+    path("dashboard/tours/sync-bokun/", sync_bokun_tours, name="sync_bokun_tours"),
+    path("dashboard/tours/<int:pk>/set-featured/", set_featured_tour, name="set_featured_tour"),
+    path("api/redemption/", register_redemption, name="register_redemption"),
 
     # Test
     path("test/", test, name="test"),

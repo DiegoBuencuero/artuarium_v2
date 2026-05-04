@@ -72,7 +72,8 @@ class TourForm(BaseForm):
         model = Tour
         fields = [
             "title", "subtitle", "description", "price",
-            "image", "button_text", "button_url", "bokun_widget_url", "is_active",
+            "image", "button_text", "button_url", "bokun_widget_url", "bokun_id",
+            "is_active", "is_featured",
         ]
         widgets = {
             "description":     forms.Textarea(attrs={"rows": 4}),

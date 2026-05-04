@@ -171,6 +171,12 @@
                       {% translate "Descargar" %}
                     </a>
                   {% endif %}
+                  <form method="post" action="{% url 'tracking_regenerate_qr' link.pk %}" style="display:inline">
+                    {% csrf_token %}
+                    <button type="submit" class="row-link" style="background:none;border:none;cursor:pointer;padding:0;font:inherit;">
+                      ↻ {% translate "Regenerar" %}
+                    </button>
+                  </form>
                   <a href="{% url 'tracking_delete' link.pk %}"
                      class="row-link danger"
                      onclick="return confirm('{% translate "¿Eliminás este QR? Los scans anteriores se perderán." %}');">

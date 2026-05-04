@@ -18,7 +18,8 @@ class Tour(models.Model):
     subtitle        = models.CharField(max_length=255, blank=True)
     description     = models.TextField()
     price           = models.DecimalField(max_digits=8, decimal_places=2)
-    image           = models.ImageField(upload_to="tours/")
+    image           = models.ImageField(upload_to="tours/", blank=True, null=True)
+    bokun_image_url = models.URLField("Imagen (URL Bókun)", blank=True, null=True)
     button_text     = models.CharField(max_length=100, default="VER JORNADA")
     button_url      = models.URLField(blank=True, null=True)
     bokun_widget_url = models.URLField(
@@ -26,15 +27,25 @@ class Tour(models.Model):
         blank=True, null=True,
         help_text="El data-src del widget. Ej: https://widgets.bokun.io/online-sales/.../experience/1175368?partialView=1",
     )
-    is_active = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    bokun_id        = models.PositiveIntegerField("ID en Bókun", unique=True, null=True, blank=True)
+    bokun_synced_at = models.DateTimeField("Última sync con Bókun", null=True, blank=True)
+    duration        = models.CharField("Duración", max_length=100, blank=True)
+
+    is_active   = models.BooleanField(default=True)
+    is_featured = models.BooleanField("Tour principal (destacado)", default=False)
+    created_at  = models.DateTimeField(auto_now_add=True)
+    updated_at  = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ["-created_at"]
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        if self.is_featured:
+            Tour.objects.exclude(pk=self.pk).filter(is_featured=True).update(is_featured=False)
+        super().save(*args, **kwargs)
 
 
 # =============================================================================

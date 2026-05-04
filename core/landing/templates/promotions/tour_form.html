@@ -92,6 +92,12 @@
           {% endif %}
         </div>
 
+        <div class="field">
+          {{ tour_form.bokun_id.label_tag }}
+          {{ tour_form.bokun_id }}
+          <div class="helptext">El ID numérico del tour en Bókun. La sync lo usa para actualizar precio, descripción y estado.</div>
+        </div>
+
         <div class="field full">
           {{ tour_form.image.label_tag }}
           {{ tour_form.image }}
@@ -106,8 +112,8 @@
 
         <div class="field full">
           <div class="field-check">
-              <input type="checkbox" 
-                    id="id_is_active" 
+              <input type="checkbox"
+                    id="id_is_active"
                     name="is_active"
                     {% if tour_form.initial.is_active or tour_form.instance.is_active %}checked{% endif %}>
               <label for="id_is_active">
@@ -115,6 +121,7 @@
               </label>
           </div>
         </div>
+
 
       </div>
 
@@ -133,6 +140,16 @@
     </div>
   </form>
 
+  {# ─── Sync Bókun ──────────────────────────────────────────── #}
+  <div style="display:flex; justify-content:flex-end; margin: 32px 0 8px;">
+    <form method="post" action="{% url 'sync_bokun_tours' %}">
+      {% csrf_token %}
+      <button type="submit" class="btn ghost">
+        ↻ Sincronizar con Bókun
+      </button>
+    </form>
+  </div>
+
   {# ─── Listado ─────────────────────────────────────────────── #}
   {% if tours %}
     <h2 class="page-title" style="font-size:1.4rem; margin: 50px 0 24px;">
@@ -147,7 +164,8 @@
             <th>{% translate "Título" %}</th>
             <th>{% translate "Precio" %}</th>
             <th>{% translate "Bókun" %}</th>
-            <th>{% translate "Estado" %}</th>
+            <th>{% translate "Última sync" %}</th>
+            <th style="text-align:center">{% translate "Principal" %}</th>
             <th></th>
           </tr>
         </thead>
@@ -157,6 +175,8 @@
               <td>
                 {% if t.image %}
                   <img src="{{ t.image.url }}" alt="" class="thumb">
+                {% elif t.bokun_image_url %}
+                  <img src="{{ t.bokun_image_url }}" alt="" class="thumb">
                 {% else %}
                   <div class="thumb-empty">—</div>
                 {% endif %}
@@ -176,11 +196,25 @@
                 {% endif %}
               </td>
               <td>
-                {% if t.is_active %}
-                  <span class="badge activo">{% translate "Activo" %}</span>
+                {% if t.bokun_synced_at %}
+                  <small style="color:var(--texto-secundario)">{{ t.bokun_synced_at|date:"d/m/Y H:i" }}</small>
                 {% else %}
-                  <span class="badge inactivo">{% translate "Inactivo" %}</span>
+                  <small style="color:var(--texto-secundario)">—</small>
                 {% endif %}
+              </td>
+              <td style="text-align:center">
+                <form method="post" action="{% url 'set_featured_tour' t.pk %}" id="featured-form-{{ t.pk }}">
+                  {% csrf_token %}
+                  <input
+                    type="radio"
+                    name="featured_tour"
+                    value="{{ t.pk }}"
+                    {% if t.is_featured %}checked{% endif %}
+                    onchange="document.getElementById('featured-form-{{ t.pk }}').submit()"
+                    style="width:18px; height:18px; cursor:pointer; accent-color: var(--verde-profundo);"
+                    title="{% translate 'Marcar como tour principal' %}"
+                  >
+                </form>
               </td>
               <td>
                 <div class="row-actions">

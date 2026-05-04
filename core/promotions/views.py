@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_GET
 from django.contrib import messages
+from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 from django.db.models import Count, Sum
 
@@ -250,8 +251,21 @@ from django.db.models import F
 def tracking_redirect(request, codigo):
     link = get_object_or_404(TrackingLink, codigo=codigo, activo=True)
     TrackingLink.objects.filter(pk=link.pk).update(clics=F('clics') + 1)
-    destino = link.tour.bokun_widget_url or link.tour.button_url or "/"
-    return redirect(destino)
+
+    # Redirigir a la landing con el widget del tour abierto
+    from django.urls import reverse
+    destino = request.build_absolute_uri(reverse('index'))
+
+    response = redirect(destino)
+    # Cookie válida 7 días — vincula esta sesión al partner que distribuyó el QR
+    response.set_cookie(
+        'artu_ref',
+        codigo,
+        max_age=60 * 60 * 24 * 7,
+        httponly=False,   # necesita ser leída por JS
+        samesite='Lax',
+    )
+    return response
 
 
 @login_required
@@ -263,7 +277,8 @@ def tracking_create(request):
         if form.is_valid():
             link = form.save()
             try:
-                link.generar_qr()
+                base_url = request.build_absolute_uri('/').rstrip('/')
+                link.generar_qr(base_url=base_url, force=True)
                 messages.success(request, _("QR generado correctamente"))
             except Exception as e:
                 messages.warning(request, _(f"Link creado pero el QR falló: {e}"))
@@ -285,3 +300,167 @@ def tracking_delete(request, pk):
     link.delete()
     messages.success(request, _("QR eliminado"))
     return redirect("tracking_create")
+
+
+@login_required
+def tracking_regenerate_qr(request, pk):
+    link = get_object_or_404(TrackingLink, pk=pk)
+    base_url = request.build_absolute_uri('/').rstrip('/')
+    link.generar_qr(base_url=base_url, force=True)
+    messages.success(request, _("QR regenerado correctamente"))
+    return redirect("tracking_create")
+
+
+# =============================================================================
+# SYNC BÓKUN
+# =============================================================================
+
+from django.utils import timezone as tz
+from . import bokun_client
+
+
+@login_required
+def sync_bokun_tours(request):
+    if request.method != "POST":
+        return redirect("tour_create")
+
+    try:
+        activities = bokun_client.get_activities()
+    except Exception as e:
+        messages.error(request, f"Error al conectar con Bókun: {e}")
+        return redirect("tour_create")
+
+    channel_uuid = getattr(settings, "BOKUN_CHANNEL_UUID", "")
+    creados = 0
+    actualizados = 0
+
+    for act in activities:
+        bokun_id_raw = act.get("id")
+        if not bokun_id_raw:
+            continue
+        try:
+            bokun_id = int(bokun_id_raw)   # Bókun devuelve el id como string
+        except (ValueError, TypeError):
+            continue
+
+        # Imagen principal de Bókun (versión large 660px)
+        key_photo = act.get("keyPhoto") or {}
+        imagen_url = None
+        for d in key_photo.get("derived", []):
+            if d.get("name") == "large":
+                imagen_url = d.get("url")
+                break
+        if not imagen_url:
+            imagen_url = key_photo.get("originalUrl")
+
+        precio = act.get("price") or (act.get("lowestPrice") or {}).get("amount")
+
+        campos = {
+            "title":           act.get("title", ""),
+            "subtitle":        act.get("excerpt", ""),
+            "description":     act.get("summary") or act.get("excerpt") or "",
+            "is_active":       act.get("active", True),
+            "bokun_synced_at": tz.now(),
+            "duration":        act.get("durationText") or act.get("fields", {}).get("durationText", ""),
+            "bokun_image_url": imagen_url or "",
+        }
+
+        if precio is not None:
+            campos["price"] = precio
+
+        if channel_uuid:
+            campos["bokun_widget_url"] = (
+                f"https://widgets.bokun.io/online-sales/{channel_uuid}"
+                f"/experience/{bokun_id}?partialView=1"
+            )
+
+        # Crear si no existe, actualizar si ya existe
+        defaults_crear = {**campos, "price": precio or 0}
+        tour, created = Tour.objects.update_or_create(
+            bokun_id=bokun_id,
+            defaults=defaults_crear,
+        )
+        if created:
+            creados += 1
+        else:
+            actualizados += 1
+
+    partes = []
+    if creados:
+        partes.append(f"{creados} creado(s)")
+    if actualizados:
+        partes.append(f"{actualizados} actualizado(s)")
+
+    if partes:
+        messages.success(request, "Sync Bókun: " + ", ".join(partes) + ".")
+    else:
+        messages.info(request, "Sync completada — sin cambios.")
+
+    return redirect("tour_create")
+
+
+# =============================================================================
+# SET FEATURED TOUR
+# =============================================================================
+
+# =============================================================================
+# REGISTER REDEMPTION (llamado desde JS cuando Bókun confirma una reserva)
+# =============================================================================
+
+import json
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+from .models import Redemption
+
+@require_POST
+def register_redemption(request):
+    try:
+        data = json.loads(request.body)
+    except (json.JSONDecodeError, ValueError):
+        return JsonResponse({"ok": False, "error": "JSON inválido"}, status=400)
+
+    bokun_booking_id  = data.get("bokun_booking_id", "").strip()
+    bokun_activity_id = data.get("bokun_activity_id", "").strip()
+    tracking_codigo   = data.get("tracking_codigo", "").strip()
+
+    if not bokun_booking_id or not tracking_codigo:
+        return JsonResponse({"ok": False, "error": "Faltan datos"}, status=400)
+
+    # Evitar duplicados
+    if Redemption.objects.filter(bokun_booking_id=bokun_booking_id).exists():
+        return JsonResponse({"ok": True, "duplicate": True})
+
+    link = TrackingLink.objects.filter(codigo=tracking_codigo, activo=True).select_related(
+        "partner", "tour", "promotion"
+    ).first()
+
+    if not link:
+        return JsonResponse({"ok": False, "error": "Código de tracking no encontrado"}, status=404)
+
+    # Si el activity_id de Bókun coincide con el tour del link, todo perfecto.
+    # Si no coincide, igual registramos pero con el tour del link.
+    Redemption.objects.create(
+        tracking_link = link,
+        partner       = link.partner,
+        tour          = link.tour,
+        promotion     = link.promotion,
+        bokun_booking_id = bokun_booking_id,
+        monto_bruto   = 0,   # se puede actualizar luego desde Bókun
+        monto_neto    = 0,
+        estado        = "confirmada",
+        notas         = f"Registrado automáticamente. Actividad Bókun: {bokun_activity_id}",
+    )
+
+    return JsonResponse({"ok": True, "partner": link.partner.nombre, "tour": link.tour.title})
+
+
+@login_required
+def set_featured_tour(request, pk):
+    if request.method != "POST":
+        return redirect("tour_create")
+    tour = get_object_or_404(Tour, pk=pk)
+    tour.is_featured = True
+    tour.save()          # el save() del modelo desmarca los demás
+    messages.success(request, f'"{tour.title}" marcado como tour principal.')
+    return redirect("tour_create")

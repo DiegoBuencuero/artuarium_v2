@@ -27,11 +27,15 @@ def logout(request):
 
 def index(request):
     form = ContactoForm()
-    tours = Tour.objects.filter(is_active=True)
+    active_tours = Tour.objects.filter(is_active=True)
+    featured_tour = active_tours.filter(is_featured=True).first()
+    other_tours = active_tours.filter(is_featured=False)
 
     return render(request, "index2.html", {
         "form": form,
-        "tours": tours
+        "tours": active_tours,
+        "featured_tour": featured_tour,
+        "other_tours": other_tours,
     })
 
 def about(request):

@@ -186,6 +186,12 @@ GOOGLE_PLACES_API_KEY = "AIzaSyC-M81JTwgeBeDKUnWTuB-Ix5SPkkKVysY"
 GOOGLE_PLACE_ID = "ChIJzWtEkP1JA0RS1ijH3tpsUw"
 REVIEW_ACCESS_TOKEN = "INNOVRAR2025X"
 
+# Bókun API — completar con los valores de tu panel (Settings → API Access)
+BOKUN_API_KEY      = "b506572266eb43daa83954ed9110efef"
+BOKUN_SECRET       = "95c955ec835d48e6a1fcdb09384ffc74"
+BOKUN_VENDOR_ID    = "135849"
+BOKUN_CHANNEL_UUID = "53bbe0a9-5a66-4ab2-b3e5-38cea4fb3e07"
+
 MESSAGE_TAGS = {
 messages.DEBUG: 'debug',
 messages.INFO: 'info',

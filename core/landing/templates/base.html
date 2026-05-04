@@ -660,6 +660,62 @@
   </script>
 
   {% block scripts %}{% endblock %}
+
+  <script>
+  // ── BÓKUN BOOKING TRACKING ──────────────────────────────────────────────────
+  // Escucha el evento que dispara el widget de Bókun al completar una reserva
+  // y lo asocia al QR/partner que originó la sesión (cookie artu_ref).
+  (function () {
+    function getCookie(name) {
+      var match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+      return match ? decodeURIComponent(match[1]) : null;
+    }
+
+    function getCsrfToken() {
+      return getCookie('csrftoken');
+    }
+
+    window.addEventListener('message', function (event) {
+      // Bókun emite postMessage desde el iframe del widget
+      if (!event.data || typeof event.data !== 'object') return;
+
+      var type = event.data.type || event.data.event || '';
+      if (type !== 'bokunBookingCreated' && type !== 'booking_created') return;
+
+      var bookingId  = event.data.bookingId || event.data.booking_id || event.data.id || null;
+      var activityId = event.data.activityId || event.data.experience_id || null;
+      var ref        = getCookie('artu_ref');
+
+      if (!bookingId || !ref) return;
+
+      // Registrar la redención en el backend
+      fetch('{% url "register_redemption" %}', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCsrfToken(),
+        },
+        body: JSON.stringify({
+          bokun_booking_id: String(bookingId),
+          bokun_activity_id: activityId ? String(activityId) : null,
+          tracking_codigo: ref,
+        }),
+      })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data.ok) {
+          // Limpiar la cookie para no duplicar si hay otra reserva en la misma sesión
+          document.cookie = 'artu_ref=; max-age=0; path=/';
+          console.log('[Artuarium] Redención registrada:', data);
+        }
+      })
+      .catch(function (err) {
+        console.warn('[Artuarium] No se pudo registrar la redención:', err);
+      });
+    });
+  })();
+  </script>
+
 </body>
 </html>
                   
