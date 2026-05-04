@@ -1034,6 +1034,18 @@ body {
   </section>
 
   <script>
+  // Auto-abrir widget de Bókun si viene de un QR (?book=1)
+  (function () {
+    if (new URLSearchParams(window.location.search).get('book') === '1') {
+      window.addEventListener('load', function () {
+        setTimeout(function () {
+          var btn = document.querySelector('.bokunButton');
+          if (btn) btn.click();
+        }, 800);
+      });
+    }
+  })();
+
   (function(){
     // Scroll reveal
     var els=document.querySelectorAll('.reveal');

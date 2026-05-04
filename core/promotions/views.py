@@ -254,15 +254,15 @@ def tracking_redirect(request, codigo):
 
     # Redirigir a la landing con el widget del tour abierto
     from django.urls import reverse
-    destino = request.build_absolute_uri(reverse('index'))
+    # Pasamos ?book=1 para que la landing abra el widget automáticamente
+    destino = request.build_absolute_uri(reverse('index')) + '?book=1'
 
     response = redirect(destino)
-    # Cookie válida 7 días — vincula esta sesión al partner que distribuyó el QR
     response.set_cookie(
         'artu_ref',
         codigo,
         max_age=60 * 60 * 24 * 7,
-        httponly=False,   # necesita ser leída por JS
+        httponly=False,
         samesite='Lax',
     )
     return response
