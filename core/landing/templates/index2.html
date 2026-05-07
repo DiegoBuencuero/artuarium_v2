@@ -794,8 +794,8 @@ body {
   <section class="section section-alt" id="tours">
     <div class="container">
       <div class="reveal">
-        <div class="kicker">{% translate "Continúa explorando" %}</div>
-        <h2 class="section-title">{% translate "Otras jornadas que podrías" %} <em>{% translate "querer considerar" %}</em></h2>
+        <div class="kicker">{% translate "Keep exploring" %}</div>
+        <h2 class="section-title">{% translate "Other journeys you might" %} <em>{% translate "want to consider" %}</em></h2>
       </div>
       <div class="related-grid">
         {% for tour in other_tours %}
@@ -835,53 +835,41 @@ body {
   <section class="section section-alt">
     <div class="container">
       <div class="reveal">
-        <div class="kicker">Por qué esta ruta</div>
-        <h2 class="section-title">No ofrecemos información: <em>ofrecemos sentido</em></h2>
+        <div class="kicker">{% translate "Why this route" %}</div>
+        <h2 class="section-title">{% translate "A tour for those who" %} <em>{% translate "seek to understand" %}</em></h2>
       </div>
 
       <div class="highlights-grid">
         <article class="highlight-card reveal reveal-d1">
           <div class="highlight-num">01</div>
-          <div class="highlight-icon"><i class="bi bi-eye"></i></div>
-          <h3 class="highlight-title">{% translate "Conhecimento que Ilumina" %}</h3>
-          <p class="highlight-text">{% blocktrans trimmed with b1="<strong>" b2="</strong>" %}
-              A pesquisa rigorosa é o coração do meu trabalho. 
-              É a partir dela que construo walking tours no Porto com rigor histórico, 
-              entregues com clareza, paixão e compromisso.
-              {% endblocktrans %}</p>
-                        <div class="d-flex justify-content-center">
-              {% if featured_tour and featured_tour.bokun_widget_url %}
-              <button class="btn1 bokunButton"
-                id="bokun_cta_essencia"
-                data-src="{{ featured_tour.bokun_widget_url }}">
-                {% translate " AGENDA UN TOUR " %}
-              </button>
-              {% endif %}
-            </div>
+          <div class="highlight-icon"><i class="bi bi-people"></i></div>
+          <h3 class="highlight-title">{% translate "The Team" %}</h3>
+          <p class="highlight-text">{% blocktrans trimmed %}Our team has spent thousands of hours leading countless guests through Porto. You'll hear the city told by people who know it by heart, and somehow love it more every day.{% endblocktrans %}</p>
+          <div class="d-flex justify-content-center">
+            {% if featured_tour and featured_tour.bokun_widget_url %}
+            <button class="btn1 bokunButton" data-src="{{ featured_tour.bokun_widget_url }}">
+              {% translate " AGENDA UN TOUR " %}
+            </button>
+            {% endif %}
+          </div>
         </article>
         <article class="highlight-card reveal reveal-d2">
           <div class="highlight-num">02</div>
-          <div class="highlight-icon"><i class="bi bi-journal-bookmark"></i></div>
-          <h3 class="highlight-title">{% translate "Beleza que se Educa" %}</h3>
-          <p class="highlight-text"> {% translate "A beleza do Porto é natural, construída e vivida. Permita-se o olhar sem exageros, sem artifícios — apenas com atenção." %}</p>
+          <div class="highlight-icon"><i class="bi bi-building"></i></div>
+          <h3 class="highlight-title">{% translate "The City" %}</h3>
+          <p class="highlight-text">{% blocktrans trimmed %}Porto is an open-air museum perched above the Douro. Gardens, viewpoints, medieval streets, every stop is chosen and every pause is earned. Behold A Invicta, and walk where her history was made.{% endblocktrans %}</p>
           <div class="d-flex justify-content-center mt-5">
-              <a href="{% url 'reviews' %}" class="btn1" title="{% translate 'Ver roteiros culturais' %}">
-                {% translate " ACOMPANHAR" %}
-              </a>
-            </div>
+            <a href="{% url 'reviews' %}" class="btn1">{% translate " ACOMPANHAR" %}</a>
+          </div>
         </article>
         <article class="highlight-card reveal reveal-d3">
           <div class="highlight-num">03</div>
           <div class="highlight-icon"><i class="bi bi-signpost-split"></i></div>
-          <h3 class="highlight-title"> {% translate "Gentileza que Sustenta" %}</h3>
-          <p class="highlight-text">{% blocktrans trimmed with b1="<strong>" b2="</strong>" %}
-              O objetivo é criar uma experiência única no Porto que permanece na memória e, por sua vez, sustenta o meu lar e a minha educação contínua.
-              {% endblocktrans %}</p>
-            <div class="d-flex justify-content-center mt-5">
-              <a href="{% url 'reviews' %}" class="btn1" title="{% translate 'Ver roteiros culturais' %}">
-                {% translate "APOIAR" %}
-              </a>
-            </div>
+          <h3 class="highlight-title">{% translate "The Experience" %}</h3>
+          <p class="highlight-text">{% blocktrans trimmed %}We walk together, at a pace that lets the city land. The route avoids Porto's steepest climbs, so almost anyone can join. Bring comfortable shoes. We'll bring the good vibes.{% endblocktrans %}</p>
+          <div class="d-flex justify-content-center mt-5">
+            <a href="{% url 'reviews' %}" class="btn1">{% translate "APOIAR" %}</a>
+          </div>
         </article>
       </div>
     </div>
@@ -988,37 +976,37 @@ body {
   <section class="section" id="faq">
     <div class="container">
       <div class="reveal">
-        <div class="kicker">Detalles prácticos</div>
-        <h2 class="section-title">Preguntas frecuentes <em>antes de reservar</em></h2>
+        <div class="kicker">{% translate "PRACTICAL DETAILS" %}</div>
+        <h2 class="section-title">{% translate "Frequently asked questions" %} <em>{% translate "before booking" %}</em></h2>
       </div>
       <div class="faq-grid">
         <div class="faq-item reveal reveal-d1">
           <div class="faq-toggle">
-            <div class="faq-question">¿Es adecuado para quienes visitan Porto por primera vez?</div>
+            <div class="faq-question">{% translate "Is it suitable for first-time visitors to Porto?" %}</div>
             <div class="faq-icon">+</div>
           </div>
-          <div class="faq-answer">Sí — de hecho, es uno de los mejores puntos de entrada a la ciudad. Ofrece orientación con profundidad, por lo que funciona especialmente bien al inicio de una estancia. Bienvenido a una historia que comienza antes de que llegues.</div>
+          <div class="faq-answer">{% blocktranslate trimmed %}Yes, it's one of the best ways into the city. The tour offers orientation with depth, and includes the guide's personal recommendations list: restaurants, viewpoints, family-owned shops, and corners most visitors never find. Booking it early in your stay means the rest of your trip is built on something solid.{% endblocktranslate %}</div>
         </div>
         <div class="faq-item reveal reveal-d2">
           <div class="faq-toggle">
-            <div class="faq-question">¿Qué tan exigente es la caminata?</div>
+            <div class="faq-question">{% translate "How demanding is the walk?" %}</div>
             <div class="faq-icon">+</div>
           </div>
-          <div class="faq-answer">El ritmo es moderado, con algunas pendientes y calles de piedra típicas de Porto. Se recomiendan zapatos cómodos. La ruta es manejable para la mayoría de los visitantes — caminamos con respeto por los pasos.</div>
+          <div class="faq-answer">{% blocktranslate trimmed %}It's relaxed. There are some cobblestone streets typical of Porto and a few gentle slopes, but the route is designed to avoid the city's steepest climbs. We walk at a pace that lets you talk, look around, and breathe. Comfortable shoes are recommended, and a water bottle in warm weather.{% endblocktranslate %}</div>
         </div>
         <div class="faq-item reveal reveal-d3">
           <div class="faq-toggle">
-            <div class="faq-question">¿Puedo reservar una versión privada?</div>
+            <div class="faq-question">{% translate "Can I book a private version?" %}</div>
             <div class="faq-icon">+</div>
           </div>
-          <div class="faq-answer">Sí. Las salidas privadas se organizan bajo pedido y son ideales para parejas, familias o grupos pequeños que buscan una jornada más personalizada — el mismo cuidado, mayor intimidad.</div>
+          <div class="faq-answer">{% blocktranslate trimmed %}Yes. Private tours are ideal for couples, families, or small groups who prefer a tour tailored to their pace and their questions. We can adjust the time, the meeting point, and even extend the route if there are topics you want to explore more deeply. Get in touch through the contact page and we'll respond within 24 hours with availability and prices.{% endblocktranslate %}</div>
         </div>
         <div class="faq-item reveal">
           <div class="faq-toggle">
-            <div class="faq-question">¿Qué pasa si llueve?</div>
+            <div class="faq-question">{% translate "What happens if it rains?" %}</div>
             <div class="faq-icon">+</div>
           </div>
-          <div class="faq-answer">La lluvia ligera no impide la jornada. Porto suele entenderse mejor bajo clima cambiante — hay una belleza particular en la piedra mojada. En condiciones severas, discutimos alternativas con cuidado.</div>
+          <div class="faq-answer">{% blocktranslate trimmed %}Honestly: Porto is one of the rainiest cities in Europe during the cold months. If we avoided the rain, we'd lose half the year. So the tour runs, rain or shine. The only exceptions are if the city issues a weather alert or conditions become dangerous; in those cases, we contact you in advance to reschedule. Otherwise: if you show up, we walk. Bring an umbrella or rain jacket, and you'll see a Porto most tourists never do.{% endblocktranslate %}</div>
         </div>
       </div>
     </div>
@@ -1026,11 +1014,13 @@ body {
   <!-- ══ CTA FINAL ════════════════════════════════════ -->
   <section class="cta-band">
     <div class="cta-inner reveal">
-      <h2>Permítete una jornada con ojos de quien ve <em>más allá de las fachadas</em></h2>
-      <p>Algunos visitantes saben de inmediato qué caminata es la suya. Otros prefieren preguntar primero. Ambas opciones son bienvenidas — gentileza genera gentileza.</p>
+      <h2>{% translate "Let's go on this journey together." %}</h2>
+      <p>{% blocktranslate trimmed %}Whether you're booking for two, planning a private tour, or want help getting the most out of Porto, get in touch. We give the best walking tours in the city, and we'd love to walk one with you.{% endblocktranslate %}</p>
       <div class="cta-actions">
-        <button class="btn-cta-primary">Reservar Porto Essencial</button>
-        <button class="btn-cta-secondary">Pedir orientación</button>
+        {% if featured_tour and featured_tour.bokun_widget_url %}
+        <button class="btn-cta-primary bokunButton" data-src="{{ featured_tour.bokun_widget_url }}">{% translate "Book Porto Masterclass" %}</button>
+        {% endif %}
+        <a href="{% url 'contacto' %}" class="btn-cta-secondary">{% translate "Get in touch" %}</a>
       </div>
     </div>
   </section>

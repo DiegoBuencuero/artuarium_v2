@@ -132,15 +132,15 @@ msgstr "BOOK A TOUR"
 
 #: landing/templates/admin_subscribers.html:108
 msgid "Subscribed At"
-msgstr ""
+msgstr "Subscribed at"
 
 #: landing/templates/admin_subscribers.html:122
 msgid "No subscribers yet."
-msgstr ""
+msgstr "No subscribers yet."
 
 #: landing/templates/base.html:326 landing/templates/viejos/baseori.html:184
 msgid "Main navigation"
-msgstr ""
+msgstr "Main navigation"
 
 #: landing/templates/base.html:331 landing/templates/viejos/baseori.html:189
 msgid "HOME"
@@ -160,14 +160,14 @@ msgstr "CONTACT"
 
 #: landing/templates/base.html:360 landing/templates/viejos/baseori.html:218
 msgid "Seleccionar idioma"
-msgstr ""
+msgstr "Select language"
 
 #: landing/templates/base.html:407
 #: landing/templates/promotions/dashboard-promos.html:265
 #: landing/templates/promotions/dashboard-promos.html:388
 #: landing/templates/promotions/promotion_form.html:16
 msgid "Promociones"
-msgstr ""
+msgstr "Promotions"
 
 #: landing/templates/base.html:408 landing/templates/viejos/baseori.html:265
 msgid "Code QR"
@@ -176,7 +176,7 @@ msgstr "Code QR"
 #: landing/templates/base.html:409 landing/templates/qr_newsletter_code.html:6
 #: landing/templates/viejos/baseori.html:266
 msgid "Newsletter QR"
-msgstr ""
+msgstr "Newsletter QR"
 
 #: landing/templates/base.html:410 landing/templates/viejos/baseori.html:267
 msgid "Imagens"
@@ -188,7 +188,7 @@ msgstr "Subscribers"
 
 #: landing/templates/base.html:419 landing/templates/viejos/baseori.html:276
 msgid "logout_nav"
-msgstr ""
+msgstr "Log out"
 
 #: landing/templates/base.html:435 landing/templates/test.html:78
 #: landing/templates/test.html:174 landing/templates/viejos/baseori.html:292
@@ -199,7 +199,7 @@ msgstr "BOOK A TOUR"
 
 #: landing/templates/base.html:521 landing/templates/viejos/baseori.html:368
 msgid "Back to top"
-msgstr ""
+msgstr "Back to top"
 
 #: landing/templates/contacto.html:77
 #: landing/templates/viejos/contacto1.html:29
@@ -259,7 +259,7 @@ msgstr ""
 
 #: landing/templates/index2.html:680
 msgid "Porto · Experiencia caminada curada"
-msgstr ""
+msgstr "Porto · Curated walking experience"
 
 #: landing/templates/index2.html:684
 #: landing/templates/viejos/index_django.html:619
@@ -280,11 +280,11 @@ msgstr "Walk through Porto's UNESCO World Heritage Site, led by the city's best 
 
 #: landing/templates/index2.html:695 landing/templates/index2.html:748
 msgid "3 horas"
-msgstr ""
+msgstr "3 hours"
 
 #: landing/templates/index2.html:696
 msgid "Máx. 8 personas"
-msgstr ""
+msgstr "Max. 8 people"
 
 #: landing/templates/index2.html:697 landing/templates/index2.html:753
 #: landing/templates/viejos/index_django.html:630
@@ -296,39 +296,39 @@ msgstr "history of Porto"
 
 #: landing/templates/index2.html:703
 msgid "4.9 · 128 evaluaciones verificadas"
-msgstr ""
+msgstr "4.9 · 128 verified reviews"
 
 #: landing/templates/index2.html:712
 msgid "Semi-private walking tour"
-msgstr ""
+msgstr "Semi-private walking tour"
 
 #: landing/templates/index2.html:716
 msgid "Próxima salida"
-msgstr ""
+msgstr "Next departure"
 
 #: landing/templates/index2.html:717
 msgid "Sábado 19 abril"
-msgstr ""
+msgstr "Saturday 19 April"
 
 #: landing/templates/index2.html:723
 msgid "/ persona"
-msgstr ""
+msgstr "/ person"
 
 #: landing/templates/index2.html:730
 msgid "Desde · reserva en Bokun"
-msgstr ""
+msgstr "From · book on Bókun"
 
 #: landing/templates/index2.html:737
 msgid "Formato"
-msgstr ""
+msgstr "Format"
 
 #: landing/templates/index2.html:738
 msgid "Semi-privado"
-msgstr ""
+msgstr "Semi-private"
 
 #: landing/templates/index2.html:742
 msgid "Recorrido"
-msgstr ""
+msgstr "Route"
 
 #: landing/templates/index2.html:743
 #, fuzzy
@@ -338,7 +338,7 @@ msgstr "historical tour of Porto"
 
 #: landing/templates/index2.html:747
 msgid "Duración"
-msgstr ""
+msgstr "Duration"
 
 #: landing/templates/index2.html:752
 msgid "Punto de partida"

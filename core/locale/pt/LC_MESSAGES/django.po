@@ -1562,7 +1562,7 @@ msgstr ""
 
 #: landing/templates/viejos/index_django.html:749
 msgid "Why this route"
-msgstr ""
+msgstr "Porquê esta rota"
 
 #: landing/templates/viejos/index_django.html:751
 msgid "We don't offer information:"
@@ -1761,3 +1761,147 @@ msgstr ""
 
 #~ msgid "Teu melhor email"
 #~ msgstr "Seu melhor e-mail"
+
+msgid "PRACTICAL DETAILS"
+msgstr "DETALHES PRÁTICOS"
+
+msgid "Frequently asked questions"
+msgstr "Perguntas frequentes"
+
+msgid "before booking"
+msgstr "antes de reservar"
+
+msgid "Is it suitable for first-time visitors to Porto?"
+msgstr "É adequado para quem visita o Porto pela primeira vez?"
+
+msgid ""
+"Yes, it's one of the best ways into the city. The tour offers orientation "
+"with depth, and includes the guide's personal recommendations list: "
+"restaurants, viewpoints, family-owned shops, and corners most visitors never "
+"find. Booking it early in your stay means the rest of your trip is built on "
+"something solid."
+msgstr ""
+"Sim, é uma das melhores formas de entrar na cidade. O tour oferece "
+"orientação com profundidade, e inclui a lista pessoal de recomendações do "
+"guia: restaurantes, miradouros, comércios de família, e cantos que a maioria "
+"dos visitantes nunca encontra. Fazê-lo no início da estadia faz com que o "
+"resto da viagem se construa sobre algo sólido."
+
+msgid "How demanding is the walk?"
+msgstr "Quão exigente é a caminhada?"
+
+msgid ""
+"It's relaxed. There are some cobblestone streets typical of Porto and a few "
+"gentle slopes, but the route is designed to avoid the city's steepest "
+"climbs. We walk at a pace that lets you talk, look around, and breathe. "
+"Comfortable shoes are recommended, and a water bottle in warm weather."
+msgstr ""
+"É tranquila. Há algumas ruas de pedra típicas do Porto e algumas subidas "
+"suaves, mas a rota está desenhada para evitar as subidas mais íngremes da "
+"cidade. Caminhamos a um ritmo que permite conversar, olhar à volta e "
+"respirar. São recomendados sapatos confortáveis e uma garrafa de água em "
+"dias quentes."
+
+msgid "Can I book a private version?"
+msgstr "Posso reservar uma versão privada?"
+
+msgid ""
+"Yes. Private tours are ideal for couples, families, or small groups who "
+"prefer a tour tailored to their pace and their questions. We can adjust the "
+"time, the meeting point, and even extend the route if there are topics you "
+"want to explore more deeply. Get in touch through the contact page and we'll "
+"respond within 24 hours with availability and prices."
+msgstr ""
+"Sim. As saídas privadas são ideais para casais, famílias ou grupos pequenos "
+"que preferem um tour adaptado ao seu ritmo e às suas questões. Podemos "
+"ajustar o horário, o ponto de encontro, e mesmo ampliar a rota se há temas "
+"que querem explorar mais a fundo. Contacta-nos pela página de contacto e "
+"respondemos em menos de 24 horas com disponibilidade e preços."
+
+msgid "What happens if it rains?"
+msgstr "E se chover?"
+
+msgid ""
+"Honestly: Porto is one of the rainiest cities in Europe during the cold "
+"months. If we avoided the rain, we'd lose half the year. So the tour runs, "
+"rain or shine. The only exceptions are if the city issues a weather alert or "
+"conditions become dangerous; in those cases, we contact you in advance to "
+"reschedule. Otherwise: if you show up, we walk. Bring an umbrella or rain "
+"jacket, and you'll see a Porto most tourists never do."
+msgstr ""
+"Sinceramente: o Porto é uma das cidades mais chuvosas da Europa nos meses "
+"frios. Se evitássemos a chuva, perdíamos meio ano. Por isso o tour acontece, "
+"com chuva ou sol. As únicas exceções são se a cidade emitir um alerta "
+"meteorológico ou se as condições se tornarem perigosas; nesses casos, "
+"contactamos-te antes para remarcar. Caso contrário: se apareceres, "
+"caminhamos. Traz guarda-chuva ou impermeável, e verás um Porto que a maioria "
+"dos turistas não vê."
+
+msgid "Let's go on this journey together."
+msgstr "Viajemos juntos."
+
+msgid ""
+"Whether you're booking for two, planning a private tour, or want help "
+"getting the most out of Porto, get in touch. We give the best walking tours "
+"in the city, and we'd love to walk one with you."
+msgstr ""
+"Quer estejas a reservar para dois, a planear um tour privado, ou queiras "
+"ajuda para tirar o máximo do Porto, fala connosco. Damos os melhores "
+"walking tours da cidade, e adorávamos fazer um contigo."
+
+msgid "Book Porto Masterclass"
+msgstr "Reservar Porto Masterclass"
+
+msgid "Get in touch"
+msgstr "Fala connosco"
+
+msgid "Keep exploring"
+msgstr "Continua a explorar"
+
+msgid "Other journeys you might"
+msgstr "Outras jornadas que podes"
+
+msgid "want to consider"
+msgstr "querer considerar"
+
+msgid "A tour for those who"
+msgstr "Um tour para quem"
+
+msgid "seek to understand"
+msgstr "procura entender"
+
+msgid "The Team"
+msgstr "A Equipa"
+
+msgid ""
+"Our team has spent thousands of hours leading countless guests through Porto. "
+"You'll hear the city told by people who know it by heart, and somehow love "
+"it more every day."
+msgstr ""
+"A nossa equipa já passou milhares de horas a guiar incontáveis visitantes "
+"pelo Porto. Vais ouvir a cidade contada por quem a conhece de cor, e que "
+"ainda assim gosta mais dela todos os dias."
+
+msgid "The City"
+msgstr "A Cidade"
+
+msgid ""
+"Porto is an open-air museum perched above the Douro. Gardens, viewpoints, "
+"medieval streets, every stop is chosen and every pause is earned. Behold A "
+"Invicta, and walk where her history was made."
+msgstr ""
+"O Porto é um museu ao ar livre debruçado sobre o Douro. Jardins, miradouros, "
+"ruas medievais, cada paragem é escolhida e cada pausa é merecida. Eis A "
+"Invicta, e caminha onde a sua história foi feita."
+
+msgid "The Experience"
+msgstr "A Experiência"
+
+msgid ""
+"We walk together, at a pace that lets the city land. The route avoids "
+"Porto's steepest climbs, so almost anyone can join. Bring comfortable shoes. "
+"We'll bring the good vibes."
+msgstr ""
+"Caminhamos juntos, a um ritmo que deixa a cidade assentar. O percurso evita "
+"as subidas mais íngremes do Porto, para que quase todos possam vir. Traz "
+"sapatos confortáveis. Nós trazemos a boa disposição."
