@@ -451,11 +451,13 @@
       <!-- Acciones header -->
       <div class="header-right">
         <div class="header-actions d-flex">
+          {% if featured_tour and featured_tour.bokun_widget_url %}
           <button class="btn-bokun-outline bokunButton"
-            id="bokun_768ab36c_e73f_44ec_ae4b_de23091c41a1"
-            data-src="https://widgets.bokun.io/online-sales/53bbe0a9-5a66-4ab2-b3e5-38cea4fb3e07/experience/1175368?partialView=1">
+            id="bokun_header_cta"
+            data-src="{{ featured_tour.bokun_widget_url }}">
             {% translate " AGENDA UN TOUR " %}
           </button>
+          {% endif %}
 
           <a class="action-icon ms-4" href="https://www.instagram.com/_artuarium_/" target="_blank">
             <i class="bi bi-instagram"></i>

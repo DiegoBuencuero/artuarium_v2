@@ -850,11 +850,13 @@ body {
               entregues com clareza, paixão e compromisso.
               {% endblocktrans %}</p>
                         <div class="d-flex justify-content-center">
+              {% if featured_tour and featured_tour.bokun_widget_url %}
               <button class="btn1 bokunButton"
                 id="bokun_cta_essencia"
-                data-src="https://widgets.bokun.io/online-sales/53bbe0a9-5a66-4ab2-b3e5-38cea4fb3e07/experience/1175368?partialView=1">
+                data-src="{{ featured_tour.bokun_widget_url }}">
                 {% translate " AGENDA UN TOUR " %}
               </button>
+              {% endif %}
             </div>
         </article>
         <article class="highlight-card reveal reveal-d2">
@@ -1034,16 +1036,23 @@ body {
   </section>
 
   <script>
-  // Auto-abrir widget de Bókun si viene de un QR (?book=1)
+  // Auto-abrir widget de Bókun si viene de un QR (?book=<bokun_id>)
   (function () {
-    if (new URLSearchParams(window.location.search).get('book') === '1') {
-      window.addEventListener('load', function () {
-        setTimeout(function () {
-          var btn = document.querySelector('.bokunButton');
-          if (btn) btn.click();
-        }, 800);
-      });
-    }
+    var bookParam = new URLSearchParams(window.location.search).get('book');
+    if (!bookParam) return;
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        var btn = null;
+        if (bookParam !== '1') {
+          // Buscar el botón cuyo data-src contiene el bokun_id específico
+          document.querySelectorAll('.bokunButton').forEach(function (b) {
+            if ((b.dataset.src || '').indexOf('/experience/' + bookParam) !== -1) btn = b;
+          });
+        }
+        if (!btn) btn = document.querySelector('.bokunButton');
+        if (btn) btn.click();
+      }, 800);
+    });
   })();
 
   (function(){

@@ -252,10 +252,9 @@ def tracking_redirect(request, codigo):
     link = get_object_or_404(TrackingLink, codigo=codigo, activo=True)
     TrackingLink.objects.filter(pk=link.pk).update(clics=F('clics') + 1)
 
-    # Redirigir a la landing con el widget del tour abierto
     from django.urls import reverse
-    # Pasamos ?book=1 para que la landing abra el widget automáticamente
-    destino = request.build_absolute_uri(reverse('index')) + '?book=1'
+    bokun_id = link.tour.bokun_id if link.tour and link.tour.bokun_id else 1
+    destino = request.build_absolute_uri(reverse('index')) + f'?book={bokun_id}'
 
     response = redirect(destino)
     response.set_cookie(
