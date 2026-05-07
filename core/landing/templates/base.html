@@ -711,10 +711,6 @@
       });
     })();
 
-    window.addEventListener('message', function (e) {
-      console.log('[BOKUN DEBUG]', typeof e.data, e.origin, JSON.stringify(e.data));
-    });
-
     window.addEventListener('message', function (event) {
       // Bókun emite postMessage desde el iframe del widget
       if (!event.data || typeof event.data !== 'object') return;

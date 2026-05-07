@@ -4,10 +4,9 @@ from django.views.decorators.http import require_GET
 from django.contrib import messages
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
-from django.db.models import Count, Sum
-
+from django.db.models import Count, Sum, Q, F
 from .forms import PartnerForm, PromotionForm, PromotionRuleForm, TourForm, TrackingLinkForm
-from .models import Partner, Promotion, Tour, TrackingLink
+from .models import Partner, Promotion, Tour, TrackingLink, Redemption
 
 
 # =============================================================================
@@ -24,10 +23,12 @@ def promociones_panel(request):
 
     context = {
         # KPIs
-        "total_partners":           Partner.objects.filter(activo=True).count(),
+        "total_partners":            Partner.objects.filter(activo=True).count(),
         "total_promociones_activas": Promotion.objects.filter(estado="activa").count(),
-        "total_reservas":           0,  # futuro: Redemption.objects.count()
-        "comision_total":           0,  # futuro: Redemption.objects.aggregate(...)
+        "total_reservas":            Redemption.objects.count(),
+        "total_scans":               TrackingLink.objects.aggregate(t=Sum("clics"))["t"] or 0,
+        "monto_total":               Redemption.objects.aggregate(t=Sum("monto_bruto"))["t"] or 0,
+        "comision_total":            Redemption.objects.aggregate(t=Sum("comision_partner_monto"))["t"] or 0,
 
         # Pestaña partners
         "partners":        partners,
@@ -47,8 +48,19 @@ def promociones_panel(request):
         ).filter(activo=True).order_by("-created_at"),
         "total_links": TrackingLink.objects.filter(activo=True).count(),
 
-        # Resumen top partners (futuro)
-        "top_partners": [],
+        # Resumen — reporte por partner
+        "top_partners": Partner.objects.filter(
+            tracking_links__isnull=False
+        ).annotate(
+            scans=Sum("tracking_links__clics"),
+            reservas=Count("redemptions", distinct=True),
+            ingreso=Sum("redemptions__monto_bruto"),
+        ).filter(Q(scans__gt=0) | Q(reservas__gt=0)).order_by("-reservas", "-scans"),
+
+        # Resumen — detalle de redenciones
+        "ultimas_redenciones": Redemption.objects.select_related(
+            "partner", "tour", "tracking_link"
+        ).order_by("-created_at")[:50],
     }
 
     return render(request, "promotions/dashboard-promos.html", context)
@@ -244,8 +256,6 @@ def tour_update(request, pk):
 # =============================================================================
 # TRACKING / QR
 # =============================================================================
-
-from django.db.models import F
 
 @require_GET
 def tracking_redirect(request, codigo):
@@ -447,17 +457,10 @@ def register_redemption(request):
     if request.method != "POST":
         return JsonResponse({"ok": False, "error": "Método no permitido"}, status=405)
 
-    # Log completo para debug — ver qué manda Bókun
-    import logging
-    logger = logging.getLogger(__name__)
-    logger.warning(f"[BOKUN WEBHOOK] body: {request.body.decode('utf-8', errors='replace')}")
-
     try:
         data = json.loads(request.body)
     except (json.JSONDecodeError, ValueError):
         return JsonResponse({"ok": False, "error": "JSON inválido"}, status=400)
-
-    logger.warning(f"[BOKUN WEBHOOK] parsed: {data}")
 
     bokun_booking_id = str(data.get("bookingId") or data.get("bokun_booking_id") or data.get("id") or "").strip()
 
@@ -479,8 +482,6 @@ def register_redemption(request):
         pass
 
     tracking_codigo = str(data.get("tracking_codigo") or data.get("externalRef") or "").strip()
-
-    logger.warning(f"[BOKUN WEBHOOK] booking_id={bokun_booking_id} tracking={tracking_codigo} activity={bokun_activity_id}")
 
     if not bokun_booking_id:
         return JsonResponse({"ok": False, "error": "Falta booking ID"}, status=400)

@@ -269,38 +269,88 @@
 
   {# ─── TAB: RESUMEN ─────────────────────────────────────────────────── #}
   <div class="tab-panel active" id="tab-resumen">
+
+    {# KPIs de redenciones #}
+    <div class="kpi-row" style="margin-bottom:32px;">
+      <div class="kpi-card">
+        <div class="kpi-label">{% translate "Scans totales" %}</div>
+        <div class="kpi-value">{{ total_scans|default:0 }}</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">{% translate "Reservas confirmadas" %}</div>
+        <div class="kpi-value">{{ total_reservas|default:0 }}</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">{% translate "Monto total" %}</div>
+        <div class="kpi-value">€{{ monto_total|default:0|floatformat:0 }}</div>
+      </div>
+    </div>
+
+    {# Tabla por partner #}
     {% if top_partners %}
-      <h2 class="page-title" style="font-size:1.4rem; margin-bottom:20px;">
-        {% translate "Top partners por reservas" %}
-      </h2>
-      <div class="top-partners">
-        {% for partner in top_partners %}
-          <div class="partner-mini">
-            <div class="partner-mini-name">{{ partner.nombre }}</div>
-            <div class="partner-mini-codigo">
-              {{ partner.codigo }} · {{ partner.get_tipo_display }}
-            </div>
-            <div class="partner-mini-stats">
-              <div class="partner-mini-stat">
-                <span>{% translate "Reservas" %}</span>
-                <strong>{{ partner.reservas|default:0 }}</strong>
-              </div>
-              <div class="partner-mini-stat">
-                <span>{% translate "Ingresos" %}</span>
-                <strong>€{{ partner.ingreso|default:0|floatformat:0 }}</strong>
-              </div>
-            </div>
-          </div>
-        {% endfor %}
+      <h2 class="page-title" style="font-size:1.2rem; margin:0 0 16px;">{% translate "Rendimiento por partner" %}</h2>
+      <div class="table-wrap" style="margin-bottom:40px;">
+        <table class="editorial">
+          <thead>
+            <tr>
+              <th>{% translate "Partner" %}</th>
+              <th>{% translate "Tipo" %}</th>
+              <th style="text-align:right">{% translate "Scans" %}</th>
+              <th style="text-align:right">{% translate "Reservas" %}</th>
+              <th style="text-align:right">{% translate "Monto" %}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for p in top_partners %}
+              <tr>
+                <td><strong>{{ p.nombre }}</strong><br><small style="color:var(--texto-secundario)">{{ p.codigo }}</small></td>
+                <td>{{ p.get_tipo_display }}</td>
+                <td style="text-align:right">{{ p.scans|default:0 }}</td>
+                <td style="text-align:right">{{ p.reservas|default:0 }}</td>
+                <td style="text-align:right">€{{ p.ingreso|default:0|floatformat:2 }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% endif %}
+
+    {# Detalle de reservas #}
+    {% if ultimas_redenciones %}
+      <h2 class="page-title" style="font-size:1.2rem; margin:0 0 16px;">{% translate "Detalle de reservas" %}</h2>
+      <div class="table-wrap">
+        <table class="editorial">
+          <thead>
+            <tr>
+              <th>{% translate "Fecha" %}</th>
+              <th>{% translate "Partner" %}</th>
+              <th>{% translate "Tour" %}</th>
+              <th>{% translate "QR / Link" %}</th>
+              <th style="text-align:right">{% translate "Monto" %}</th>
+              <th>{% translate "Estado" %}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for r in ultimas_redenciones %}
+              <tr>
+                <td><small>{{ r.created_at|date:"d/m/Y H:i" }}</small></td>
+                <td>{{ r.partner.nombre }}<br><small style="color:var(--texto-secundario)">{{ r.partner.codigo }}</small></td>
+                <td>{{ r.tour.title }}</td>
+                <td><small style="color:var(--texto-secundario)">{{ r.tracking_link.codigo }}</small></td>
+                <td style="text-align:right">€{{ r.monto_bruto|floatformat:2 }}</td>
+                <td><span class="badge {% if r.estado == 'confirmada' %}activo{% else %}inactivo{% endif %}">{{ r.get_estado_display }}</span></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
     {% else %}
       <div class="empty-state compact">
         <div class="empty-title">{% translate "Aún sin datos" %}</div>
-        <p class="empty-text">
-          {% translate "Cuando comiencen las primeras reservas vía promoción, vas a ver acá los partners que más están convirtiendo." %}
-        </p>
+        <p class="empty-text">{% translate "Cuando comiencen las primeras reservas vía QR, aparecerán acá." %}</p>
       </div>
     {% endif %}
+
   </div>
 
   {# ─── TAB: PARTNERS ───────────────────────────────────────────────── #}
