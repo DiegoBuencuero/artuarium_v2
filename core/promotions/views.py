@@ -438,19 +438,32 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from .models import Redemption
 
-@require_POST
 def register_redemption(request):
+    # Bókun hace GET para verificar que el endpoint existe
+    if request.method == "GET":
+        return JsonResponse({"ok": True, "status": "ready"})
+
+    if request.method != "POST":
+        return JsonResponse({"ok": False, "error": "Método no permitido"}, status=405)
+
+    # Log completo para debug — ver qué manda Bókun
+    import logging
+    logger = logging.getLogger(__name__)
+    logger.warning(f"[BOKUN WEBHOOK] body: {request.body.decode('utf-8', errors='replace')}")
+
     try:
         data = json.loads(request.body)
     except (json.JSONDecodeError, ValueError):
         return JsonResponse({"ok": False, "error": "JSON inválido"}, status=400)
 
-    bokun_booking_id  = data.get("bokun_booking_id", "").strip()
-    bokun_activity_id = data.get("bokun_activity_id", "").strip()
-    tracking_codigo   = data.get("tracking_codigo", "").strip()
+    logger.warning(f"[BOKUN WEBHOOK] parsed: {data}")
 
-    if not bokun_booking_id or not tracking_codigo:
-        return JsonResponse({"ok": False, "error": "Faltan datos"}, status=400)
+    bokun_booking_id  = str(data.get("bokun_booking_id") or data.get("bookingId") or data.get("id") or "").strip()
+    bokun_activity_id = str(data.get("bokun_activity_id") or data.get("activityId") or data.get("experienceId") or "").strip()
+    tracking_codigo   = str(data.get("tracking_codigo") or "").strip()
+
+    if not bokun_booking_id:
+        return JsonResponse({"ok": False, "error": "Falta booking ID"}, status=400)
 
     # Evitar duplicados
     if Redemption.objects.filter(bokun_booking_id=bokun_booking_id).exists():
