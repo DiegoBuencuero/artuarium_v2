@@ -461,16 +461,18 @@ def register_redemption(request):
 
     bokun_booking_id = str(data.get("bookingId") or data.get("bokun_booking_id") or data.get("id") or "").strip()
 
-    # Extraer externalRef (tracking code pasado via widget URL) y producto ID
-    tracking_codigo  = str(data.get("tracking_codigo") or data.get("externalRef") or "").strip()
+    # Extraer activity ID desde productBookings
     bokun_activity_id = ""
     try:
-        bokun_activity_id = str(
-            data.get("productBookings", [{}])[0].get("activity", {}).get("id") or
-            data.get("activityId") or ""
-        ).strip()
+        for pb in (data.get("productBookings") or []):
+            aid = (pb.get("activity") or {}).get("id") or pb.get("activityId")
+            if aid:
+                bokun_activity_id = str(aid)
+                break
     except Exception:
         pass
+
+    tracking_codigo = str(data.get("tracking_codigo") or data.get("externalRef") or "").strip()
 
     logger.warning(f"[BOKUN WEBHOOK] booking_id={bokun_booking_id} tracking={tracking_codigo} activity={bokun_activity_id}")
 
@@ -481,12 +483,22 @@ def register_redemption(request):
     if Redemption.objects.filter(bokun_booking_id=bokun_booking_id).exists():
         return JsonResponse({"ok": True, "duplicate": True})
 
-    link = TrackingLink.objects.filter(codigo=tracking_codigo, activo=True).select_related(
-        "partner", "tour", "promotion"
-    ).first()
+    # Buscar link por tracking_codigo o, como fallback, por tour (bokun_activity_id)
+    link = None
+    if tracking_codigo:
+        link = TrackingLink.objects.filter(codigo=tracking_codigo, activo=True).select_related(
+            "partner", "tour", "promotion"
+        ).first()
+
+    if not link and bokun_activity_id:
+        tour_obj = Tour.objects.filter(bokun_id=bokun_activity_id).first()
+        if tour_obj:
+            link = TrackingLink.objects.filter(tour=tour_obj, activo=True).select_related(
+                "partner", "tour", "promotion"
+            ).order_by("-created_at").first()
 
     if not link:
-        return JsonResponse({"ok": False, "error": "Código de tracking no encontrado"}, status=404)
+        return JsonResponse({"ok": False, "error": "Tracking link no encontrado"}, status=404)
 
     # Si el activity_id de Bókun coincide con el tour del link, todo perfecto.
     # Si no coincide, igual registramos pero con el tour del link.
