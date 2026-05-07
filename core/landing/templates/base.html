@@ -699,7 +699,18 @@
       return getCookie('csrftoken');
     }
 
-    // DEBUG TEMPORAL — loguear todos los postMessage
+    // Inyectar artu_ref como externalRef en todos los botones del widget
+    (function () {
+      var ref = getCookie('artu_ref');
+      if (!ref) return;
+      document.querySelectorAll('.bokunButton').forEach(function (btn) {
+        var src = btn.dataset.src || '';
+        if (src && src.indexOf('externalRef') === -1) {
+          btn.dataset.src = src + (src.indexOf('?') !== -1 ? '&' : '?') + 'externalRef=' + encodeURIComponent(ref);
+        }
+      });
+    })();
+
     window.addEventListener('message', function (e) {
       console.log('[BOKUN DEBUG]', typeof e.data, e.origin, JSON.stringify(e.data));
     });

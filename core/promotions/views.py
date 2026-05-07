@@ -459,9 +459,20 @@ def register_redemption(request):
 
     logger.warning(f"[BOKUN WEBHOOK] parsed: {data}")
 
-    bokun_booking_id  = str(data.get("bokun_booking_id") or data.get("bookingId") or data.get("id") or "").strip()
-    bokun_activity_id = str(data.get("bokun_activity_id") or data.get("activityId") or data.get("experienceId") or "").strip()
-    tracking_codigo   = str(data.get("tracking_codigo") or "").strip()
+    bokun_booking_id = str(data.get("bookingId") or data.get("bokun_booking_id") or data.get("id") or "").strip()
+
+    # Extraer externalRef (tracking code pasado via widget URL) y producto ID
+    tracking_codigo  = str(data.get("tracking_codigo") or data.get("externalRef") or "").strip()
+    bokun_activity_id = ""
+    try:
+        bokun_activity_id = str(
+            data.get("productBookings", [{}])[0].get("activity", {}).get("id") or
+            data.get("activityId") or ""
+        ).strip()
+    except Exception:
+        pass
+
+    logger.warning(f"[BOKUN WEBHOOK] booking_id={bokun_booking_id} tracking={tracking_codigo} activity={bokun_activity_id}")
 
     if not bokun_booking_id:
         return JsonResponse({"ok": False, "error": "Falta booking ID"}, status=400)
