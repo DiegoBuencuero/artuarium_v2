@@ -29,6 +29,9 @@ urlpatterns = [
 
     # URL pública del QR — corta, sin prefijo de idioma
     path("p/<str:codigo>/", tracking_redirect, name="tracking_redirect"),
+
+    # Webhook de Bókun — fuera de i18n para evitar redirect que pierde el body
+    path("api/redemption/", register_redemption, name="register_redemption"),
 ]
 
 if settings.DEBUG:
@@ -80,8 +83,6 @@ urlpatterns += i18n_patterns(
     path("dashboard/tours/<int:pk>/", tour_update, name="tour_update"),
     path("dashboard/tours/sync-bokun/", sync_bokun_tours, name="sync_bokun_tours"),
     path("dashboard/tours/<int:pk>/set-featured/", set_featured_tour, name="set_featured_tour"),
-    path("api/redemption/", register_redemption, name="register_redemption"),
-
     # Test
     path("test/", test, name="test"),
 
