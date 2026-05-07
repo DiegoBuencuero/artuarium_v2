@@ -343,17 +343,38 @@ def sync_bokun_tours(request):
         except (ValueError, TypeError):
             continue
 
-        # Imagen principal de Bókun (versión large 660px)
-        key_photo = act.get("keyPhoto") or {}
-        imagen_url = None
-        for d in key_photo.get("derived", []):
-            if d.get("name") == "large":
-                imagen_url = d.get("url")
-                break
-        if not imagen_url:
-            imagen_url = key_photo.get("originalUrl")
+        # Imagen principal de Bókun
+        def _extract_image(obj):
+            photo = obj.get("keyPhoto") or {}
+            derived = photo.get("derived", []) or []
+            for d in derived:
+                if d.get("name") == "large" and d.get("url"):
+                    return d["url"]
+            for d in derived:
+                if d.get("url"):
+                    return d["url"]
+            url = photo.get("originalUrl") or photo.get("url")
+            if url:
+                return url
+            # fallback: primer elemento de photos[]
+            photos = obj.get("photos", []) or []
+            if photos:
+                return _extract_image({"keyPhoto": photos[0]})
+            return None
 
-        precio = act.get("price") or (act.get("lowestPrice") or {}).get("amount")
+        imagen_url = _extract_image(act)
+
+        # Si la búsqueda no trajo imagen, pedir detalle individual
+        if not imagen_url:
+            try:
+                detalle = bokun_client.get_activity(bokun_id)
+                imagen_url = _extract_image(detalle)
+            except Exception:
+                pass
+
+        precio = act.get("price")
+        if precio is None:
+            precio = (act.get("lowestPrice") or {}).get("amount")
 
         campos = {
             "title":           act.get("title", ""),
@@ -362,8 +383,11 @@ def sync_bokun_tours(request):
             "is_active":       act.get("active", True),
             "bokun_synced_at": tz.now(),
             "duration":        act.get("durationText") or act.get("fields", {}).get("durationText", ""),
-            "bokun_image_url": imagen_url or "",
         }
+
+        # Solo actualiza bokun_image_url si Bókun devuelve una imagen
+        if imagen_url:
+            campos["bokun_image_url"] = imagen_url
 
         if precio is not None:
             campos["price"] = precio
@@ -391,12 +415,14 @@ def sync_bokun_tours(request):
     if actualizados:
         partes.append(f"{actualizados} actualizado(s)")
 
-    if partes:
-        messages.success(request, "Sync Bókun: " + ", ".join(partes) + ".")
-    else:
-        messages.info(request, "Sync completada — sin cambios.")
+    msg = "Sync Bókun: " + ", ".join(partes) + "." if partes else "Sync completada — sin cambios."
 
-    return redirect("tour_create")
+    if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+        return JsonResponse({"ok": True, "message": msg})
+
+    messages.success(request, msg)
+    referer = request.META.get("HTTP_REFERER")
+    return redirect(referer) if referer else redirect("promociones")
 
 
 # =============================================================================

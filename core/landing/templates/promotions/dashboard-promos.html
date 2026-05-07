@@ -446,7 +446,10 @@
         <h2>{% translate "Tours" %}</h2>
         <p>{{ tours|length|default:0 }} {% translate "cargados" %}</p>
       </div>
-      <a href="{% url 'tour_create' %}" class="btn">+ {% translate "Nuevo tour" %}</a>
+      <div style="display:flex; gap:10px;">
+        <button id="btn-sync-bokun" class="btn ghost" onclick="syncBokun(this)">↻ {% translate "Sincronizar con Bókun" %}</button>
+        <a href="{% url 'tour_create' %}" class="btn">+ {% translate "Nuevo tour" %}</a>
+      </div>
     </div>
 
     {% if tours %}
@@ -468,6 +471,8 @@
                 <td>
                   {% if t.image %}
                     <img src="{{ t.image.url }}" alt="" class="thumb">
+                  {% elif t.bokun_image_url %}
+                    <img src="{{ t.bokun_image_url }}" alt="" class="thumb">
                   {% else %}
                     <div class="thumb-empty">—</div>
                   {% endif %}
@@ -623,5 +628,29 @@
     var hash = window.location.hash.replace('#', '');
     if (hash) openTab(hash);
   })();
+
+  function syncBokun(btn) {
+    btn.disabled = true;
+    btn.textContent = '↻ Sincronizando...';
+    fetch('{% url "sync_bokun_tours" %}', {
+      method: 'POST',
+      headers: {
+        'X-CSRFToken': '{{ csrf_token }}',
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+    })
+    .then(r => r.json())
+    .then(data => {
+      btn.textContent = '✓ ' + (data.message || 'Sincronizado');
+      setTimeout(() => {
+        window.location.href = window.location.pathname + '#tours';
+        window.location.reload();
+      }, 1200);
+    })
+    .catch(() => {
+      btn.textContent = '↻ Error — reintentá';
+      btn.disabled = false;
+    });
+  }
 </script>
 {% endblock %}

@@ -48,6 +48,23 @@
     {% endif %}
   </h1>
 
+  {% if tour_form.non_field_errors %}
+    <div class="alert error">
+      <strong>{% translate "Corregí los siguientes errores:" %}</strong>
+      <ul>{% for error in tour_form.non_field_errors %}<li>{{ error }}</li>{% endfor %}</ul>
+    </div>
+  {% endif %}
+  {% if tour_form.errors and not tour_form.non_field_errors %}
+    <div class="alert error">
+      <strong>{% translate "Hay errores en el formulario:" %}</strong>
+      <ul>
+        {% for field in tour_form %}{% for error in field.errors %}
+          <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+        {% endfor %}{% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
 
@@ -140,93 +157,6 @@
     </div>
   </form>
 
-  {# ─── Sync Bókun ──────────────────────────────────────────── #}
-  <div style="display:flex; justify-content:flex-end; margin: 32px 0 8px;">
-    <form method="post" action="{% url 'sync_bokun_tours' %}">
-      {% csrf_token %}
-      <button type="submit" class="btn ghost">
-        ↻ Sincronizar con Bókun
-      </button>
-    </form>
-  </div>
-
-  {# ─── Listado ─────────────────────────────────────────────── #}
-  {% if tours %}
-    <h2 class="page-title" style="font-size:1.4rem; margin: 50px 0 24px;">
-      {% translate "Tours existentes" %}
-    </h2>
-
-    <div class="table-wrap">
-      <table class="editorial">
-        <thead>
-          <tr>
-            <th></th>
-            <th>{% translate "Título" %}</th>
-            <th>{% translate "Precio" %}</th>
-            <th>{% translate "Bókun" %}</th>
-            <th>{% translate "Última sync" %}</th>
-            <th style="text-align:center">{% translate "Principal" %}</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for t in tours %}
-            <tr>
-              <td>
-                {% if t.image %}
-                  <img src="{{ t.image.url }}" alt="" class="thumb">
-                {% elif t.bokun_image_url %}
-                  <img src="{{ t.bokun_image_url }}" alt="" class="thumb">
-                {% else %}
-                  <div class="thumb-empty">—</div>
-                {% endif %}
-              </td>
-              <td>
-                <strong>{{ t.title }}</strong>
-                {% if t.subtitle %}
-                  <br><small style="color:var(--texto-secundario); font-size:.74rem">{{ t.subtitle }}</small>
-                {% endif %}
-              </td>
-              <td>€{{ t.price|floatformat:0 }}</td>
-              <td>
-                {% if t.bokun_widget_url %}
-                  <span class="badge widget">{% translate "Conectado" %}</span>
-                {% else %}
-                  <span class="badge inactivo">{% translate "Sin widget" %}</span>
-                {% endif %}
-              </td>
-              <td>
-                {% if t.bokun_synced_at %}
-                  <small style="color:var(--texto-secundario)">{{ t.bokun_synced_at|date:"d/m/Y H:i" }}</small>
-                {% else %}
-                  <small style="color:var(--texto-secundario)">—</small>
-                {% endif %}
-              </td>
-              <td style="text-align:center">
-                <form method="post" action="{% url 'set_featured_tour' t.pk %}" id="featured-form-{{ t.pk }}">
-                  {% csrf_token %}
-                  <input
-                    type="radio"
-                    name="featured_tour"
-                    value="{{ t.pk }}"
-                    {% if t.is_featured %}checked{% endif %}
-                    onchange="document.getElementById('featured-form-{{ t.pk }}').submit()"
-                    style="width:18px; height:18px; cursor:pointer; accent-color: var(--verde-profundo);"
-                    title="{% translate 'Marcar como tour principal' %}"
-                  >
-                </form>
-              </td>
-              <td>
-                <div class="row-actions">
-                  <a href="{% url 'tour_update' t.id %}" class="row-link">{% translate "Editar" %}</a>
-                </div>
-              </td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-  {% endif %}
 
 </section>
 {% endblock %}

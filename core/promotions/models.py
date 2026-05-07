@@ -2,7 +2,8 @@ import io
 import secrets
 import string
 from decimal import Decimal
-
+import qrcode
+from django.conf import settings
 from django.core.files.base import ContentFile
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
@@ -16,7 +17,7 @@ from django.utils import timezone
 class Tour(models.Model):
     title           = models.CharField(max_length=200)
     subtitle        = models.CharField(max_length=255, blank=True)
-    description     = models.TextField()
+    description     = models.TextField(blank=True)
     price           = models.DecimalField(max_digits=8, decimal_places=2)
     image           = models.ImageField(upload_to="tours/", blank=True, null=True)
     bokun_image_url = models.URLField("Imagen (URL Bókun)", blank=True, null=True)
@@ -247,8 +248,6 @@ class TrackingLink(models.Model):
         return f"{base_url}/p/{self.codigo}"
 
     def generar_qr(self, base_url=None, force=False):
-        import qrcode
-        from django.conf import settings
 
         if self.qr_image and not force:
             return self.qr_image.url
