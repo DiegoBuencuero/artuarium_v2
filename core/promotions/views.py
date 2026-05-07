@@ -461,7 +461,7 @@ def register_redemption(request):
 
     bokun_booking_id = str(data.get("bookingId") or data.get("bokun_booking_id") or data.get("id") or "").strip()
 
-    # Extraer activity ID desde productBookings
+    # Extraer activity ID — productBookings o invoice.productInvoices
     bokun_activity_id = ""
     try:
         for pb in (data.get("productBookings") or []):
@@ -469,6 +469,12 @@ def register_redemption(request):
             if aid:
                 bokun_activity_id = str(aid)
                 break
+        if not bokun_activity_id:
+            pi = ((data.get("invoice") or {}).get("productInvoices") or [])
+            if pi:
+                aid = (pi[0].get("product") or {}).get("id")
+                if aid:
+                    bokun_activity_id = str(aid)
     except Exception:
         pass
 
